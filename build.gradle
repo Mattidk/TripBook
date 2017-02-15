@@ -1,14 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+    ext.kotlin_version = '1.0.6'
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -16,8 +15,22 @@ allprojects {
     repositories {
         jcenter()
     }
-}
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+    ext {
+        // Android config
+        androidBuildToolsVersion = "25.0.2"
+        androidMinSdkVersion = 19
+        androidTargetSdkVersion = 25
+        androidCompileSdkVersion = 25
+        androidApplicationId = "dk.mathiaspedersen.tripbook"
+        androidVersionCode = 1
+        androidVersionName = "0.1"
+        supportVersion = "25.1.1"
+        ankoVersion= "0.9.1"
+        daggerVersion = "2.9"
+        mockitoVersion = "2.2.29"
+        dexmakerVersion = "2.2.0"
+        espressoVersion = "2.2.2"
+        junitVersion = "4.12"
+    }
 }
