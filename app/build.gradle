@@ -62,4 +62,8 @@ dependencies {
 
     testCompile "junit:junit:$junitVersion"
     testCompile "org.mockito:mockito-core:$mockitoVersion"
+    testCompile "org.jetbrains.spek:spek-api:$spekVersion"
+    testCompile "org.jetbrains.spek:spek-junit-platform-engine:$spekVersion"
+    testCompile "org.junit.platform:junit-platform-runner:$junitRunnerVersion"
+    testCompile "com.winterbe:expekt:$expektVersion"
 }
