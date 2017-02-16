@@ -3,11 +3,8 @@ bin/
 gen/
 
 # Gradle files
-.gradle/
-gradlew.bat
-gradlew
-build/
-gradle.properties
+.gradle
+/build
 
 # Local configuration file (sdk path, etc)
 local.properties
