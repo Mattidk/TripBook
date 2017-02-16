@@ -5,16 +5,20 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import dk.mathiaspedersen.tripbook.presentation.BaseActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.main.MainActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.MainPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.MainView
+import org.jetbrains.anko.find
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainView {
 
     override val layoutResource = R.layout.activity_main
+
+    val tv by lazy { find<TextView>(R.id.example_tv) }
 
     @Inject
     lateinit var presenter: MainPresenter
@@ -34,8 +38,8 @@ class MainActivity : BaseActivity(), MainView {
                 .injectTo(this)
     }
 
-    override fun example() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun example(example: String) {
+        tv.text = example
     }
 
     override fun onResume() {
