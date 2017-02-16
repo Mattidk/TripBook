@@ -1,4 +1,4 @@
-package dk.mathiaspedersen.tripbook
+package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -6,7 +6,8 @@ import android.support.design.widget.Snackbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import dk.mathiaspedersen.tripbook.presentation.BaseActivity
+import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.activity.BaseActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.main.MainActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.MainPresenter

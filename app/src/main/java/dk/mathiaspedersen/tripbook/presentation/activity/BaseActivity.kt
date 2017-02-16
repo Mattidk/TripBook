@@ -1,4 +1,4 @@
-package dk.mathiaspedersen.tripbook.presentation
+package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

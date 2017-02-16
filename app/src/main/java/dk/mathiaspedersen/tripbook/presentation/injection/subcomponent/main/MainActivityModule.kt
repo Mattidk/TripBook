@@ -2,7 +2,7 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.main
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.MainActivity
+import dk.mathiaspedersen.tripbook.presentation.activity.MainActivity
 import dk.mathiaspedersen.tripbook.domain.interactor.GetExampleInteractor
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.InteractorExecutor
