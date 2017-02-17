@@ -9,7 +9,8 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(
         ApplicationModule::class,
         RepositoryModule::class,
-        DomainModule::class
+        DomainModule::class,
+        DataModule::class
 ))
 interface ApplicationComponent {
     fun plus(module: MainActivityModule): MainActivityComponent
