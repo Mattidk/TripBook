@@ -69,3 +69,5 @@ dependencies {
     testCompile "org.junit.platform:junit-platform-runner:$junitRunnerVersion"
     testCompile "com.winterbe:expekt:$expektVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'

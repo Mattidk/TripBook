@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "831541832033",
+    "firebase_url": "https://tripbook-e0674.firebaseio.com",
+    "project_id": "tripbook-e0674",
+    "storage_bucket": "tripbook-e0674.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831541832033:android:25b66cc04c82d604",
+        "android_client_info": {
+          "package_name": "dk.mathiaspedersen.tripbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831541832033-j3kqgo5fflrhrl7n2cve3o94ik84lb1l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dk.mathiaspedersen.tripbook",
+            "certificate_hash": "60BF959DE83E85BF94BB7FB4BFA34F1A503F8E51"
+          }
+        },
+        {
+          "client_id": "831541832033-guluj37mqme3qgkfsvtgg1hcplp4l8vg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoyl9EQEH3FinupziA_Ni1RrQg44_Q3DY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831541832033-guluj37mqme3qgkfsvtgg1hcplp4l8vg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
