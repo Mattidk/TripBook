@@ -75,6 +75,10 @@ dependencies {
     testCompile "org.jetbrains.spek:spek-junit-platform-engine:$spekVersion"
     testCompile "org.junit.platform:junit-platform-runner:$junitRunnerVersion"
     testCompile "com.winterbe:expekt:$expektVersion"
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
 }
 
 apply plugin: 'com.google.gms.google-services'
