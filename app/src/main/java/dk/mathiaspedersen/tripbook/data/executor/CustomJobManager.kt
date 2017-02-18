@@ -1,11 +1,11 @@
-package dk.mathiaspedersen.tripbook.domain.interactor.base
+package dk.mathiaspedersen.tripbook.data.executor
 
 import android.content.Context
 import com.path.android.jobqueue.JobManager
 import com.path.android.jobqueue.config.Configuration
 
 class CustomJobManager(context: Context)
-    : JobManager(context, CustomJobManager.getJobManagerConfiguration(context)) {
+    : JobManager(context, getJobManagerConfiguration(context)) {
 
     companion object {
 

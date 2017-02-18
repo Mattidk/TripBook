@@ -1,4 +1,4 @@
-package dk.mathiaspedersen.tripbook.domain.interactor.base
+package dk.mathiaspedersen.tripbook.domain.interactor.standard
 
 interface InteractorExecutor {
     fun execute(interactor: Interactor, priority: InteractorPriority = InteractorPriority.LOW)

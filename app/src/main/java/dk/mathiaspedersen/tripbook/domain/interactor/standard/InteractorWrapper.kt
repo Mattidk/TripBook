@@ -1,7 +1,10 @@
-package dk.mathiaspedersen.tripbook.domain.interactor.base
+package dk.mathiaspedersen.tripbook.domain.interactor.standard
 
 import com.path.android.jobqueue.Job
 import com.path.android.jobqueue.Params
+import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
+import dk.mathiaspedersen.tripbook.domain.interactor.standard.Interactor
+import dk.mathiaspedersen.tripbook.domain.interactor.standard.InteractorPriority
 
 class InteractorWrapper(val interactor: Interactor, priority: InteractorPriority, val bus: Bus) :
         Job(Params(priority.value).requireNetwork()) {

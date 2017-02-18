@@ -1,4 +1,4 @@
-package dk.mathiaspedersen.tripbook.domain.interactor.base
+package dk.mathiaspedersen.tripbook.domain.interactor.event.bus
 
 interface Bus {
     fun post(event: Any): Unit

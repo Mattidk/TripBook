@@ -1,4 +1,4 @@
-package dk.mathiaspedersen.tripbook.domain.interactor.base
+package dk.mathiaspedersen.tripbook.domain.interactor.standard
 
 enum class InteractorPriority(val value: Int) {
     LOW(0),
