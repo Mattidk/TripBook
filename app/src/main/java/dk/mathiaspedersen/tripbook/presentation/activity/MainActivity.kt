@@ -5,6 +5,8 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -19,6 +21,7 @@ class MainActivity : BaseActivity(), MainView {
     override val layoutResource = R.layout.activity_main
 
     val tv by lazy { find<TextView>(R.id.example_tv) }
+    val spinner by lazy { find<ProgressBar>(R.id.loading_spinner) }
 
     @Inject
     lateinit var presenter: MainPresenter
@@ -39,11 +42,15 @@ class MainActivity : BaseActivity(), MainView {
     }
 
     override fun example(example: String) {
+        spinner.visibility = View.GONE
+        tv.visibility = View.VISIBLE
         tv.text = example
     }
 
     override fun onResume() {
         super.onResume()
+        spinner.visibility = View.VISIBLE
+        tv.visibility = View.GONE
         presenter.onResume()
     }
 
