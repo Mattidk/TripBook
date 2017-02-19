@@ -1,5 +1,6 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
+import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -25,4 +26,9 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     abstract fun injectDependencies(applicationComponent: ApplicationComponent)
+
+    fun navigateTo(fragment: Fragment) {
+        val fragmentManager = fragmentManager
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+    }
 }

@@ -9,10 +9,9 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
+import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.main.MainActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.MainPresenter
@@ -24,8 +23,7 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
 
     override val layoutResource = R.layout.activity_main
 
-    val tv by lazy { find<TextView>(R.id.example_tv) }
-    val spinner by lazy { find<ProgressBar>(R.id.loading_spinner) }
+    val drawer: DrawerLayout by lazy { find<DrawerLayout>(R.id.drawer_layout) }
 
     @Inject
     lateinit var presenter: MainPresenter
@@ -33,19 +31,23 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if (savedInstanceState == null){
+            navigateTo(TripsFragment.newInstance())
+        }
+
         val fab = findViewById(R.id.fab) as FloatingActionButton
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
 
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.setDrawerListener(toggle)
         toggle.syncState()
 
         val navigationView = findViewById(R.id.nav_view) as NavigationView
+        navigationView.menu.getItem(0).isChecked = true
         navigationView.setNavigationItemSelectedListener(this)
     }
 
@@ -54,26 +56,17 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
                 .injectTo(this)
     }
 
-    override fun example(example: String) {
-        spinner.visibility = View.GONE
-        tv.visibility = View.VISIBLE
-        tv.text = example
-    }
+    override fun example(example: String) {}
 
     override fun onResume() {
         super.onResume()
-        spinner.visibility = View.VISIBLE
-        tv.visibility = View.GONE
-        presenter.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.onPause()
     }
 
     override fun onBackPressed() {
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
@@ -102,13 +95,13 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
+
         val id = item.itemId
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            navigateTo(TripsFragment.newInstance())
         } else if (id == R.id.nav_gallery) {
-
+            navigateTo(HistoryFragment.newInstance())
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
@@ -119,7 +112,6 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
 
         }
 
-        val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
         drawer.closeDrawer(GravityCompat.START)
         return true
     }
