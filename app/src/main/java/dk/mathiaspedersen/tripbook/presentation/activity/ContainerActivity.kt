@@ -13,15 +13,15 @@ import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.main.MainActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.container.ContainerActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.MainPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.MainView
 import org.jetbrains.anko.find
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSelectedListener {
+class ContainerActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSelectedListener {
 
-    override val layoutResource = R.layout.activity_main
+    override val layoutResource = R.layout.activity_container
 
     val drawer: DrawerLayout by lazy { find<DrawerLayout>(R.id.drawer_layout) }
 
@@ -32,7 +32,7 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null){
-            navigateTo(TripsFragment.newInstance())
+            navigateTo(TripsFragment())
         }
 
         val fab = findViewById(R.id.fab) as FloatingActionButton
@@ -43,7 +43,7 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer.setDrawerListener(toggle)
+        drawer.addDrawerListener(toggle)
         toggle.syncState()
 
         val navigationView = findViewById(R.id.nav_view) as NavigationView
@@ -52,7 +52,7 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
-        applicationComponent.plus(MainActivityModule(this))
+        applicationComponent.plus(ContainerActivityModule(this))
                 .injectTo(this)
     }
 
@@ -99,9 +99,9 @@ class MainActivity : BaseActivity(), MainView, NavigationView.OnNavigationItemSe
         val id = item.itemId
 
         if (id == R.id.nav_camera) {
-            navigateTo(TripsFragment.newInstance())
+            navigateTo(TripsFragment())
         } else if (id == R.id.nav_gallery) {
-            navigateTo(HistoryFragment.newInstance())
+            navigateTo(HistoryFragment())
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

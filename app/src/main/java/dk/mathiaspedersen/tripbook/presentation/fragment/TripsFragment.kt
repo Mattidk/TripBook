@@ -44,11 +44,4 @@ class TripsFragment : BaseFragment(), TripsView {
         applicationComponent.plus(TripsFragmentModule(this))
                 .injectTo(this)
     }
-
-    companion object {
-        fun newInstance(): TripsFragment {
-            return TripsFragment()
-        }
-    }
-
 }

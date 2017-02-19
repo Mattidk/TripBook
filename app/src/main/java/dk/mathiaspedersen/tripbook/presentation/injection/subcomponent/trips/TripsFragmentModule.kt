@@ -8,7 +8,6 @@ import dk.mathiaspedersen.tripbook.domain.interactor.firebase.FirebaseInteractor
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.FragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
-import dk.mathiaspedersen.tripbook.presentation.view.MainView
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 
 @Module

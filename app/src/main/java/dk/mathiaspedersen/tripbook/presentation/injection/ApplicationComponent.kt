@@ -3,8 +3,8 @@ package dk.mathiaspedersen.tripbook.presentation.injection
 import dagger.Component
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.main.MainActivityComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.main.MainActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.container.ContainerActivityComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.container.ContainerActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import javax.inject.Singleton
@@ -17,7 +17,7 @@ import javax.inject.Singleton
         DataModule::class
 ))
 interface ApplicationComponent {
-    fun plus(module: MainActivityModule): MainActivityComponent
+    fun plus(module: ContainerActivityModule): ContainerActivityComponent
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
     fun plus(module: HistoryFragmentModule): HistoryFragmentComponent
 }

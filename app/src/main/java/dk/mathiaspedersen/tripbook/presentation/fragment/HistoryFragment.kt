@@ -33,11 +33,4 @@ class HistoryFragment : BaseFragment(), HistoryView {
         applicationComponent.plus(HistoryFragmentModule(this))
                 .injectTo(this)
     }
-
-    companion object {
-        fun newInstance(): HistoryFragment {
-            return HistoryFragment()
-        }
-    }
-
 }
