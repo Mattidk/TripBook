@@ -37,29 +37,41 @@ class ContainerActivity : BaseActivity(), MainView, NavigationView.OnNavigationI
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState == null){
-            navigateTo(TripsFragment())
+        if (savedInstanceState == null) {
+            addTripsFragment()
         }
+        setupNavigationDrawer()
+    }
 
-        val fab = findViewById(R.id.fab) as FloatingActionButton
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+    override fun injectDependencies(applicationComponent: ApplicationComponent) {
+        applicationComponent.plus(ContainerActivityModule(this))
+                .injectTo(this)
+    }
 
+    fun addTripsFragment() {
+        fragmentManager.beginTransaction()
+                .add(R.id.fragment_container,
+                        TripsFragment()).commit()
+    }
+
+    fun setupNavigationDrawer() {
         val toggle = ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
         val navigationView = findViewById(R.id.nav_view) as NavigationView
+        navigationView.menu.performIdentifierAction(R.layout.fragment_trips, 0)
         navigationView.menu.getItem(0).isChecked = true
         navigationView.setNavigationItemSelectedListener(this)
     }
 
-    override fun injectDependencies(applicationComponent: ApplicationComponent) {
-        applicationComponent.plus(ContainerActivityModule(this))
-                .injectTo(this)
+    override fun setupViews() {
+        val fab = findViewById(R.id.fab) as FloatingActionButton
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+        }
     }
 
     override fun example(example: String) {}

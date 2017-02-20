@@ -20,9 +20,12 @@ abstract class BaseActivity : AppCompatActivity() {
         injectDependencies(App.graph)
         setContentView(layoutResource)
         setSupportActionBar(toolbar)
+        setupViews()
     }
 
     abstract fun injectDependencies(applicationComponent: ApplicationComponent)
+
+    abstract fun setupViews()
 
     fun navigateTo(fragment: Fragment) {
         val fragmentManager = fragmentManager
