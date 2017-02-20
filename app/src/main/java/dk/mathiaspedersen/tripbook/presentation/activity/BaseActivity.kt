@@ -11,11 +11,8 @@ import org.jetbrains.anko.find
 
 abstract class BaseActivity : AppCompatActivity() {
 
-    companion object {
-        val IMAGE_TRANSITION_NAME = "activity_image_transition"
-    }
-
     protected abstract val layoutResource: Int
+
     val toolbar: Toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

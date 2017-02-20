@@ -28,6 +28,12 @@ class ContainerActivity : BaseActivity(), MainView, NavigationView.OnNavigationI
     @Inject
     lateinit var presenter: MainPresenter
 
+    @Inject
+    lateinit var trips: TripsFragment
+
+    @Inject
+    lateinit var history: HistoryFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -99,9 +105,9 @@ class ContainerActivity : BaseActivity(), MainView, NavigationView.OnNavigationI
         val id = item.itemId
 
         if (id == R.id.nav_camera) {
-            navigateTo(TripsFragment())
+            navigateTo(trips)
         } else if (id == R.id.nav_gallery) {
-            navigateTo(HistoryFragment())
+            navigateTo(history)
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {
