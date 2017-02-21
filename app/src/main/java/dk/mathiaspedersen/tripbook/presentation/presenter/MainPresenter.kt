@@ -12,20 +12,4 @@ class MainPresenter(
         override val view: MainView,
         override val bus: Bus,
         val exampleFirebaseInteractor: GetExampleFirebaseInteractor,
-        val firebaseInteractorExecutor: FirebaseInteractorExecutor) : Presenter<MainView> {
-
-    @Subscribe
-    fun onEvent(event: ExampleEvent) {
-        view.example(event.example)
-    }
-
-    @Subscribe
-    fun onEvent(event: FirebaseEvent) {
-        view.example(event.example)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        firebaseInteractorExecutor.execute(exampleFirebaseInteractor)
-    }
-}
+        val firebaseInteractorExecutor: FirebaseInteractorExecutor) : Presenter<MainView>

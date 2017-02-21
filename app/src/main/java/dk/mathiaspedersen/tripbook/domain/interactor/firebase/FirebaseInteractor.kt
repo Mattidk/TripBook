@@ -1,7 +1,9 @@
 package dk.mathiaspedersen.tripbook.domain.interactor.firebase
 
+import dk.mathiaspedersen.tripbook.domain.entity.Trip
+
 interface FirebaseInteractor {
     operator fun invoke()
-    fun successful(result: String)
-    fun unsuccessful(error: String)
+    fun successful(response: List<Trip>)
+    fun unsuccessful(message: String)
 }

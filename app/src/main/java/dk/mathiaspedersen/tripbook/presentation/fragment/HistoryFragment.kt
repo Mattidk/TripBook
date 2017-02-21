@@ -1,7 +1,12 @@
 package dk.mathiaspedersen.tripbook.presentation.fragment
 
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.HistoryPresenter
@@ -10,13 +15,14 @@ import javax.inject.Inject
 
 class HistoryFragment : BaseFragment(), HistoryView {
 
-    override val layoutResource: Int = R.layout.fragment_history
+    @Inject lateinit var presenter: HistoryPresenter
 
-    @Inject
-    lateinit var presenter: HistoryPresenter
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
+        return inflater.inflate(R.layout.fragment_history, container, false)
+    }
 
-    override fun example(example: String) {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun example(response: List<Trip>) {
+        // Temporarily empty
     }
 
     override fun onResume() {

@@ -15,16 +15,7 @@ class HistoryPresenter(
         val firebaseInteractorExecutor: FirebaseInteractorExecutor) : Presenter<HistoryView> {
 
     @Subscribe
-    fun onEvent(event: ExampleEvent) {
-        view.example(event.example)
-    }
-
-    @Subscribe
     fun onEvent(event: FirebaseEvent) {
         view.example(event.example)
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }

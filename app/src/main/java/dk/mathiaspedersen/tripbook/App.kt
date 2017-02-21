@@ -17,6 +17,7 @@ class App : Application() {
         super.onCreate()
         initializeDagger()
         initializeLeakDetection()
+        initializeDiskPersistance()
     }
 
     fun initializeDagger() {
@@ -28,5 +29,9 @@ class App : Application() {
     fun initializeLeakDetection() {
         if (LeakCanary.isInAnalyzerProcess(this)) return
         if (BuildConfig.DEBUG) LeakCanary.install(this)
+    }
+
+    private fun initializeDiskPersistance() {
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 }
