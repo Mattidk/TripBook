@@ -31,6 +31,7 @@ allprojects {
         eventbusVersion = "3.0.0"
         ankoVersion= "0.9.1"
         daggerVersion = "2.9"
+        butterknifeVersion = "8.5.1"
         mockitoVersion = "2.2.29"
         dexmakerVersion = "2.2.0"
         espressoVersion = "2.2.2"

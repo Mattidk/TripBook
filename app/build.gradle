@@ -61,6 +61,8 @@ dependencies {
     compile "org.jetbrains.anko:anko-sdk15:$ankoVersion"
     compile "org.jetbrains.anko:anko-support-v4:$ankoVersion"
     compile "com.google.dagger:dagger:$daggerVersion"
+    compile "com.jakewharton:butterknife:$butterknifeVersion"
+    kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
     androidTestCompile "org.mockito:mockito-core:$mockitoVersion"
