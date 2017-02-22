@@ -30,6 +30,10 @@ android {
         exclude 'META-INF/NOTICE'
     }
 
+    lintOptions {
+        disable "ResourceType"
+    }
+
     dexOptions {
         preDexLibraries = false
         jumboMode = false
@@ -51,7 +55,7 @@ dependencies {
 
     compile "com.google.firebase:firebase-core:$firebaseVersion"
     compile "com.google.firebase:firebase-database:$firebaseVersion"
-    compile "com.google.firebase:firebase-crash:$firebaseVersion"
+//    compile "com.google.firebase:firebase-crash:$firebaseVersion"
     compile "com.google.firebase:firebase-auth:$firebaseVersion"
     compile "com.google.firebase:firebase-config:$firebaseVersion"
     compile "com.google.firebase:firebase-invites:$firebaseVersion"
