@@ -1,5 +1,6 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
+import android.app.Fragment
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
@@ -7,6 +8,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import butterknife.BindView
@@ -24,16 +26,32 @@ import javax.inject.Inject
 class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSelectedListener {
 
     override val layoutResource = R.layout.activity_container
-    @Inject lateinit var trips: TripsFragment
-    @Inject lateinit var history: HistoryFragment
-    @Inject lateinit var presenter: HostPresenter
-    @BindView(R.id.drawer_layout) lateinit var drawer: DrawerLayout
-    @BindView(R.id.nav_view) lateinit var navigationView: NavigationView
-    @BindView(R.id.fab) lateinit var fab: FloatingActionButton
+
+    @Inject
+    lateinit var trips: TripsFragment
+
+    @Inject
+    lateinit var history: HistoryFragment
+
+    @Inject
+    lateinit var presenter: HostPresenter
+
+    @BindView(R.id.drawer_layout)
+    lateinit var drawer: DrawerLayout
+
+    @BindView(R.id.nav_view)
+    lateinit var navigationView: NavigationView
+
+    @BindView(R.id.fab)
+    lateinit var fab: FloatingActionButton
+
+    @BindView(R.id.toolbar)
+    lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
+        setSupportActionBar(toolbar)
         if (savedInstanceState == null) {
             initializeFragment()
         }
@@ -73,6 +91,11 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun example(response: List<Trip>) {
         // Temporarily empty
+    }
+
+    fun navigateTo(fragment: Fragment) {
+        val fragmentManager = fragmentManager
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
     }
 
     override fun onBackPressed() {

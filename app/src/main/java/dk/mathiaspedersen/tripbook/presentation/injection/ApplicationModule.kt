@@ -43,4 +43,5 @@ class ApplicationModule(private val app: App) {
     @Provides @Singleton
     fun provideAuthInteractorExecutor(): ManagerInteractorExecutor
             = ManagerInteractorExecutorImpl()
+
 }

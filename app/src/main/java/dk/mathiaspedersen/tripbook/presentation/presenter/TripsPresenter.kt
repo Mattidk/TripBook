@@ -5,14 +5,12 @@ import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FirebaseErrorEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FirebaseEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutor
-import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.greenrobot.eventbus.Subscribe
 
 class TripsPresenter(
         override val view: TripsView,
         override val bus: Bus,
-        val viewHelper: ViewHelper,
         val interactor: ExampleInteractorImpl,
         val interactorExecutor: TripInteractorExecutor) : BasePresenter<TripsView> {
 

@@ -18,9 +18,10 @@ abstract class FragmentModule(protected val fragment: Fragment) {
     @Provides @ActivityScope
     fun provideFragmentContext(): Context = fragment.activity
 
-    @Provides
+    @Provides @ActivityScope
     fun provideProgressDialogHelper(context: Context): DialogHelper = DialogHelper(context)
 
-    @Provides
+    @Provides @ActivityScope
     fun provideHelpview(context: Context, helper: DialogHelper): ViewHelper = ViewHelperImpl(context, helper)
+
 }

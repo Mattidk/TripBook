@@ -7,14 +7,12 @@ import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SuccessfulLoginEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.UnsuccessfulLoginEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractorExecutor
-import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.view.LoginView
 import org.greenrobot.eventbus.Subscribe
 
 class LoginPresenter(
         override val view: LoginView,
         override val bus: Bus,
-        val viewHelper: ViewHelper,
         val managerInteractor: ManagerInteractorImpl,
         val managerInteractorExecutor: ManagerInteractorExecutor) : BasePresenter<LoginView> {
 
@@ -31,13 +29,5 @@ class LoginPresenter(
 
     fun signInWithGoogle(googleSignInAccount: GoogleSignInAccount) {
         managerInteractorExecutor.execute(managerInteractor, googleSignInAccount)
-    }
-
-    fun showProgressDialog(message: Int) {
-        viewHelper.showProgress(message)
-    }
-
-    fun hideProgressDialog() {
-        viewHelper.hideProgress()
     }
 }

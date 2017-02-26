@@ -18,10 +18,10 @@ abstract class ActivityModule(protected val activity: AppCompatActivity) {
     @Provides @ActivityScope
     fun provideActiviyContext(): Context = activity
 
-    @Provides
+    @Provides @ActivityScope
     fun provideProgressDialogHelper(context: Context): DialogHelper = DialogHelper(context)
 
-    @Provides
+    @Provides @ActivityScope
     fun provideHelpview(context: Context, helper: DialogHelper): ViewHelper = ViewHelperImpl(context, helper)
 
 }

@@ -6,7 +6,6 @@ import dk.mathiaspedersen.tripbook.domain.interactor.ExampleInteractorImpl
 import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
-import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.injection.FragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
@@ -18,9 +17,8 @@ class TripsFragmentModule(fragment: TripsFragment) : FragmentModule(fragment) {
     fun provideTripsView(): TripsView = fragment as TripsView
 
     @Provides
-    fun provideTripsPresenter(view: TripsView, bus: Bus, helper: ViewHelper,
-                              exampleInteractor: ExampleInteractorImpl,
-                              interactorExecutor: TripInteractorExecutor) = TripsPresenter(view, bus, helper,
-            exampleInteractor, interactorExecutor)
+    fun provideTripsPresenter(view: TripsView, bus: Bus, exampleInteractor: ExampleInteractorImpl,
+                              interactorExecutor: TripInteractorExecutor) = TripsPresenter(view, bus,
+                              exampleInteractor, interactorExecutor)
 
 }
