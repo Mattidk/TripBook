@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.domain.interactor.event.bus
 
 import android.os.Handler
 import android.os.Looper
-import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
 import org.greenrobot.eventbus.EventBus
 
 class BusImpl : EventBus(), Bus {

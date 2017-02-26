@@ -9,4 +9,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="history_fragment">History fragment</string>
     <string name="trips_fragment">Trips fragment</string>
+    <string name="sign_up_with_facebook">Sign Up with Facebook</string>
+    <string name="sign_up_with_google">Sign Up with Google</string>
+
+    <!-- Needed to be able to sign in -->
+    <string name="token">831541832033-guluj37mqme3qgkfsvtgg1hcplp4l8vg.apps.googleusercontent.com</string>
+    <string name="login_loading">Loading</string>
 </resources>

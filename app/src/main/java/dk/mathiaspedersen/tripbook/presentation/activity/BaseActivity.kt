@@ -13,13 +13,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     protected abstract val layoutResource: Int
 
-    val toolbar: Toolbar by lazy { find<Toolbar>(R.id.toolbar) }
+    val toolbar: Toolbar? by lazy { find<Toolbar>(R.id.toolbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectDependencies(App.graph)
         setContentView(layoutResource)
-        setSupportActionBar(toolbar)
+        if (toolbar != null) setSupportActionBar(toolbar)
     }
 
     abstract fun injectDependencies(applicationComponent: ApplicationComponent)
