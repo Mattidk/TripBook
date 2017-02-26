@@ -59,6 +59,7 @@ dependencies {
     compile "com.google.firebase:firebase-auth:$firebaseVersion"
     compile "com.google.firebase:firebase-config:$firebaseVersion"
     compile "com.google.firebase:firebase-invites:$firebaseVersion"
+    compile "com.google.android.gms:play-services-auth:$playServicesVersion"
 
     compile "com.path:android-priority-jobqueue:$jobqueueVersion"
     compile "org.greenrobot:eventbus:$eventbusVersion"

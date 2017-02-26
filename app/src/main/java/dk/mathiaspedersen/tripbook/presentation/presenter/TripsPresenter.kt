@@ -1,20 +1,20 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
-import dk.mathiaspedersen.tripbook.domain.interactor.GetExampleFirebaseInteractor
-import dk.mathiaspedersen.tripbook.domain.interactor.event.ExampleEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.FirebaseErrorEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.FirebaseEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.ExampleInteractorImpl
 import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.firebase.FirebaseInteractorExecutor
-import dk.mathiaspedersen.tripbook.presentation.view.MainView
+import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FirebaseErrorEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FirebaseEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutor
+import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.greenrobot.eventbus.Subscribe
 
 class TripsPresenter(
         override val view: TripsView,
         override val bus: Bus,
-        val exampleFirebaseInteractor: GetExampleFirebaseInteractor,
-        val firebaseInteractorExecutor: FirebaseInteractorExecutor) : Presenter<TripsView> {
+        val viewHelper: ViewHelper,
+        val interactor: ExampleInteractorImpl,
+        val interactorExecutor: TripInteractorExecutor) : BasePresenter<TripsView> {
 
     @Subscribe
     fun onEvent(event: FirebaseEvent) {
@@ -28,10 +28,10 @@ class TripsPresenter(
 
     override fun onResume() {
         super.onResume()
-        firebaseInteractorExecutor.execute(exampleFirebaseInteractor)
+        interactorExecutor.getTrips(interactor)
     }
 
     fun getUnclassifiedTrips() {
-        firebaseInteractorExecutor.execute(exampleFirebaseInteractor)
+        interactorExecutor.getTrips(interactor)
     }
 }

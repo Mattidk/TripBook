@@ -5,13 +5,15 @@ import com.path.android.jobqueue.JobManager
 import dagger.Module
 import dagger.Provides
 import dk.mathiaspedersen.tripbook.App
-import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.BusImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
 import dk.mathiaspedersen.tripbook.data.executor.CustomJobManager
-import dk.mathiaspedersen.tripbook.domain.interactor.firebase.FirebaseInteractorExecutor
-import dk.mathiaspedersen.tripbook.domain.interactor.firebase.FirebaseInteractorExecutorImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.standard.InteractorExecutor
-import dk.mathiaspedersen.tripbook.domain.interactor.standard.InteractorExecutorImpl
+import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
+import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.BusImpl
+import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractorExecutor
+import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractorExecutorImpl
+import dk.mathiaspedersen.tripbook.domain.interactor.standard.JobInteractorExecutor
+import dk.mathiaspedersen.tripbook.domain.interactor.standard.JobInteractorExecutorImpl
+import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutor
+import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutorImpl
 import dk.mathiaspedersen.tripbook.presentation.injection.qualifier.ApplicationQualifier
 import javax.inject.Singleton
 
@@ -31,10 +33,14 @@ class ApplicationModule(private val app: App) {
     fun provideJobManager(@ApplicationQualifier context: Context): JobManager = CustomJobManager(context)
 
     @Provides @Singleton
-    fun provideInteractorExecutor(jobManager: JobManager, bus: Bus): InteractorExecutor
-            = InteractorExecutorImpl(jobManager, bus)
+    fun provideJobInteractorExecutor(jobManager: JobManager, bus: Bus): JobInteractorExecutor
+            = JobInteractorExecutorImpl(jobManager, bus)
 
     @Provides @Singleton
-    fun provideFirebaseInteractorExecutor(): FirebaseInteractorExecutor
-            = FirebaseInteractorExecutorImpl()
+    fun provideInteractorExecutor(): TripInteractorExecutor
+            = TripInteractorExecutorImpl()
+
+    @Provides @Singleton
+    fun provideAuthInteractorExecutor(): ManagerInteractorExecutor
+            = ManagerInteractorExecutorImpl()
 }
