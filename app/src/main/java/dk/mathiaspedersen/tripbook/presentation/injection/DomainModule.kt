@@ -24,4 +24,5 @@ class DomainModule {
     @Provides
     fun provideExampleInteractor(repository: TripRepository, bus: Bus)
             = ExampleInteractorImpl(repository, bus)
+
 }

@@ -20,4 +20,5 @@ class RepositoryModule {
     @Provides @Singleton
     fun provideExampleRepo(database: FirebaseDatabase, bus: Bus) : TripRepository
             = TripRepositoryImpl(database, bus)
+
 }

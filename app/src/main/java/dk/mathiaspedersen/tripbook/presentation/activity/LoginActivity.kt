@@ -3,7 +3,6 @@ package dk.mathiaspedersen.tripbook.presentation.activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -14,16 +13,22 @@ import butterknife.OnClick
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
-import dk.mathiaspedersen.tripbook.App
+import com.google.firebase.database.FirebaseDatabase
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.LoginPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.LoginView
+import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity(), LoginView {
+class LoginActivity : BaseActivity(), LoginView {
+
+    override val layoutResource = R.layout.activity_login
 
     @BindView(R.id.activity_login)
     lateinit var rootview: RelativeLayout
@@ -37,15 +42,24 @@ class LoginActivity : AppCompatActivity(), LoginView {
     @Inject
     lateinit var auth: FirebaseAuth
 
+    @Inject
+    lateinit var viewHelper: ViewHelper
+
     var anim: AnimationDrawable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        injectDependencies(App.graph)
-        setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
         makeActivityFullscreenLollipop()
         setBackground()
+        checkUserStatus()
+    }
+
+    private fun checkUserStatus() {
+        if (auth.currentUser != null){
+            startActivity(intentFor<HostActivity>().clearTop())
+            finish()
+        }
     }
 
     override fun onResume() {
@@ -74,8 +88,9 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
 
     override fun successfulLogin() {
-        presenter.hideProgressDialog()
-        startActivity<HostActivity>()
+        viewHelper.hideProgress()
+        startActivity(intentFor<HostActivity>().clearTop())
+        finish()
     }
 
     override fun unsuccessfullogin(message: String) {
@@ -84,7 +99,7 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
     @OnClick(R.id.google_provider)
     fun signIn(view: View) {
-        presenter.showProgressDialog(R.string.login_loading)
+        viewHelper.showProgress(R.string.login_loading)
         val signInIntent = Auth.GoogleSignInApi.getSignInIntent(client)
         startActivityForResult(signInIntent, 123)
     }
@@ -99,12 +114,12 @@ class LoginActivity : AppCompatActivity(), LoginView {
                     presenter.signInWithGoogle(account)
                 }
             }else {
-                presenter.hideProgressDialog()
+                viewHelper.hideProgress()
             }
         }
     }
 
-    fun injectDependencies(applicationComponent: ApplicationComponent) {
+    override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(LoginActivityModule(this))
                 .injectTo(this)
     }

@@ -20,8 +20,10 @@ import javax.inject.Singleton
         ManagerModule::class
 ))
 interface ApplicationComponent {
+
     fun plus(module: LoginActivityModule): LoginActivityComponent
     fun plus(module: HostActivityModule): HostActivityComponent
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
     fun plus(module: HistoryFragmentModule): HistoryFragmentComponent
+
 }

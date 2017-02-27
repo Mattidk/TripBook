@@ -11,4 +11,5 @@ import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
 interface HistoryFragmentComponent {
 
     fun injectTo(fragment: HistoryFragment)
+
 }

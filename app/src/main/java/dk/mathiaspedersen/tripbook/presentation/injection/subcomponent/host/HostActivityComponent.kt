@@ -11,4 +11,5 @@ import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
 interface HostActivityComponent {
 
     fun injectTo(activity: HostActivity)
+
 }
