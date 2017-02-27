@@ -20,6 +20,7 @@ import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import javax.inject.Inject
 
 class TripsFragment : BaseFragment(), TripsView {
+
     @Inject lateinit var presenter: TripsPresenter
 
     @BindView(R.id.loading_spinner) lateinit var spinner: ProgressBar

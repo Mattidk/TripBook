@@ -2,6 +2,8 @@ package dk.mathiaspedersen.tripbook.domain.interactor
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
+import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutSuccessEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutUnsuccessfulEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SuccessfulLoginEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.UnsuccessfulLoginEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractor
@@ -33,12 +35,16 @@ class ManagerInteractorImpl(val manager: Manager, val bus: Bus) : ManagerInterac
         throw UnsupportedOperationException("not implemented")
     }
 
+    override fun signOut() {
+        manager.signOut(this)
+    }
+
     override fun signOutSuccessful() {
-        throw UnsupportedOperationException("not implemented")
+        bus.post(SignOutSuccessEvent())
     }
 
     override fun signOutUnsuccessful(message: String) {
-        throw UnsupportedOperationException("not implemented")
+        bus.post(SignOutUnsuccessfulEvent())
     }
 
     override fun invoke(googleSignInAccount: GoogleSignInAccount) {

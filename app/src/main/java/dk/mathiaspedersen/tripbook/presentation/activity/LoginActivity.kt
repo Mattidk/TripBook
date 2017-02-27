@@ -13,12 +13,16 @@ import butterknife.OnClick
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.LoginPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.LoginView
+import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
@@ -48,6 +52,14 @@ class LoginActivity : BaseActivity(), LoginView {
         ButterKnife.bind(this)
         makeActivityFullscreenLollipop()
         setBackground()
+        checkUserStatus()
+    }
+
+    private fun checkUserStatus() {
+        if (auth.currentUser != null){
+            startActivity(intentFor<HostActivity>().clearTop())
+            finish()
+        }
     }
 
     override fun onResume() {
@@ -76,9 +88,9 @@ class LoginActivity : BaseActivity(), LoginView {
     }
 
     override fun successfulLogin() {
-//        presenter.hideProgressDialog()
         viewHelper.hideProgress()
-        startActivity<HostActivity>()
+        startActivity(intentFor<HostActivity>().clearTop())
+        finish()
     }
 
     override fun unsuccessfullogin(message: String) {
@@ -103,7 +115,6 @@ class LoginActivity : BaseActivity(), LoginView {
                 }
             }else {
                 viewHelper.hideProgress()
-//                presenter.hideProgressDialog()
             }
         }
     }

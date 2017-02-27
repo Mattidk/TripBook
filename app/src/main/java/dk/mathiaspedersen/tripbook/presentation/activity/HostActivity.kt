@@ -21,20 +21,14 @@ import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.HostView
+import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.intentFor
 import javax.inject.Inject
+
 
 class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSelectedListener {
 
     override val layoutResource = R.layout.activity_container
-
-    @Inject
-    lateinit var trips: TripsFragment
-
-    @Inject
-    lateinit var history: HistoryFragment
-
-    @Inject
-    lateinit var presenter: HostPresenter
 
     @BindView(R.id.drawer_layout)
     lateinit var drawer: DrawerLayout
@@ -48,6 +42,15 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
 
+    @Inject
+    lateinit var trips: TripsFragment
+
+    @Inject
+    lateinit var history: HistoryFragment
+
+    @Inject
+    lateinit var presenter: HostPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
@@ -57,6 +60,16 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         }
         setupNavigationDrawer()
         setupViews()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
@@ -93,6 +106,15 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         // Temporarily empty
     }
 
+    override fun signOutSuccessful() {
+        startActivity(intentFor<LoginActivity>().clearTop())
+        finish()
+    }
+
+    override fun signOutUnsuccessful() {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     fun navigateTo(fragment: Fragment) {
         val fragmentManager = fragmentManager
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
@@ -113,7 +135,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_settings -> presenter.signOut()
         }
         return super.onOptionsItemSelected(item)
     }

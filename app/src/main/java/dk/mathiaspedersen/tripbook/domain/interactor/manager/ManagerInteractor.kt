@@ -4,6 +4,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 interface ManagerInteractor {
     operator fun invoke(googleSignInAccount: GoogleSignInAccount)
+    fun signOut()
     fun googleSignInSuccessful()
     fun googleSignInUnsuccessful(message: String)
     fun emailSignInSuccessful()
