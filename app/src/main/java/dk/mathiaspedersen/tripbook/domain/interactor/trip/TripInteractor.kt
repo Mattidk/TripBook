@@ -1,9 +1,9 @@
 package dk.mathiaspedersen.tripbook.domain.interactor.trip
 
-import dk.mathiaspedersen.tripbook.domain.entity.Trip
+import dk.mathiaspedersen.tripbook.presentation.model.EncodedTrip
 
 interface TripInteractor {
     fun getTrips()
-    fun successful(response: List<Trip>)
+    fun successful(response: List<EncodedTrip>)
     fun unsuccessful(message: String)
 }

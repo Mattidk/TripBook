@@ -15,6 +15,7 @@ import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.presentation.custom.TripsListAdapter
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
+import dk.mathiaspedersen.tripbook.presentation.model.EncodedTrip
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class TripsFragment : BaseFragment(), TripsView {
     @BindView(R.id.loading_spinner) lateinit var spinner: ProgressBar
     @BindView(R.id.trips_recyclerview) lateinit var mRecyclerView: RecyclerView
     @BindView(R.id.refresh_container) lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-    val mAdapter = TripsListAdapter(listOf<Trip>())
+    val mAdapter = TripsListAdapter(listOf<EncodedTrip>())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +42,7 @@ class TripsFragment : BaseFragment(), TripsView {
         return view
     }
 
-    override fun example(response: List<Trip>) {
+    override fun example(response: List<EncodedTrip>) {
         spinner.visibility = View.GONE
         mSwipeRefreshLayout.isRefreshing = false
         mAdapter.refresh(response)

@@ -1,5 +1,6 @@
 package dk.mathiaspedersen.tripbook.presentation.injection
 
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
@@ -18,7 +19,7 @@ class RepositoryModule {
             = ExampleJobRepositoryImpl()
 
     @Provides @Singleton
-    fun provideExampleRepo(database: FirebaseDatabase, bus: Bus) : TripRepository
-            = TripRepositoryImpl(database, bus)
+    fun provideExampleRepo(database: FirebaseDatabase, auth: FirebaseAuth, bus: Bus) : TripRepository
+            = TripRepositoryImpl(database, auth, bus)
 
 }

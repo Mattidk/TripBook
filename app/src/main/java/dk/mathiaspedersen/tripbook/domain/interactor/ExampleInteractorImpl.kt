@@ -1,11 +1,11 @@
 package dk.mathiaspedersen.tripbook.domain.interactor
 
-import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FirebaseErrorEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FirebaseEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractor
 import dk.mathiaspedersen.tripbook.domain.repository.TripRepository
+import dk.mathiaspedersen.tripbook.presentation.model.EncodedTrip
 
 class ExampleInteractorImpl(val repository: TripRepository, val bus: Bus) : TripInteractor {
 
@@ -13,7 +13,7 @@ class ExampleInteractorImpl(val repository: TripRepository, val bus: Bus) : Trip
         repository.getExample(this)
     }
 
-    override fun successful(response: List<Trip>) {
+    override fun successful(response: List<EncodedTrip>) {
         bus.post(FirebaseEvent(response))
     }
 

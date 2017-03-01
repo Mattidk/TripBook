@@ -4,12 +4,15 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.domain.entity.Trip
+import dk.mathiaspedersen.tripbook.presentation.model.EncodedTrip
 import org.jetbrains.anko.find
 
-class TripsListAdapter(var trips: List<Trip>)
+class TripsListAdapter(var trips: List<EncodedTrip>)
     : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,16 +26,17 @@ class TripsListAdapter(var trips: List<Trip>)
 
     override fun getItemCount(): Int = trips.size
 
-    fun refresh(list: List<Trip>) {
+    fun refresh(list: List<EncodedTrip>) {
         trips = list
         notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val info: TextView = view.find(R.id.info_text)
+        private val info: ImageView = view.find(R.id.iv_map)
 
-        fun setItem(item: Trip) {
-            info.text = item.text
+        fun setItem(item: EncodedTrip) {
+//            Glide.with()
+//            info.text = item.route
         }
     }
 }

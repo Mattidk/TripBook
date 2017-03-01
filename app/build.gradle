@@ -63,6 +63,7 @@ dependencies {
 
     compile "com.google.android.gms:play-services-auth:$playServicesVersion"
     compile "com.google.android.gms:play-services-maps:$playServicesVersion"
+    compile "com.google.maps.android:android-maps-utils:$mapsUtilsVersion"
 
     compile "com.path:android-priority-jobqueue:$jobqueueVersion"
     compile "org.greenrobot:eventbus:$eventbusVersion"

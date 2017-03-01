@@ -43,5 +43,6 @@ allprojects {
         playServicesVersion = "10.2.0"
         leakcanaryVersion = "1.5"
         glideVersion = "3.7.0"
+        mapsUtilsVersion = "0.5"
     }
 }
