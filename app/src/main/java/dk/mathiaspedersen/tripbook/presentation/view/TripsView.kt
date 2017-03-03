@@ -1,8 +1,8 @@
 package dk.mathiaspedersen.tripbook.presentation.view
 
-import dk.mathiaspedersen.tripbook.presentation.model.EncodedTrip
+import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 
 interface TripsView : BaseView {
-    fun example(response: List<EncodedTrip>)
-    fun onError(message: String)
+    fun populateRecyclerView(trips: List<TripDetail>)
+    fun unableToFetchTrips(message: String)
 }

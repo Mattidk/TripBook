@@ -11,23 +11,29 @@ import android.widget.ProgressBar
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
-import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.presentation.custom.TripsListAdapter
+import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.model.EncodedTrip
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import javax.inject.Inject
 
 class TripsFragment : BaseFragment(), TripsView {
 
-    @Inject lateinit var presenter: TripsPresenter
+    @Inject
+    lateinit var presenter: TripsPresenter
 
-    @BindView(R.id.loading_spinner) lateinit var spinner: ProgressBar
-    @BindView(R.id.trips_recyclerview) lateinit var mRecyclerView: RecyclerView
-    @BindView(R.id.refresh_container) lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-    val mAdapter = TripsListAdapter(listOf<EncodedTrip>())
+    @BindView(R.id.loading_spinner)
+    lateinit var spinner: ProgressBar
+
+    @BindView(R.id.trips_recyclerview)
+    lateinit var mRecyclerView: RecyclerView
+
+    @BindView(R.id.refresh_container)
+    lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
+
+    val mAdapter = TripsListAdapter(listOf<TripDetail>())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,13 +48,13 @@ class TripsFragment : BaseFragment(), TripsView {
         return view
     }
 
-    override fun example(response: List<EncodedTrip>) {
+    override fun populateRecyclerView(trips: List<TripDetail>) {
         spinner.visibility = View.GONE
         mSwipeRefreshLayout.isRefreshing = false
-        mAdapter.refresh(response)
+        mAdapter.refresh(trips)
     }
 
-    override fun onError(message: String) {
+    override fun unableToFetchTrips(message: String) {
         // Temporarily empty
     }
 

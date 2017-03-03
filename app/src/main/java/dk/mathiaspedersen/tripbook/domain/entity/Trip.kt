@@ -1,3 +1,5 @@
 package dk.mathiaspedersen.tripbook.domain.entity
 
-class Trip{var text: String = ""}
+import dk.mathiaspedersen.tripbook.presentation.util.maps.map.Map
+
+data class Trip(val map: Map)

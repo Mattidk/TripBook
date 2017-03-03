@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
 
-
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="primary_light">#B2DFDB</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="primary_text">#212121</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
     <color name="colorAccountBotton">#FFFFFF</color>
-
     <color name="purple_500">#9C27B0</color>
     <color name="deep_purple_500">#673AB7</color>
     <color name="indigo_500">#3F51B5</color>
@@ -15,4 +17,5 @@
     <color name="light_blue_500">#03A9F4</color>
     <color name="com_facebook_button_text_color">#000000</color>
     <color name="com_facebook_blue">#3B5998</color>
+    <color name="placeholder_background">#757575</color>
 </resources>
