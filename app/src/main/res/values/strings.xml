@@ -15,4 +15,5 @@
     <!-- Needed to be able to sign in -->
     <string name="token">831541832033-guluj37mqme3qgkfsvtgg1hcplp4l8vg.apps.googleusercontent.com</string>
     <string name="login_loading">Loading</string>
+    <string name="title_activity_detail">Map</string>
 </resources>

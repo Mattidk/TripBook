@@ -69,7 +69,6 @@ dependencies {
     compile "com.google.android.gms:play-services-maps:$playServicesVersion"
     compile "com.google.maps.android:android-maps-utils:$mapsUtilsVersion"
 
-    compile 'com.google.code.findbugs:jsr305:3.0.1'
     compile "com.path:android-priority-jobqueue:$jobqueueVersion"
     compile "org.greenrobot:eventbus:$eventbusVersion"
     compile "org.jetbrains.anko:anko-sdk15:$ankoVersion"
@@ -96,6 +95,7 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
+    compile 'com.google.code.findbugs:jsr305:3.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
