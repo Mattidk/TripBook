@@ -12,6 +12,15 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="dk.mathiaspedersen.tripbook.presentation.util.maps.config.GlideConfigurationModule"
+            android:value="GlideModule"/>
+
         <activity
             android:name=".presentation.activity.HostActivity"
             android:label="@string/app_name"

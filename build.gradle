@@ -6,7 +6,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'com.google.gms:google-services:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
@@ -42,5 +42,7 @@ allprojects {
         firebaseVersion = "10.2.0"
         playServicesVersion = "10.2.0"
         leakcanaryVersion = "1.5"
+        glideVersion = "3.7.0"
+        mapsUtilsVersion = "0.5"
     }
 }

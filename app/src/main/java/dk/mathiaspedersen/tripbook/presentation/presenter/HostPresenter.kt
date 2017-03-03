@@ -5,7 +5,6 @@ import dk.mathiaspedersen.tripbook.domain.interactor.ManagerInteractorImpl
 import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutSuccessEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutUnsuccessfulEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FirebaseEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractorExecutor
 import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.view.HostView
