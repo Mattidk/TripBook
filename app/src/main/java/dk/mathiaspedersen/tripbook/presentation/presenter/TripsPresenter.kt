@@ -2,9 +2,9 @@ package dk.mathiaspedersen.tripbook.presentation.presenter
 
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUnclassifiedTrips
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsSuccessEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsFailureEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
+import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsFailureEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsSuccessEvent
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.greenrobot.eventbus.Subscribe

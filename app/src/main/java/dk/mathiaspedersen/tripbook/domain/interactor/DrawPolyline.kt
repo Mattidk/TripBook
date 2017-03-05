@@ -2,9 +2,9 @@ package dk.mathiaspedersen.tripbook.domain.interactor
 
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.PolyUtil
+import dk.mathiaspedersen.tripbook.domain.interactor.base.standard.Interactor
 import dk.mathiaspedersen.tripbook.domain.interactor.event.DecodePathEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.Event
-import dk.mathiaspedersen.tripbook.domain.interactor.base.standard.Interactor
 
 
 class DrawPolyline : Interactor {

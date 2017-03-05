@@ -36,6 +36,7 @@ android {
 
     lintOptions {
         disable "ResourceType"
+        abortOnError false
     }
 
     dexOptions {

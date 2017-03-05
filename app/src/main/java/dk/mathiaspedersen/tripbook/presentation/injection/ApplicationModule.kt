@@ -5,9 +5,9 @@ import com.path.android.jobqueue.JobManager
 import dagger.Module
 import dagger.Provides
 import dk.mathiaspedersen.tripbook.App
-import dk.mathiaspedersen.tripbook.domain.interactor.base.CustomJobManager
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.BusImpl
+import dk.mathiaspedersen.tripbook.domain.interactor.base.CustomJobManager
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutorImpl
 import dk.mathiaspedersen.tripbook.domain.interactor.base.standard.InteractorExecutor
