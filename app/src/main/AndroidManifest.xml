@@ -23,7 +23,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
         <meta-data
-            android:name="dk.mathiaspedersen.tripbook.presentation.util.maps.config.GlideConfigurationModule"
+            android:name="dk.mathiaspedersen.tripbook.presentation.util.staticmaps.config.GlideConfigurationModule"
             android:value="GlideModule" />
 
         <activity

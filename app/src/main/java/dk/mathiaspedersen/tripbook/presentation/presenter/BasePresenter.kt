@@ -1,6 +1,6 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
-import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
+import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 
 interface BasePresenter<out T> {
 

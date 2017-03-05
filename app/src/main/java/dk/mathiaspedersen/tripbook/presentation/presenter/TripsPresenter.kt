@@ -1,10 +1,10 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
-import dk.mathiaspedersen.tripbook.domain.interactor.ExampleInteractorImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FetchTripsErrorEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.FetchTripsEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutor
+import dk.mathiaspedersen.tripbook.domain.interactor.GetUnclassifiedTrips
+import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
+import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsSuccessEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsFailureEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.greenrobot.eventbus.Subscribe
@@ -12,26 +12,26 @@ import org.greenrobot.eventbus.Subscribe
 class TripsPresenter(
         override val view: TripsView,
         override val bus: Bus,
-        val interactor: ExampleInteractorImpl,
-        val interactorExecutor: TripInteractorExecutor,
+        val interactor: GetUnclassifiedTrips,
+        val interactorExecutor: FirebaseInteractorExecutor,
         val tripDataMapper: TripDetailDataMapper) : BasePresenter<TripsView> {
 
     @Subscribe
-    fun onEvent(event: FetchTripsEvent) {
+    fun onEvent(event: GetTripsFailureEvent) {
         view.populateRecyclerView(tripDataMapper.transformTrips(event.trips))
     }
 
     @Subscribe
-    fun onEvent(event: FetchTripsErrorEvent) {
+    fun onEvent(event: GetTripsSuccessEvent) {
         view.unableToFetchTrips(event.message)
     }
 
     override fun onResume() {
         super.onResume()
-        interactorExecutor.getTrips(interactor)
+        interactorExecutor.execute(interactor)
     }
 
     fun getUnclassifiedTrips() {
-        interactorExecutor.getTrips(interactor)
+        interactorExecutor.execute(interactor)
     }
 }

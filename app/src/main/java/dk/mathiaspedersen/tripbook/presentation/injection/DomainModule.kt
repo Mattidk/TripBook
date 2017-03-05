@@ -2,27 +2,27 @@ package dk.mathiaspedersen.tripbook.presentation.injection
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.ExampleInteractorImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.ExampleJobInteractorImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.ManagerInteractorImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
+import dk.mathiaspedersen.tripbook.domain.interactor.*
+import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.manager.Manager
-import dk.mathiaspedersen.tripbook.domain.repository.ExampleJobRepository
-import dk.mathiaspedersen.tripbook.domain.repository.TripRepository
+import dk.mathiaspedersen.tripbook.domain.repository.FirebaseRepository
 
 @Module
 class DomainModule {
 
     @Provides
-    fun provideManagerInteractor(manager: Manager, bus: Bus)
-            = ManagerInteractorImpl(manager, bus)
+    fun provideSignOut(manager: Manager, bus: Bus)
+            = SignOut(manager, bus)
 
     @Provides
-    fun provideExampleJobInteractor(repository: ExampleJobRepository)
-            = ExampleJobInteractorImpl(repository)
+    fun provideSignInWithGoogle(manager: Manager, bus: Bus)
+            = SignInWithGoogle(manager, bus)
 
     @Provides
-    fun provideExampleInteractor(repository: TripRepository, bus: Bus)
-            = ExampleInteractorImpl(repository, bus)
+    fun provideGetUnclassifiedTrips(repository: FirebaseRepository, bus: Bus)
+            = GetUnclassifiedTrips(repository, bus)
+
+    @Provides
+    fun provideLoadDetailInteractorInteractor() = DrawPolyline()
 
 }

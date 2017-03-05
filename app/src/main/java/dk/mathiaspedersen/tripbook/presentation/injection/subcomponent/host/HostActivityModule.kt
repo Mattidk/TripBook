@@ -2,11 +2,9 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.ExampleInteractorImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.ManagerInteractorImpl
-import dk.mathiaspedersen.tripbook.domain.interactor.event.bus.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractorExecutor
-import dk.mathiaspedersen.tripbook.domain.interactor.trip.TripInteractorExecutor
+import dk.mathiaspedersen.tripbook.domain.interactor.SignOut
+import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
+import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.activity.HostActivity
 import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
@@ -19,15 +17,12 @@ import dk.mathiaspedersen.tripbook.presentation.view.HostView
 class HostActivityModule(activity: HostActivity) : ActivityModule(activity) {
 
     @Provides @ActivityScope
-    fun provideMainView(): HostView = activity as HostView
+    fun provideHostView(): HostView = activity as HostView
 
     @Provides @ActivityScope
-    fun provideMainPresenter(view: HostView, bus: Bus,
-                             exampleInteractor: ExampleInteractorImpl,
-                             interactorExecutor: TripInteractorExecutor,
-                             managerInteractor: ManagerInteractorImpl,
-                             managerInteractorExecutor: ManagerInteractorExecutor) = HostPresenter(view, bus,
-                             exampleInteractor, interactorExecutor, managerInteractor, managerInteractorExecutor)
+    fun provideHostPresenter(view: HostView, bus: Bus, interactor: SignOut, interactorExecutor:
+                             FirebaseInteractorExecutor) = HostPresenter(view, bus, interactor,
+                             interactorExecutor)
 
     @Provides @ActivityScope
     fun provideTripsFragment() = TripsFragment()

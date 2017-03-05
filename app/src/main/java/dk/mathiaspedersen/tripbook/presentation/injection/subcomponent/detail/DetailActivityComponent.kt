@@ -9,7 +9,5 @@ import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
         DetailActivityModule::class
 ))
 interface DetailActivityComponent {
-
     fun injectTo(activity: DetailActivity)
-
 }

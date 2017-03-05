@@ -9,7 +9,5 @@ import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
         HostActivityModule::class
 ))
 interface HostActivityComponent {
-
     fun injectTo(activity: HostActivity)
-
 }

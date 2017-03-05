@@ -9,7 +9,5 @@ import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
         HistoryFragmentModule::class
 ))
 interface HistoryFragmentComponent {
-
     fun injectTo(fragment: HistoryFragment)
-
 }

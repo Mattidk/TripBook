@@ -1,6 +1,8 @@
 package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
+import android.graphics.Color
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +16,10 @@ import com.bumptech.glide.request.target.Target
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.activity.DetailActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
-import dk.mathiaspedersen.tripbook.presentation.util.maps.map.Map
+import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
+
 
 class TripsListAdapter(var trips: List<TripDetail>)
     : RecyclerView.Adapter<TripsListAdapter.ViewHolder>() {
@@ -37,18 +40,21 @@ class TripsListAdapter(var trips: List<TripDetail>)
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val context: Context, view: View) : RecyclerView.ViewHolder(view), RequestListener<Map, GlideDrawable>, View.OnClickListener {
+    class ViewHolder(val context: Context, view: View) : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
 
         private val progress: ProgressBar = view.find(R.id.progressBar)
         private val image: ImageView = view.find(R.id.map)
-
+        private var model: TripDetail? = null
 
         fun bind(model: TripDetail) {
-            progress.visibility = View.VISIBLE
+            this.model = model
 
+            progress.visibility = View.VISIBLE
             image.setOnClickListener(this)
 
-            Glide.with(itemView.context).load(model.map)
+            val map = createStylizedMap(context, model.map)
+
+            Glide.with(context).load(map)
                     .placeholder(R.color.placeholder_background)
                     .error(R.drawable.frown_cloud)
                     .listener(this)
@@ -57,18 +63,27 @@ class TripsListAdapter(var trips: List<TripDetail>)
 
         override fun onClick(view: View) {
             when (view.id) {
-                R.id.map -> context.startActivity<DetailActivity>()
+                R.id.map -> {
+                    context.startActivity<DetailActivity>("coordinates" to model!!.map)
+                }
             }
         }
 
-        override fun onException(e: Exception?, model: Map, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
+        override fun onException(e: Exception?, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
             progress.visibility = View.GONE
             return false
         }
 
-        override fun onResourceReady(resource: GlideDrawable?, model: Map, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+        override fun onResourceReady(resource: GlideDrawable?, model: StaticMap, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
             progress.visibility = View.GONE
             return false
         }
+
+        fun createStylizedMap(context :Context, path: String): StaticMap {
+            return StaticMap().path(StaticMap.Path.Style.builder().color(Color.BLUE).build(), path)
+                    .style(context.getString(R.string.gowalla))
+        }
     }
 }
+
+

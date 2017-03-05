@@ -1,11 +1,10 @@
 package dk.mathiaspedersen.tripbook.domain.manager
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractor
+import dk.mathiaspedersen.tripbook.domain.interactor.SignInWithGoogle
+import dk.mathiaspedersen.tripbook.domain.interactor.SignOut
 
 interface Manager {
-    fun signInGoogle(callback: ManagerInteractor, googleSignInAccount: GoogleSignInAccount)
-    fun signInEmail()
-    fun signUpEmail()
-    fun signOut(callback: ManagerInteractor)
+    fun signInWithGoogle(callback: SignInWithGoogle, googleSignInAccount: GoogleSignInAccount?)
+    fun signOut(callback: SignOut)
 }

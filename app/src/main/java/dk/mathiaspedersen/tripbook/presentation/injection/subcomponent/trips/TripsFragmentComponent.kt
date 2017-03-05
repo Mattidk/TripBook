@@ -9,7 +9,5 @@ import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
         TripsFragmentModule::class
 ))
 interface TripsFragmentComponent {
-
     fun injectTo(fragment: TripsFragment)
-
 }

@@ -6,33 +6,26 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import dk.mathiaspedersen.tripbook.domain.interactor.manager.ManagerInteractor
+import dk.mathiaspedersen.tripbook.domain.interactor.SignInWithGoogle
+import dk.mathiaspedersen.tripbook.domain.interactor.SignOut
 import dk.mathiaspedersen.tripbook.domain.manager.Manager
 
 
 class ManagerImpl(val auth: FirebaseAuth, val client: GoogleApiClient) : Manager {
 
-    override fun signInGoogle(callback: ManagerInteractor, googleSignInAccount: GoogleSignInAccount) {
+    override fun signInWithGoogle(callback: SignInWithGoogle, googleSignInAccount: GoogleSignInAccount?) {
 
-        val credential = GoogleAuthProvider.getCredential(googleSignInAccount.idToken, null)
+        val credential = GoogleAuthProvider.getCredential(googleSignInAccount?.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
-                callback.googleSignInSuccessful()
+                callback.onSuccess()
             } else {
-                callback.googleSignInUnsuccessful(it.exception.toString())
+                callback.onFailure(it.exception.toString())
             }
         }
     }
 
-    override fun signInEmail() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun signUpEmail() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun signOut(callback: ManagerInteractor) {
+    override fun signOut(callback: SignOut) {
 
         client.registerConnectionCallbacks(object : GoogleApiClient.ConnectionCallbacks {
             override fun onConnected(p0: Bundle?) {
@@ -41,12 +34,12 @@ class ManagerImpl(val auth: FirebaseAuth, val client: GoogleApiClient) : Manager
                     client.disconnect()
                     if (it.isSuccess) {
                         auth.signOut()
-                        callback.signOutSuccessful()
+                        callback.onSuccess()
                     }
                 }
             }
             override fun onConnectionSuspended(p0: Int) {
-                callback.signOutUnsuccessful("")
+                callback.onFailure("")
             }
         })
         client.connect()
