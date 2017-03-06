@@ -11,10 +11,14 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.bumptech.glide.Glide
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.domain.entity.Trip
+import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
 import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -22,6 +26,7 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.Host
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.HostView
 import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.find
 import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
@@ -65,6 +70,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     override fun onResume() {
         super.onResume()
         presenter.onResume()
+        presenter.getUserProfile()
     }
 
     override fun onPause() {
@@ -102,10 +108,6 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         }
     }
 
-    override fun example(response: List<Trip>) {
-        // Temporarily empty
-    }
-
     override fun signOutSuccessful() {
         startActivity(intentFor<LoginActivity>().clearTop())
         finish()
@@ -113,6 +115,21 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun signOutUnsuccessful() {
         throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onGetProfileSuccess(user: UserDetail) {
+        val view = navigationView.getHeaderView(0)
+        val photo = view.find<ImageView>(R.id.iv_photo)
+        val name = view.find<TextView>(R.id.tv_name)
+        val email = view.find<TextView>(R.id.tv_email)
+
+        Glide.with(this).load(user.photo).fitCenter().crossFade().into(photo)
+        name.text = user.name
+        email.text = user.email
+    }
+
+    override fun onGetProfileFailure(message: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     fun navigateTo(fragment: Fragment) {

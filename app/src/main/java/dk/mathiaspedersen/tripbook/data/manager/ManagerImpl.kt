@@ -6,12 +6,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import dk.mathiaspedersen.tripbook.data.entity.UserEntity
+import dk.mathiaspedersen.tripbook.data.entity.mapper.UserMapper
+import dk.mathiaspedersen.tripbook.domain.interactor.GetUserProfile
 import dk.mathiaspedersen.tripbook.domain.interactor.SignInWithGoogle
 import dk.mathiaspedersen.tripbook.domain.interactor.SignOut
 import dk.mathiaspedersen.tripbook.domain.manager.Manager
 
 
-class ManagerImpl(val auth: FirebaseAuth, val client: GoogleApiClient) : Manager {
+class ManagerImpl(val auth: FirebaseAuth, val userMapper: UserMapper, val client: GoogleApiClient) : Manager {
+
+    override fun getUserProfile(callback: GetUserProfile) {
+        val user = auth.currentUser
+        if (user != null) {
+            val name = user.displayName
+            val photo = user.photoUrl
+            val email = user.email
+            callback.onSuccess(userMapper.transformUser(UserEntity(name, photo, email)))
+        } else {
+            callback.onFailure("User was null")
+        }
+    }
 
     override fun signInWithGoogle(callback: SignInWithGoogle, googleSignInAccount: GoogleSignInAccount?) {
 
@@ -38,6 +53,7 @@ class ManagerImpl(val auth: FirebaseAuth, val client: GoogleApiClient) : Manager
                     }
                 }
             }
+
             override fun onConnectionSuspended(p0: Int) {
                 callback.onFailure("")
             }

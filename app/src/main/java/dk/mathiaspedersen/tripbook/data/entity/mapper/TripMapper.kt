@@ -8,5 +8,4 @@ class TripMapper {
     fun transformTrips(trips: List<TripEntity>): List<Trip> {
         return trips.map { Trip(it.map) }
     }
-
 }

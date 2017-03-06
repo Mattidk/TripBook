@@ -1,9 +1,11 @@
 package dk.mathiaspedersen.tripbook.presentation.view
 
-import dk.mathiaspedersen.tripbook.domain.entity.Trip
+import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
 
 interface HostView : BaseView {
-    fun example(response: List<Trip>)
     fun signOutSuccessful()
     fun signOutUnsuccessful()
+
+    fun onGetProfileSuccess(user: UserDetail)
+    fun onGetProfileFailure(message: String)
 }
