@@ -36,7 +36,11 @@ android {
 
     lintOptions {
         disable "ResourceType"
+        ignoreWarnings true
         abortOnError false
+        checkAllWarnings false
+        ignoreWarnings true
+        quiet true
     }
 
     dexOptions {
@@ -58,18 +62,16 @@ dependencies {
     compile "com.android.support:palette-v7:$supportVersion"
     compile "com.android.support:design:$supportVersion"
     compile "com.android.support:support-v4:$supportVersion"
-
     compile "com.google.firebase:firebase-core:$firebaseVersion"
     compile "com.google.firebase:firebase-database:$firebaseVersion"
 //    compile "com.google.firebase:firebase-crash:$firebaseVersion"
     compile "com.google.firebase:firebase-auth:$firebaseVersion"
     compile "com.google.firebase:firebase-config:$firebaseVersion"
     compile "com.google.firebase:firebase-invites:$firebaseVersion"
-
     compile "com.google.android.gms:play-services-auth:$playServicesVersion"
     compile "com.google.android.gms:play-services-maps:$playServicesVersion"
     compile "com.google.maps.android:android-maps-utils:$mapsUtilsVersion"
-
+    compile "com.afollestad.material-dialogs:core:$materialDialogVersion"
     compile "com.path:android-priority-jobqueue:$jobqueueVersion"
     compile "org.greenrobot:eventbus:$eventbusVersion"
     compile "org.jetbrains.anko:anko-sdk15:$ankoVersion"
@@ -77,6 +79,7 @@ dependencies {
     compile "com.google.dagger:dagger:$daggerVersion"
     compile "com.jakewharton:butterknife:$butterknifeVersion"
     compile "com.github.bumptech.glide:glide:$glideVersion"
+    compile "com.google.code.findbugs:jsr305:$findBugsVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
 
@@ -96,7 +99,6 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanaryVersion"
-    compile 'com.google.code.findbugs:jsr305:3.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

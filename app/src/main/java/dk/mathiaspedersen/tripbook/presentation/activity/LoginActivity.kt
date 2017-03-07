@@ -96,7 +96,7 @@ class LoginActivity : BaseActivity(), LoginView {
 
     @OnClick(R.id.google_provider)
     fun signIn(view: View) {
-        viewHelper.showProgress(R.string.login_loading)
+        viewHelper.showProgress(R.string.activity_login_dialog_sign_up_loading)
         val signInIntent = Auth.GoogleSignInApi.getSignInIntent(client)
         startActivityForResult(signInIntent, 123)
     }

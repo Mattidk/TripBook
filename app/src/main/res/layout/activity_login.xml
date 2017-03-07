@@ -24,14 +24,14 @@
     <Button
         android:id="@+id/google_provider"
         style="@style/TripBook.Button.AccountChooser.GoogleButton"
-        android:text="@string/sign_up_with_google"
+        android:text="@string/activity_login_button_sign_up_google"
         tools:visibility="visible"
         android:layout_below="@id/logo"/>
 
     <Button
         android:id="@+id/email_provider"
         style="@style/TripBook.Button.AccountChooser.EmailButton"
-        android:text="@string/sign_up_with_google"
+        android:text="@string/activity_login_button_sign_up_google"
         tools:visibility="visible"
         android:layout_below="@+id/google_provider"/>
 

@@ -1,19 +1,33 @@
 <resources>
     <string name="app_name">TripBook</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_main2">Main2Activity</string>
+
+    <!--actionbar menu start-->
+    <string name="action_menu_title_sign_out">Sign Out</string>
+    <!--actionbar menu end-->
+
+    <!--history fragment start-->
+    <string name="fragment_history_title">History fragment</string>
+    <!--history fragment end-->
+
+    <!--login activity start-->
+    <string name="activity_login_button_sign_up_google">Sign Up with Google</string>
+    <string name="activity_login_dialog_sign_up_loading">Loading</string>
+    <!--login activity end-->
+
+    <!--detail activity start-->
+    <string name="title_activity_detail">Map</string>
+    <!--detail activity end-->
+
+    <!--navigation drawer start-->
+    <string name="navigation_drawer_menu_title_trips">Trips</string>
+    <string name="navigation_drawer_menu_title_history">History</string>
+    <string name="navigation_drawer_menu_title_settings">Settings</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="history_fragment">History fragment</string>
-    <string name="trips_fragment">Trips fragment</string>
-    <string name="sign_up_with_facebook">Sign Up with Facebook</string>
-    <string name="sign_up_with_google">Sign Up with Google</string>
+    <!--navigation drawer end-->
 
     <!-- Needed to be able to sign in -->
     <string name="token">831541832033-guluj37mqme3qgkfsvtgg1hcplp4l8vg.apps.googleusercontent.com</string>
-    <string name="login_loading">Loading</string>
-    <string name="title_activity_detail">Map</string>
+
 </resources>

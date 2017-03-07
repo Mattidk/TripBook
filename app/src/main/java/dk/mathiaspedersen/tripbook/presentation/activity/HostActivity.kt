@@ -152,15 +152,15 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_settings -> presenter.signOut()
+            R.id.action_menu_sign_out -> presenter.signOut()
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_camera -> navigateTo(trips)
-            R.id.nav_gallery -> navigateTo(history)
+            R.id.nav_trips -> navigateTo(trips)
+            R.id.nav_history -> navigateTo(history)
         }
         drawer.closeDrawer(GravityCompat.START)
         return true
