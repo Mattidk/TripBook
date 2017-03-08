@@ -7,8 +7,12 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.H
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import javax.inject.Singleton
@@ -28,4 +32,6 @@ interface ApplicationComponent {
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
     fun plus(module: HistoryFragmentModule): HistoryFragmentComponent
     fun plus(module: DetailActivityModule): DetailActivityComponent
+    fun plus(module: HostSettingsActivityModule): HostSettingsActivityComponent
+    fun plus(module: SettingsFragmentModule): SettingsFragmentComponent
 }

@@ -17,7 +17,6 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import dk.mathiaspedersen.tripbook.R
-import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
 import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
@@ -28,6 +27,7 @@ import dk.mathiaspedersen.tripbook.presentation.view.HostView
 import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.find
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 
@@ -161,6 +161,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         when (item.itemId) {
             R.id.nav_trips -> navigateTo(trips)
             R.id.nav_history -> navigateTo(history)
+            R.id.nav_settings -> startActivity<HostSettingsActivity>()
         }
         drawer.closeDrawer(GravityCompat.START)
         return true

@@ -15,17 +15,20 @@
     <!--login activity end-->
 
     <!--detail activity start-->
-    <string name="title_activity_detail">Map</string>
+    <string name="activity_detail_title">Map</string>
     <!--detail activity end-->
 
     <!--navigation drawer start-->
     <string name="navigation_drawer_menu_title_trips">Trips</string>
     <string name="navigation_drawer_menu_title_history">History</string>
     <string name="navigation_drawer_menu_title_settings">Settings</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!--navigation drawer end-->
+
+    <!--settings activity start-->
+    <string name="activity_settings_title">Settings</string>
+    <!--settings activity end-->
 
     <!-- Needed to be able to sign in -->
     <string name="token">831541832033-guluj37mqme3qgkfsvtgg1hcplp4l8vg.apps.googleusercontent.com</string>

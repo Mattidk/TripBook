@@ -44,7 +44,14 @@
         </activity>
         <activity
             android:name=".presentation.activity.DetailActivity"
-            android:label="@string/title_activity_detail">
+            android:label="@string/activity_detail_title">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="dk.mathiaspedersen.tripbook.presentation.activity.HostActivity" />
+        </activity>
+        <activity
+            android:name=".presentation.activity.HostSettingsActivity"
+            android:label="@string/activity_settings_title">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="dk.mathiaspedersen.tripbook.presentation.activity.HostActivity" />

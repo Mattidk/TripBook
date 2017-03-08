@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="pref_key_account_settings"
+        android:title="Account">
+
+        <Preference
+            android:key="pref_key_edit_account"
+            android:title="Edit account" />
+
+        <Preference
+            android:key="pref_key_log_out"
+            android:title="Log out" />
+
+        <Preference
+            android:key="pref_key_premium"
+            android:title="Premium" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_general_settings"
+        android:title="General">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_key_dark_theme"
+            android:summary="Get that whiteness out of my sight!"
+            android:title="Use dark theme" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:dependency="pref_key_dark_theme"
+            android:key="pref_key_true_black"
+            android:summary="When enabled the background will be black, instead of dark gray. This may provide a beter reading experience for OLED screens."
+            android:title="Use true black" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_notifications_settings"
+        android:title="Notifications">
+
+        <Preference
+            android:key="pref_key_push_notifications_settings"
+            android:title="Push notification settings" />
+
+        <RingtonePreference
+            android:key="pref_key_notification_sound"
+            android:summary="Silent"
+            android:title="Notification sound" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_key_flash_led"
+            android:summary="Flash LED when there is a new notification"
+            android:title="LED" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_about_settings"
+        android:title="About">
+
+        <Preference
+            android:key="pref_key_rate_app"
+            android:title="About the app" />
+
+        <Preference
+            android:key="pref_key_rate_app"
+            android:summary="Give 5 stars to TripHero"
+            android:title="Rate the app" />
+
+        <Preference
+            android:key="pref_key_invite_friends"
+            android:summary="Invite your fiends to try the app"
+            android:title="Spread the love" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
