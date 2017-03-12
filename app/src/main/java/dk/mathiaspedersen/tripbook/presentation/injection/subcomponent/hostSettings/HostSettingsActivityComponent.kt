@@ -1,7 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings
 
 import dagger.Subcomponent
-import dk.mathiaspedersen.tripbook.presentation.activity.HostSettingsActivity
+import dk.mathiaspedersen.tripbook.presentation.activity.SettingsActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
 
 @ActivityScope
@@ -9,5 +9,5 @@ import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
         HostSettingsActivityModule::class
 ))
 interface HostSettingsActivityComponent {
-    fun injectTo(activity: HostSettingsActivity)
+    fun injectTo(activity: SettingsActivity)
 }

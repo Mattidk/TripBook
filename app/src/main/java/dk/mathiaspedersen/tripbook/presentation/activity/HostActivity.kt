@@ -2,24 +2,29 @@ package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.app.Fragment
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
+import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
 import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
+import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostPresenter
@@ -33,7 +38,7 @@ import javax.inject.Inject
 
 class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSelectedListener {
 
-    override val layoutResource = R.layout.activity_container
+    override val layoutResource: Int = R.layout.activity_container
 
     @BindView(R.id.drawer_layout)
     lateinit var drawer: DrawerLayout
@@ -56,10 +61,16 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     @Inject
     lateinit var presenter: HostPresenter
 
+    @Inject
+    lateinit var appSetting: AppSettings
+
+    var doubleBackToExitPressedOnce = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
+
         if (savedInstanceState == null) {
             initializeFragment()
         }
@@ -108,15 +119,6 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         }
     }
 
-    override fun signOutSuccessful() {
-        startActivity(intentFor<LoginActivity>().clearTop())
-        finish()
-    }
-
-    override fun signOutUnsuccessful() {
-        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     override fun onGetProfileSuccess(user: UserDetail) {
         val view = navigationView.getHeaderView(0)
         val photo = view.find<ImageView>(R.id.iv_photo)
@@ -141,7 +143,23 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+
+            if (appSetting.preventExit()) {
+                if (doubleBackToExitPressedOnce) {
+                    super.onBackPressed()
+                    return
+                }
+
+                this.doubleBackToExitPressedOnce = true
+                Snackbar.make(fab, "Press back again to close the app", 2000)
+                        .setAction("Action", null).show()
+
+                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+            } else {
+                super.onBackPressed()
+                return
+            }
+
         }
     }
 
@@ -150,18 +168,14 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_menu_sign_out -> presenter.signOut()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_trips -> navigateTo(trips)
             R.id.nav_history -> navigateTo(history)
-            R.id.nav_settings -> startActivity<HostSettingsActivity>()
+            R.id.nav_settings -> {
+                startActivity<SettingsActivity>()
+                finish()
+            }
         }
         drawer.closeDrawer(GravityCompat.START)
         return true

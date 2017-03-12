@@ -10,8 +10,8 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.injection.qualifier.AppQualifier
 
 
 @Module
@@ -30,13 +30,13 @@ class DataModule {
     fun provideRemoteConfig(): FirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
 
     @Provides
-    fun provideGoogleApiClient(app: App): GoogleApiClient {
+    fun provideGoogleApiClient(@AppQualifier context: Context): GoogleApiClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(app.getString(R.string.token))
+                .requestIdToken(context.getString(R.string.token))
                 .requestEmail()
                 .build()
 
-        return GoogleApiClient.Builder(app)
+        return GoogleApiClient.Builder(context)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build()
     }

@@ -43,6 +43,61 @@
 
             </FrameLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?tripSubHeader"
+                android:padding="16dp">
+
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:tint="?attr/colorControlNormal"
+                    android:src="@drawable/ic_delete_black_24dp" />
+
+                <TextView
+                    android:id="@+id/miles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/delete"
+                    android:layout_centerVertical="true"
+                    android:textColor="?attr/colorControlNormal"
+                    android:paddingRight="16dp"
+                    android:text="27.3" />
+
+
+                <ImageView
+                    android:id="@+id/road"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/miles"
+                    android:paddingRight="8dp"
+                    android:tint="?attr/colorControlNormal"
+                    android:src="@drawable/ic_menu_trips" />
+
+                <TextView
+                    android:id="@+id/value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/road"
+                    android:textColor="?attr/colorControlNormal"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="16dp"
+                    android:text="13.3" />
+
+
+                <ImageView
+                    android:id="@+id/money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:tint="?attr/colorControlNormal"
+                    android:layout_toLeftOf="@id/value"
+                    android:paddingRight="0dp"
+                    android:src="@drawable/ic_attach_money_black_24dp" />
+
+            </RelativeLayout>
             <!-- Put description here -->
 
         </LinearLayout>

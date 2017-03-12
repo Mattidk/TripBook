@@ -7,7 +7,9 @@ import dagger.Provides
 import dk.mathiaspedersen.tripbook.presentation.helper.DialogHelper
 import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelperImpl
+import dk.mathiaspedersen.tripbook.presentation.injection.qualifier.AppQualifier
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
+import javax.inject.Singleton
 
 @Module
 abstract class FragmentModule(protected val fragment: Fragment) {
@@ -23,5 +25,4 @@ abstract class FragmentModule(protected val fragment: Fragment) {
 
     @Provides @ActivityScope
     fun provideHelpview(context: Context, helper: DialogHelper): ViewHelper = ViewHelperImpl(context, helper)
-
 }

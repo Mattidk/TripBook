@@ -3,6 +3,7 @@ package dk.mathiaspedersen.tripbook.presentation.activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -13,6 +14,7 @@ import butterknife.OnClick
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
+import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -25,7 +27,7 @@ import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginView {
 
-    override val layoutResource = R.layout.activity_login
+    override val layoutResource: Int = R.layout.activity_login
 
     @BindView(R.id.activity_login)
     lateinit var rootview: RelativeLayout
@@ -103,7 +105,7 @@ class LoginActivity : BaseActivity(), LoginView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode === 123) {
+        if (requestCode == 123) {
             val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
             if (result.isSuccess) {
                 val account = result.signInAccount

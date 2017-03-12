@@ -44,14 +44,16 @@
         </activity>
         <activity
             android:name=".presentation.activity.DetailActivity"
-            android:label="@string/activity_detail_title">
+            android:label="@string/activity_detail_title"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="dk.mathiaspedersen.tripbook.presentation.activity.HostActivity" />
         </activity>
         <activity
-            android:name=".presentation.activity.HostSettingsActivity"
-            android:label="@string/activity_settings_title">
+            android:name=".presentation.activity.SettingsActivity"
+            android:label="@string/activity_settings_title"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="dk.mathiaspedersen.tripbook.presentation.activity.HostActivity" />

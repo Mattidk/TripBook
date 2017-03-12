@@ -26,9 +26,9 @@ class HostActivityModule(activity: HostActivity) : ActivityModule(activity) {
     fun provideUserDataMapper() = UserDetailDataMapper()
 
     @Provides @ActivityScope
-    fun provideHostPresenter(view: HostView, bus: Bus, interactor: SignOut, getUserInteractor: GetUserProfile, interactorExecutor:
+    fun provideHostPresenter(view: HostView, bus: Bus, getUserInteractor: GetUserProfile, interactorExecutor:
                              FirebaseInteractorExecutor, userDetailDataMapper: UserDetailDataMapper)
-            = HostPresenter(view, bus, interactor, getUserInteractor, interactorExecutor, userDetailDataMapper)
+                            = HostPresenter(view, bus, getUserInteractor, interactorExecutor, userDetailDataMapper)
 
     @Provides @ActivityScope
     fun provideTripsFragment() = TripsFragment()

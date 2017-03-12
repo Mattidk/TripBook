@@ -11,7 +11,7 @@ import android.widget.ProgressBar
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
-import dk.mathiaspedersen.tripbook.presentation.custom.TripsListAdapter
+import dk.mathiaspedersen.tripbook.presentation.custom.TripAdapter
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
@@ -24,6 +24,9 @@ class TripsFragment : BaseFragment(), TripsView {
     @Inject
     lateinit var presenter: TripsPresenter
 
+    @Inject
+    lateinit var mAdapter: TripAdapter
+
     @BindView(R.id.loading_spinner)
     lateinit var spinner: ProgressBar
 
@@ -32,8 +35,6 @@ class TripsFragment : BaseFragment(), TripsView {
 
     @BindView(R.id.refresh_container)
     lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
-
-    val mAdapter = TripsListAdapter(listOf<TripDetail>())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

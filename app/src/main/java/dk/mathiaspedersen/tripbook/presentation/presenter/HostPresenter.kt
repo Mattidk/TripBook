@@ -15,7 +15,6 @@ import org.greenrobot.eventbus.Subscribe
 class HostPresenter(
         override val view: HostView,
         override val bus: Bus,
-        val interactor: SignOut,
         val getUserInteractor: GetUserProfile,
         val interactorExecutor: FirebaseInteractorExecutor,
         val userDetailDataMapper: UserDetailDataMapper) : BasePresenter<HostView> {
@@ -28,20 +27,6 @@ class HostPresenter(
     @Subscribe
     fun onEvent(event: GetProfileFailureEvent) {
         view.onGetProfileFailure(event.message)
-    }
-
-    @Subscribe
-    fun onEvent(event: SignOutSuccessEvent) {
-        view.signOutSuccessful()
-    }
-
-    @Subscribe
-    fun onEvent(event: SignOutFailureEvent) {
-        view.signOutUnsuccessful()
-    }
-
-    fun signOut() {
-        interactorExecutor.execute(interactor)
     }
 
     fun getUserProfile() {
