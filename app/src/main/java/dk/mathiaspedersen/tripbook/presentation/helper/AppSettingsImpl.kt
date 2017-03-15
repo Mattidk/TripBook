@@ -10,12 +10,25 @@ import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
 
 class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) : AppSettings {
 
+    override fun isThemeDark(): Boolean {
+        return preferences.getBoolean("pref_key_dark_theme", false)
+    }
+
+    override fun getTranslucentTheme(): Int {
+        val setting = preferences.getBoolean("pref_key_dark_theme", false)
+
+        when (setting) {
+            true -> return R.style.KnightRider_Translucent
+            false -> return R.style.AppTheme_Translucent
+        }
+    }
+
     override fun getStaticMapStyle(): String {
         val setting = preferences.getBoolean("pref_key_dark_theme", false)
 
         when (setting) {
             true -> return context.getString(R.string.cobolt)
-            false -> return context.getString(R.string.gowalla)
+            false -> return context.getString(R.string.uber)
         }
     }
 
@@ -33,7 +46,7 @@ class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) 
 
         when (setting) {
             true -> return R.raw.cobolt
-            false -> return R.raw.gowalla
+            false -> return R.raw.uber
         }
     }
 

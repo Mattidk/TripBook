@@ -15,6 +15,9 @@
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
 
+    <color name="colorWindowBackground">#FAFAFA</color>
+    <color name="colorBackground">#F5F5F5</color>
+
     <!-- Dark Theme -->
     <color name="darkColorPrimary">#607D8B</color>
     <color name="darkColorPrimaryDark">#455A64</color>

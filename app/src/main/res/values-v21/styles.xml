@@ -1,11 +1,38 @@
 <resources>
 
-    <style name="AppTheme.NoActionBar">
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="tripSubHeader">@style/TripSubHeader</item>
+        <item name="drawerItem">@drawable/drawer_item</item>
+        <item name="navigateUpDrawable">@drawable/ic_arrow_navigate_up_black</item>
+    </style>
+
+    <style name="AppTheme.Translucent">
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <!-- Knight Rider theme. -->
+    <style name="KnightRider" parent="AppTheme">
+        <item name="colorPrimary">@color/knight_primary</item>
+        <item name="colorPrimaryDark">@color/knight_primary_dark</item>
+        <item name="colorAccent">@color/knight_accent</item>
+        <item name="android:textColorPrimary">@color/knight_primary_text</item>
+        <item name="android:textColorSecondary">@color/knight_secondary_text</item>
+        <item name="android:windowBackground">@color/knight_background</item>
+        <item name="android:colorBackground">@color/knight_primary</item>
+        <item name="tripSubHeader">@style/TripSubHeaderDark</item>
+        <item name="drawerItem">@drawable/drawer_item_dark</item>
+        <item name="navigateUpDrawable">@drawable/ic_arrow_navigate_up_white</item>
+    </style>
+
+    <style name="KnightRider.Translucent">
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
 </resources>
