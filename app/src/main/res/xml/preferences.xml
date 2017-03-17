@@ -45,6 +45,18 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="pref_key_general_classification"
+        android:title="Classification">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="pref_key_vibrate_on_classification"
+            android:summary="When enabled the phone will vibrate when you classify a trip."
+            android:title="Vibrate on classification" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="pref_key_notifications_settings"
         android:title="Notifications">
 

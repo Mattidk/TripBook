@@ -3,7 +3,6 @@ package dk.mathiaspedersen.tripbook.presentation.activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -14,7 +13,6 @@ import butterknife.OnClick
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
-import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent

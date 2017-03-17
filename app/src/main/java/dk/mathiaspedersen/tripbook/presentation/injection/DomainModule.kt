@@ -27,6 +27,14 @@ class DomainModule {
             = GetUnclassifiedTrips(repository, bus)
 
     @Provides
+    fun provideClassifyPersonalTrip(repository: FirebaseRepository)
+            = ClassifyPersonalTrip(repository)
+
+    @Provides
+    fun provideClassifyBusinessTrip(repository: FirebaseRepository)
+            = ClassifyBusinessTrip(repository)
+
+    @Provides
     fun provideLoadDetailInteractorInteractor() = DrawPolyline()
 
 }

@@ -6,8 +6,8 @@ import android.preference.PreferenceFragment
 import com.afollestad.materialdialogs.MaterialDialog
 import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
-import dk.mathiaspedersen.tripbook.presentation.activity.SettingsActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.LoginActivity
+import dk.mathiaspedersen.tripbook.presentation.activity.SettingsActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.SettingsPresenter

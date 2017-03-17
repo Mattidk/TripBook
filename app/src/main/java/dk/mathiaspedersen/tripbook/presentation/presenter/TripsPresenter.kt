@@ -17,12 +17,12 @@ class TripsPresenter(
         val tripDataMapper: TripDetailDataMapper) : BasePresenter<TripsView> {
 
     @Subscribe
-    fun onEvent(event: GetTripsFailureEvent) {
+    fun onEvent(event: GetTripsSuccessEvent) {
         view.populateRecyclerView(tripDataMapper.transformTrips(event.trips))
     }
 
     @Subscribe
-    fun onEvent(event: GetTripsSuccessEvent) {
+    fun onEvent(event: GetTripsFailureEvent) {
         view.unableToFetchTrips(event.message)
     }
 

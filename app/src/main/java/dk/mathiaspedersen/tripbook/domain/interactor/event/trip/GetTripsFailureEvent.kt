@@ -1,6 +1,5 @@
 package dk.mathiaspedersen.tripbook.domain.interactor.event.trip
 
-import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.domain.interactor.event.Event
 
-data class GetTripsFailureEvent(val trips: List<Trip>) : Event
+data class GetTripsFailureEvent(val message: String) : Event

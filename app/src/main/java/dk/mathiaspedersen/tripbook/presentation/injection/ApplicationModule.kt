@@ -14,9 +14,9 @@ import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInter
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutorImpl
 import dk.mathiaspedersen.tripbook.domain.interactor.base.standard.InteractorExecutor
 import dk.mathiaspedersen.tripbook.domain.interactor.base.standard.InteractorExecutorImpl
-import dk.mathiaspedersen.tripbook.presentation.helper.*
+import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
+import dk.mathiaspedersen.tripbook.presentation.helper.AppSettingsImpl
 import dk.mathiaspedersen.tripbook.presentation.injection.qualifier.AppQualifier
-import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
 import javax.inject.Singleton
 
 

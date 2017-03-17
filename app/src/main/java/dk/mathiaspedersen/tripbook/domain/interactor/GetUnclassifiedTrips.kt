@@ -14,10 +14,10 @@ class GetUnclassifiedTrips(val repository: FirebaseRepository, val bus: Bus): Fi
     }
 
     fun onSuccess(response: List<Trip>) {
-        bus.post(GetTripsFailureEvent(response))
+        bus.post(GetTripsSuccessEvent(response))
     }
 
     fun onFailure(message: String) {
-        bus.post(GetTripsSuccessEvent(message))
+        bus.post(GetTripsFailureEvent(message))
     }
 }

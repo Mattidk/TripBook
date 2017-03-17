@@ -1,6 +1,5 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
-import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -21,7 +20,6 @@ import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.DetailPresenter
-import dk.mathiaspedersen.tripbook.presentation.util.supportsMarshmallow
 import dk.mathiaspedersen.tripbook.presentation.view.DetailView
 import org.jetbrains.anko.dip
 import javax.inject.Inject

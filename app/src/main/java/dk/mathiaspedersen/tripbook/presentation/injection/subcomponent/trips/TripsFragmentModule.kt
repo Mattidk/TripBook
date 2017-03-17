@@ -1,11 +1,15 @@
 package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyBusinessTrip
+import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyPersonalTrip
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUnclassifiedTrips
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.custom.TripAdapter
+import dk.mathiaspedersen.tripbook.presentation.custom.ViewHolderFactory
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
@@ -24,7 +28,17 @@ class TripsFragmentModule(fragment: TripsFragment) : FragmentModule(fragment) {
     fun provideTripDataMapper() = TripDetailDataMapper()
 
     @Provides
-    fun provideTripAdapter(settings: AppSettings) = TripAdapter(listOf<TripDetail>(), settings)
+    fun provideViewHolderFactory(context: Context, settings: AppSettings)
+            = ViewHolderFactory(context, settings)
+
+    @Provides
+    fun provideTripAdapter(context: Context, settings: AppSettings,
+                           viewHolderFactory: ViewHolderFactory,
+                           classifyPersonalInteractor: ClassifyPersonalTrip,
+                           classifyBusinessInteractor: ClassifyBusinessTrip,
+                           interactorExecutor: FirebaseInteractorExecutor)
+            = TripAdapter(arrayListOf<TripDetail>(), context, settings, viewHolderFactory,
+                          classifyPersonalInteractor, classifyBusinessInteractor, interactorExecutor)
 
     @Provides
     fun provideTripsPresenter(view: TripsView, bus: Bus, interactor: GetUnclassifiedTrips,

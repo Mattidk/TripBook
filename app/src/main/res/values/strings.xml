@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">TripBook</string>
 
+    <!--host activity start-->
+    <string name="activity_host_snackbar_prevent_close">Press back again to close the app</string>
+    <!--host activity end-->
+
     <!--actionbar menu start-->
     <string name="action_menu_title_sign_out">Sign Out</string>
     <!--actionbar menu end-->

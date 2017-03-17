@@ -3,7 +3,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host
 import dagger.Module
 import dagger.Provides
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUserProfile
-import dk.mathiaspedersen.tripbook.domain.interactor.SignOut
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.activity.HostActivity

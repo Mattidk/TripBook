@@ -1,31 +1,37 @@
 package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
+import android.os.Vibrator
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.GlideDrawable
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import dk.mathiaspedersen.tripbook.R
-import dk.mathiaspedersen.tripbook.presentation.activity.DetailActivity
+import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyBusinessTrip
+import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyPersonalTrip
+import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
-import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
-import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
+import java.util.*
 
 
-class TripAdapter(var trips: List<TripDetail>, val settings: AppSettings)
-    : RecyclerView.Adapter<TripAdapter.ViewHolder>() {
+class TripAdapter(var trips: ArrayList<TripDetail>,
+                  val context: Context, val settings: AppSettings,
+                  val viewHolderFactory: ViewHolderFactory,
+                  val classifyPersonalInteractor: ClassifyPersonalTrip,
+                  val classifyBusinessTrip: ClassifyBusinessTrip,
+                  val interactorExecutor: FirebaseInteractorExecutor)
+    : RecyclerView.Adapter<ViewHolder>(), SwipeHelperAdapter {
+
+    companion object {
+        const val LEFT = 16
+        const val RIGHT = 32
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return TripAdapter.ViewHolder(parent.context, settings, LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_trip, parent, false))
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_trip, parent, false) as ViewGroup
+        return viewHolderFactory.create(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -34,54 +40,31 @@ class TripAdapter(var trips: List<TripDetail>, val settings: AppSettings)
 
     override fun getItemCount(): Int = trips.size
 
-    fun refresh(list: List<TripDetail>) {
+    fun refresh(list: ArrayList<TripDetail>) {
         trips = list
         notifyDataSetChanged()
     }
 
-    class ViewHolder(val context: Context, val settings: AppSettings, val view: View)
-        : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
+    override fun onItemDismiss(position: Int, direction: Int) {
+        trips.removeAt(position)
+        notifyItemRemoved(position)
 
-        private val progress: ProgressBar = view.find(R.id.progressBar)
-        private val image: ImageView = view.find(R.id.map)
-        private var model: TripDetail? = null
-
-        fun bind(model: TripDetail) {
-            this.model = model
-
-            progress.visibility = View.VISIBLE
-            image.setOnClickListener(this)
-
-            val map = produceStaticMap(model.map)
-
-            Glide.with(context).load(map)
-                    .placeholder(R.color.placeholder_background)
-                    .error(R.drawable.frown_cloud)
-                    .listener(this)
-                    .into(image)
-        }
-
-        override fun onClick(view: View) {
-            when (view.id) {
-                R.id.map -> {
-                    context.startActivity<DetailActivity>("coordinates" to model!!.map)
-                }
+        when (direction) {
+            LEFT -> {
+                val classifyPersonalInteractorDetail = classifyPersonalInteractor
+                classifyPersonalInteractorDetail.key = trips[position].key
+                interactorExecutor.execute(classifyPersonalInteractorDetail)
+            }
+            RIGHT -> {
+                val classifyBusinessInteractorDetail = classifyBusinessTrip
+                classifyBusinessInteractorDetail.key = trips[position].key
+                interactorExecutor.execute(classifyBusinessInteractorDetail)
             }
         }
 
-        fun produceStaticMap(path: String): StaticMap {
-            return StaticMap().path(settings.getStaticPolylineStyle(), path)
-                    .style(settings.getStaticMapStyle())
-        }
-
-        override fun onException(e: Exception?, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
-            progress.visibility = View.GONE
-            return false
-        }
-
-        override fun onResourceReady(resource: GlideDrawable?, model: StaticMap, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
-            progress.visibility = View.GONE
-            return false
+        if (settings.vibrateOnClassification()) {
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(50)
         }
     }
 }

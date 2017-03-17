@@ -13,4 +13,5 @@ interface AppSettings {
     fun getStaticMapStyle(): String
     fun getPolylineStyle(path: MutableList<LatLng>): PolylineOptions
     fun getStaticPolylineStyle(): Style
+    fun vibrateOnClassification(): Boolean
 }

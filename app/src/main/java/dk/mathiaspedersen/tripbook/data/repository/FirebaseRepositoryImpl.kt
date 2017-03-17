@@ -1,6 +1,7 @@
 package dk.mathiaspedersen.tripbook.data.repository
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -16,7 +17,6 @@ import dk.mathiaspedersen.tripbook.domain.repository.FirebaseRepository
 
 class FirebaseRepositoryImpl(val context: Context, val database: FirebaseDatabase, val auth: FirebaseAuth,
                              val tripMapper: TripMapper, val bus: Bus) : FirebaseRepository {
-
     override fun getTrips(callback: GetUnclassifiedTrips) {
 
         val user = auth.currentUser?.uid
@@ -29,7 +29,7 @@ class FirebaseRepositoryImpl(val context: Context, val database: FirebaseDatabas
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 callback.onSuccess(tripMapper.transformTrips(dataSnapshot.children.map {
-                    TripEntity(it.getValue(FirebaseTrip::class.java).route)
+                    TripEntity(it.key, it.getValue(FirebaseTrip::class.java).route)
                 }))
             }
 
@@ -37,5 +37,13 @@ class FirebaseRepositoryImpl(val context: Context, val database: FirebaseDatabas
                 callback.onFailure(databaseError.message)
             }
         })
+    }
+
+    override fun classifyPersonalTrip(key: String?) {
+        Log.d("TESTER", "TRIP WITH KEY $key WAS CLASSIFIED AS PERSONAL")
+    }
+
+    override fun classifyBusinessTrip(key: String?) {
+        Log.d("TESTER", "TRIP WITH KEY $key WAS CLASSIFIED AS BUSINESS")
     }
 }

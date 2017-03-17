@@ -9,17 +9,14 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
-import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
 import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
@@ -29,9 +26,7 @@ import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.HostView
-import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.find
-import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
@@ -131,7 +126,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     }
 
     override fun onGetProfileFailure(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented")
     }
 
     fun navigateTo(fragment: Fragment) {
@@ -145,21 +140,17 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         } else {
 
             if (appSetting.preventExit()) {
+
                 if (doubleBackToExitPressedOnce) {
                     super.onBackPressed()
-                    return
                 }
-
-                this.doubleBackToExitPressedOnce = true
-                Snackbar.make(fab, "Press back again to close the app", 2000)
-                        .setAction("Action", null).show()
-
+                doubleBackToExitPressedOnce = true
+                Snackbar.make(fab, getString(R.string.activity_host_snackbar_prevent_close), 2000).show()
                 Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+
             } else {
                 super.onBackPressed()
-                return
             }
-
         }
     }
 

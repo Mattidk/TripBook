@@ -4,20 +4,26 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.custom.SwipeHelperCallback
 import dk.mathiaspedersen.tripbook.presentation.custom.TripAdapter
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
+import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
+import java.util.*
 import javax.inject.Inject
+
 
 class TripsFragment : BaseFragment(), TripsView {
 
@@ -25,7 +31,13 @@ class TripsFragment : BaseFragment(), TripsView {
     lateinit var presenter: TripsPresenter
 
     @Inject
-    lateinit var mAdapter: TripAdapter
+    lateinit var settings: AppSettings
+
+    @Inject
+    lateinit var adapter: TripAdapter
+
+    @BindView(R.id.noItems)
+    lateinit var noItems: RelativeLayout
 
     @BindView(R.id.loading_spinner)
     lateinit var spinner: ProgressBar
@@ -49,10 +61,15 @@ class TripsFragment : BaseFragment(), TripsView {
         return view
     }
 
-    override fun populateRecyclerView(trips: List<TripDetail>) {
+    override fun populateRecyclerView(trips: ArrayList<TripDetail>) {
+        if (trips.isEmpty()) {
+            noItems.visibility = View.VISIBLE
+        }else {
+            noItems.visibility = View.GONE
+        }
         spinner.visibility = View.GONE
         mSwipeRefreshLayout.isRefreshing = false
-        mAdapter.refresh(trips)
+        adapter.refresh(trips)
     }
 
     override fun unableToFetchTrips(message: String) {
@@ -73,6 +90,7 @@ class TripsFragment : BaseFragment(), TripsView {
     fun fetchTrips() {
         if (!mSwipeRefreshLayout.isRefreshing) {
             mSwipeRefreshLayout.isRefreshing = true
+            noItems.visibility = View.GONE
         }
         presenter.getUnclassifiedTrips()
     }
@@ -81,7 +99,11 @@ class TripsFragment : BaseFragment(), TripsView {
         mRecyclerView.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(activity)
         mRecyclerView.layoutManager = mLayoutManager
-        mRecyclerView.adapter = mAdapter
+        mRecyclerView.adapter = adapter
+
+        val callback = SwipeHelperCallback(adapter)
+        val mItemTouchHelper = ItemTouchHelper(callback)
+        mItemTouchHelper.attachToRecyclerView(mRecyclerView)
 
         mSwipeRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,

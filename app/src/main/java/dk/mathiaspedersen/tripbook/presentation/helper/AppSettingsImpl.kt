@@ -3,12 +3,19 @@ package dk.mathiaspedersen.tripbook.presentation.helper
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
+import android.os.Vibrator
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
 
 class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) : AppSettings {
+
+    override fun vibrateOnClassification(): Boolean {
+        val setting = preferences.getBoolean("pref_key_vibrate_on_classification", false)
+        val v = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        return setting and v.hasVibrator()
+    }
 
     override fun isThemeDark(): Boolean {
         return preferences.getBoolean("pref_key_dark_theme", false)
@@ -28,7 +35,7 @@ class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) 
 
         when (setting) {
             true -> return context.getString(R.string.cobolt)
-            false -> return context.getString(R.string.uber)
+            false -> return context.getString(R.string.iovation)
         }
     }
 
@@ -46,7 +53,7 @@ class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) 
 
         when (setting) {
             true -> return R.raw.cobolt
-            false -> return R.raw.uber
+            false -> return R.raw.iovation
         }
     }
 
