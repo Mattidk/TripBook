@@ -3,7 +3,6 @@ package dk.mathiaspedersen.tripbook.presentation.custom
 import android.content.Context
 import android.os.Vibrator
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import dk.mathiaspedersen.tripbook.R
@@ -46,8 +45,6 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
     }
 
     override fun onItemDismiss(position: Int, direction: Int) {
-        trips.removeAt(position)
-        notifyItemRemoved(position)
 
         when (direction) {
             LEFT -> {
@@ -66,6 +63,9 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(50)
         }
+
+        trips.removeAt(position)
+        notifyItemRemoved(position)
     }
 }
 

@@ -1,6 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.os.Bundle
+import android.support.v4.app.NavUtils
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import butterknife.BindView
@@ -11,8 +12,10 @@ import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostSettingsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.HostSettingsView
-import org.jetbrains.anko.startActivity
 import javax.inject.Inject
+import android.content.Intent
+
+
 
 class SettingsActivity : BaseActivity(), HostSettingsView {
 
@@ -51,30 +54,5 @@ class SettingsActivity : BaseActivity(), HostSettingsView {
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(HostSettingsActivityModule(this))
                 .injectTo(this)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        when (item.itemId) {
-            android.R.id.home -> {
-                //todo maybe there is a nother solution to this
-                startActivity<HostActivity>()
-                overridePendingTransition(R.anim.activity_slide_out_right, R.anim.activity_slide_in_left)
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        if (settings.isVisible) {
-            //todo maybe there is a better way to do this.
-            startActivity<HostActivity>()
-            overridePendingTransition(R.anim.activity_slide_in_left, R.anim.activity_slide_out_right)
-            finish()
-        } else {
-            super.onBackPressed()
-        }
     }
 }

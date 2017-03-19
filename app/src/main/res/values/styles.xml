@@ -43,8 +43,8 @@
 
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/activity_slide_in_right</item>
-        <item name="android:activityOpenExitAnimation">@anim/activity_slide_out_left</item>
-        <item name="android:activityCloseEnterAnimation">@anim/activity_slide_in_left</item>
+        <item name="android:activityOpenExitAnimation">@anim/activity_move_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/activity_move_right</item>
         <item name="android:activityCloseExitAnimation">@anim/activity_slide_out_right</item>
     </style>
 

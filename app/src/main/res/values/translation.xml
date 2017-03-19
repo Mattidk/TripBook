@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- The duration (in milliseconds) of a very short animation. -->
+    <integer name="veryShortAnimTime">100</integer>
+
+    <!-- The duration (in milliseconds) of a short animation. -->
+    <integer name="shortAnimTime">150</integer>
+
+    <!-- The duration (in milliseconds) of a medium-length animation. -->
+    <integer name="mediumAnimTime">400</integer>
+
+    <!-- The duration (in milliseconds) of a long animation. -->
+    <integer name="longAnimTime">500</integer>
+
+</resources>

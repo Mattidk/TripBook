@@ -1,6 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
@@ -27,7 +28,7 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.Host
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.HostView
 import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.startActivityForResult
 import javax.inject.Inject
 
 
@@ -60,6 +61,11 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     lateinit var appSetting: AppSettings
 
     var doubleBackToExitPressedOnce = false
+
+    companion object {
+        const val SNACKBARDURATION = 2000
+        const val SETTINGS_REQUEST = 100
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -145,12 +151,19 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
                     super.onBackPressed()
                 }
                 doubleBackToExitPressedOnce = true
-                Snackbar.make(fab, getString(R.string.activity_host_snackbar_prevent_close), 2000).show()
-                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+                Snackbar.make(fab, getString(R.string.activity_host_snackbar_prevent_close), SNACKBARDURATION).show()
+                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, SNACKBARDURATION.toLong())
 
             } else {
                 super.onBackPressed()
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SETTINGS_REQUEST) {
+            this.recreate()
         }
     }
 
@@ -161,14 +174,18 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_trips -> navigateTo(trips)
-            R.id.nav_history -> navigateTo(history)
+            R.id.nav_trips -> {
+                navigateTo(trips)
+                drawer.closeDrawer(GravityCompat.START)
+            }
+            R.id.nav_history -> {
+                navigateTo(history)
+                drawer.closeDrawer(GravityCompat.START)
+            }
             R.id.nav_settings -> {
-                startActivity<SettingsActivity>()
-                finish()
+                startActivityForResult<SettingsActivity>(SETTINGS_REQUEST)
             }
         }
-        drawer.closeDrawer(GravityCompat.START)
         return true
     }
 }
