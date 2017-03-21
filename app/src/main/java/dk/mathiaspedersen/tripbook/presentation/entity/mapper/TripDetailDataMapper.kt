@@ -6,7 +6,11 @@ import java.util.*
 
 class TripDetailDataMapper {
 
-    fun transformTrips(trips: List<Trip>): ArrayList<TripDetail> {
-        return ArrayList(trips.map { TripDetail(it.key, it.map) })
+    fun transform(trips: List<Trip>): List<TripDetail> {
+        return trips.map { TripDetail(it.key, it.map) } as ArrayList
+    }
+
+    fun transform(trips: ArrayList<TripDetail>): List<Trip> {
+        return trips.map { Trip(it.key, it.map) } as ArrayList
     }
 }

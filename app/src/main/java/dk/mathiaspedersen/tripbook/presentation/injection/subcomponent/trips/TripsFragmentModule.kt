@@ -36,9 +36,10 @@ class TripsFragmentModule(fragment: TripsFragment) : FragmentModule(fragment) {
                            viewHolderFactory: ViewHolderFactory,
                            classifyPersonalInteractor: ClassifyPersonalTrip,
                            classifyBusinessInteractor: ClassifyBusinessTrip,
-                           interactorExecutor: FirebaseInteractorExecutor)
+                           interactorExecutor: FirebaseInteractorExecutor,
+                           tripDetailDataMapper: TripDetailDataMapper)
             = TripAdapter(arrayListOf<TripDetail>(), context, settings, viewHolderFactory,
-                          classifyPersonalInteractor, classifyBusinessInteractor, interactorExecutor)
+                          classifyPersonalInteractor, classifyBusinessInteractor, interactorExecutor, tripDetailDataMapper)
 
     @Provides
     fun provideTripsPresenter(view: TripsView, bus: Bus, interactor: GetUnclassifiedTrips,

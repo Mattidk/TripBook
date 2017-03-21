@@ -2,6 +2,7 @@ package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
 import android.os.Vibrator
+import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,17 +11,23 @@ import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyBusinessTrip
 import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyPersonalTrip
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
+import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
+import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
 import java.util.*
-
 
 class TripAdapter(var trips: ArrayList<TripDetail>,
                   val context: Context, val settings: AppSettings,
                   val viewHolderFactory: ViewHolderFactory,
-                  val classifyPersonalInteractor: ClassifyPersonalTrip,
+                  val classifyPersonalTrip: ClassifyPersonalTrip,
                   val classifyBusinessTrip: ClassifyBusinessTrip,
-                  val interactorExecutor: FirebaseInteractorExecutor)
+                  val interactorExecutor: FirebaseInteractorExecutor,
+                  val tripDetailDataMapper: TripDetailDataMapper)
     : RecyclerView.Adapter<ViewHolder>(), SwipeHelperAdapter {
+
+    val personalTripsToRemove = arrayListOf<TripDetail>()
+    val businessTripsToRemove = arrayListOf<TripDetail>()
 
     companion object {
         const val LEFT = 16
@@ -44,18 +51,36 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
         notifyDataSetChanged()
     }
 
-    override fun onItemDismiss(position: Int, direction: Int) {
+    override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, direction: Int, recyclerView: RecyclerView) {
+        val adapterPosition = viewHolder.adapterPosition
+        val trip = trips[viewHolder.adapterPosition]
 
         when (direction) {
             LEFT -> {
-                val classifyPersonalInteractorDetail = classifyPersonalInteractor
-                classifyPersonalInteractorDetail.key = trips[position].key
-                interactorExecutor.execute(classifyPersonalInteractorDetail)
+                Snackbar.make(recyclerView, context.getString(R.string.adapter_trip_snackbar_undo_personal), Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.adapter_trip_snackbar_undo, {
+                            recyclerView.itemAnimator = SlideInLeftAnimator()
+                            if (adapterPosition == 0) {recyclerView.scrollToPosition(adapterPosition)}
+                            trips.add(adapterPosition, trip)
+                            notifyItemInserted(adapterPosition)
+                            personalTripsToRemove.remove(trip)
+                        }).show()
+                trips.removeAt(adapterPosition)
+                notifyItemRemoved(adapterPosition)
+                personalTripsToRemove.add(trip)
             }
             RIGHT -> {
-                val classifyBusinessInteractorDetail = classifyBusinessTrip
-                classifyBusinessInteractorDetail.key = trips[position].key
-                interactorExecutor.execute(classifyBusinessInteractorDetail)
+                Snackbar.make(recyclerView, context.getString(R.string.adapter_trip_snackbar_undo_business), Snackbar.LENGTH_SHORT)
+                        .setAction(R.string.adapter_trip_snackbar_undo, {
+                            recyclerView.itemAnimator = SlideInRightAnimator()
+                            if (adapterPosition == 0) recyclerView.scrollToPosition(adapterPosition)
+                            trips.add(adapterPosition, trip)
+                            notifyItemInserted(adapterPosition)
+                            businessTripsToRemove.remove(trip)
+                        }).show()
+                trips.removeAt(adapterPosition)
+                notifyItemRemoved(adapterPosition)
+                businessTripsToRemove.add(trip)
             }
         }
 
@@ -63,9 +88,18 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(50)
         }
+    }
 
-        trips.removeAt(position)
-        notifyItemRemoved(position)
+    fun saveChanges() {
+        val classifyPersonalTripDetail = classifyPersonalTrip
+        classifyPersonalTripDetail.list = tripDetailDataMapper.transform(personalTripsToRemove)
+        interactorExecutor.execute(classifyPersonalTripDetail)
+        personalTripsToRemove.clear()
+
+        val classifyBusinessTripDetail = classifyBusinessTrip
+        classifyBusinessTripDetail.list = tripDetailDataMapper.transform(businessTripsToRemove)
+        interactorExecutor.execute(classifyBusinessTripDetail)
+        businessTripsToRemove.clear()
     }
 }
 

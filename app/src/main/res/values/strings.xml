@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">TripBook</string>
 
+    <!--trips adapter start-->
+    <string name="adapter_trip_snackbar_undo_personal">Trip was classified as personal</string>
+    <string name="adapter_trip_snackbar_undo_business">Trip was classified as business</string>
+    <string name="adapter_trip_snackbar_undo">UNDO</string>
+    <!--trips adapter end-->
+
     <!--host activity start-->
     <string name="activity_host_snackbar_prevent_close">Press back again to close the app</string>
     <!--host activity end-->

@@ -22,7 +22,7 @@ class ManagerImpl(val auth: FirebaseAuth, val userMapper: UserMapper, val client
             val name = user.displayName
             val photo = user.photoUrl
             val email = user.email
-            callback.onSuccess(userMapper.transformUser(UserEntity(name, photo, email)))
+            callback.onSuccess(userMapper.transform(UserEntity(name, photo, email)))
         } else {
             callback.onFailure("User was null")
         }

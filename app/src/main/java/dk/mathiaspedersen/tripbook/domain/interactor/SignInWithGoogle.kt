@@ -12,6 +12,7 @@ class SignInWithGoogle(val manager: Manager, val bus: Bus) : FirebaseInteractor 
     var account: GoogleSignInAccount? = null
 
     override fun invoke() {
+        val account = this.account ?: throw IllegalStateException("Account can´t be null")
         manager.signInWithGoogle(this, account)
     }
 

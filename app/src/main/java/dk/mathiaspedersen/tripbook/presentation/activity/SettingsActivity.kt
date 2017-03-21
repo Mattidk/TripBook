@@ -1,9 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.os.Bundle
-import android.support.v4.app.NavUtils
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
@@ -13,8 +11,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSetti
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostSettingsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.HostSettingsView
 import javax.inject.Inject
-import android.content.Intent
-
 
 
 class SettingsActivity : BaseActivity(), HostSettingsView {

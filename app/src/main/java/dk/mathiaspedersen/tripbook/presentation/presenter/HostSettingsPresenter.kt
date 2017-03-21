@@ -11,7 +11,7 @@ class HostSettingsPresenter(
 
     @Subscribe
     fun onEvent(event: GetProfileSuccessEvent) {
-//        view.onGetProfileSuccess(userDetailDataMapper.transformUser(event.user))
+//        view.onGetProfileSuccess(userDetailDataMapper.transform(event.user))
     }
 
 }

@@ -8,6 +8,7 @@ import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsSuccessE
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.greenrobot.eventbus.Subscribe
+import java.util.*
 
 class TripsPresenter(
         override val view: TripsView,
@@ -18,7 +19,7 @@ class TripsPresenter(
 
     @Subscribe
     fun onEvent(event: GetTripsSuccessEvent) {
-        view.populateRecyclerView(tripDataMapper.transformTrips(event.trips))
+        view.populateRecyclerView(tripDataMapper.transform(event.trips) as ArrayList)
     }
 
     @Subscribe

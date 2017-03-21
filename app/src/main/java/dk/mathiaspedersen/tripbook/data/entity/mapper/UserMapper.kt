@@ -5,7 +5,7 @@ import dk.mathiaspedersen.tripbook.domain.entity.User
 
 class UserMapper {
 
-    fun transformUser(user: UserEntity): User {
+    fun transform(user: UserEntity): User {
         return User(user.name, user.photo, user.email)
     }
 }

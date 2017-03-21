@@ -12,7 +12,7 @@ class DrawPolyline : Interactor {
     var coordinates: String? = null
 
     override fun invoke(): Event {
-
+        val coordinates = this.coordinates ?: throw IllegalStateException("Coordinates can´t be null")
         val path = PolyUtil.decode(coordinates)
         val bounds = LatLngBounds.builder()
 
