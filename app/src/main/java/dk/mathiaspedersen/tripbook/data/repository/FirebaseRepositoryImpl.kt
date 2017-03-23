@@ -21,18 +21,18 @@ class FirebaseRepositoryImpl(val context: Context, val database: FirebaseDatabas
 
     override fun getTrips(callback: GetUnclassifiedTrips) {
 
-        val user = auth.currentUser?.uid
-        if (user == null) {
-            callback.onFailure("User id is null")
-            return
-        }
-        database.getReference("users").child(user).child("unclassified")
+        val userID = auth.currentUser?.uid ?: throw IllegalStateException("User ID can´t be null")
+
+        database.getReference("users").child(userID).child("unclassified")
                 .addListenerForSingleValueEvent(object : ValueEventListener {
 
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         callback.onSuccess(tripMapper.transform(dataSnapshot.children.map {
-                            Log.d("GODA", "Key is: ${it.key}")
-                            TripEntity(it.key, it.getValue(FirebaseTrip::class.java).route)
+                            val trip = it.getValue(FirebaseTrip::class.java)
+                            val start = trip.markers.start.marker
+                            val end = trip.markers.end.marker
+                            val coords = trip.route
+                            TripEntity(it.key, start, end, coords)
                         }))
                     }
 
@@ -44,16 +44,11 @@ class FirebaseRepositoryImpl(val context: Context, val database: FirebaseDatabas
 
     override fun classifyPersonalTrip(list: List<Trip>) {
         val trips = tripMapper.transform(list)
-        for (trip in trips) {
-            Log.d("TESTER", "TRIP WITH KEY ${trip.key} WAS CLASSIFIED AS PERSONAL")
-
-        }
+        trips.forEach { Log.d("GODA", "TRIP WITH KEY ${it.key} WAS CLASSIFIED AS PERSONAL") }
     }
 
     override fun classifyBusinessTrip(list: List<Trip>) {
         val trips = tripMapper.transform(list)
-        for (trip in trips) {
-            Log.d("TESTER", "TRIP WITH KEY ${trip.key} WAS CLASSIFIED AS BUSINESS")
-        }
+        trips.forEach { Log.d("GODA", "TRIP WITH KEY ${it.key} WAS CLASSIFIED AS BUSINESS") }
     }
 }

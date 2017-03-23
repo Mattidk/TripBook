@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <color name="colorPrimary">#607D8B</color>
     <color name="colorPrimaryDark">#455A64</color>
     <color name="colorPrimaryLight">#CFD8DC</color>
@@ -11,6 +10,7 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="colorWindowBackground">#FAFAFA</color>
     <color name="colorBackground">#F5F5F5</color>
+    <color name="mapPlaceholder">#BDBDBD</color>
 
     <!-- Fading Into -->
     <color name="purple_500">#9C27B0</color>
@@ -35,5 +35,5 @@
     <color name="knight_background">#242429</color>
     <color name="knight_icons">#FFFFFF</color>
     <color name="knight_divider">#BDBDBD</color>
-
+    <color name="knight_map_placeholder">#2c2e35</color>
 </resources>

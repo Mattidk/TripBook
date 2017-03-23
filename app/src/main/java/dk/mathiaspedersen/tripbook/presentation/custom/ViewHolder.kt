@@ -1,7 +1,9 @@
 package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -30,10 +32,17 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
         progress.visibility = View.VISIBLE
         image.setOnClickListener(this)
 
-        val map = produceStaticMap(model.map)
+        val placeholder: Int?
+        if (settings.isThemeDark()) {
+            placeholder = R.color.knight_map_placeholder
+        }else{
+            placeholder = R.color.mapPlaceholder
+        }
+
+        val map = produceStaticMap(model)
 
         Glide.with(context).load(map)
-                .placeholder(R.color.placeholder_background)
+                .placeholder(placeholder)
                 .error(R.drawable.frown_cloud)
                 .listener(this)
                 .into(image)
@@ -47,9 +56,11 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
         }
     }
 
-    fun produceStaticMap(path: String): StaticMap {
-        return StaticMap().path(settings.getStaticPolylineStyle(), path)
+    fun produceStaticMap(model: TripDetail): StaticMap {
+        return StaticMap().path(settings.getStaticPolylineStyle(), model.map)
                 .style(settings.getStaticMapStyle())
+                .marker(StaticMap.Marker.Style.FLAT_GREEN.toBuilder().label('A').build(), StaticMap.GeoPoint(model.start.latitude, model.start.longitude))
+                .marker(StaticMap.Marker.Style.FLAT_RED.toBuilder().label('B').build(), StaticMap.GeoPoint(model.end.latitude, model.end.longitude))
     }
 
     override fun onException(e: Exception?, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {

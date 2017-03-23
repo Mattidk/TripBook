@@ -683,6 +683,9 @@ public final class StaticMap {
             static public final Style BLUE   = builder().color(0x0000ff).build();
             static public final Style WHITE  = builder().color(0xffffff).build();
 
+            static public final Style FLAT_RED  = builder().color(0xe74c3c).build();
+            static public final Style FLAT_GREEN  = builder().color(0x27ae60).build();
+
             static public final Style DEFAULT = builder().build();
 
             /**
