@@ -14,9 +14,6 @@ import butterknife.ButterKnife
 import butterknife.OnClick
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MapStyleOptions
 import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
@@ -30,6 +27,8 @@ import javax.inject.Inject
 import android.view.animation.AnimationUtils
 import android.view.animation.Animation
 import android.widget.ProgressBar
+import com.google.android.gms.maps.model.*
+import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
 
 
 class DetailActivity : AppCompatActivity(), DetailView {
@@ -92,9 +91,11 @@ class DetailActivity : AppCompatActivity(), DetailView {
         }
     }
 
-    override fun drawPolyline(path: MutableList<LatLng>, bounds: LatLngBounds) {
+    override fun drawPolyline(start: LatLng, end: LatLng, path: MutableList<LatLng>, bounds: LatLngBounds) {
         map?.getMapAsync({
             it.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, settings.getMapStyle()))
+            it.addMarker(MarkerOptions().position(start).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("A"))
+            it.addMarker(MarkerOptions().position(end).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("B"))
             it.addPolyline(settings.getPolylineStyle(path))
             it.setPadding(0, backArrow.height, 0, 0)
             it.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, dip(32)))

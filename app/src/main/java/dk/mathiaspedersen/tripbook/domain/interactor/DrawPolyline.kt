@@ -14,6 +14,8 @@ class DrawPolyline : Interactor {
     override fun invoke(): Event {
         val coordinates = this.coordinates ?: throw IllegalStateException("Coordinates can´t be null")
         val path = PolyUtil.decode(coordinates)
+        val start = path[0]
+        val end = path[path.lastIndex]
         val bounds = LatLngBounds.builder()
 
         if (path.isNotEmpty() && path.size >= 2) {
@@ -22,8 +24,8 @@ class DrawPolyline : Interactor {
                 bounds.include(cord)
             }
 
-            return DecodePathEvent(path, bounds.build())
+            return DecodePathEvent(start, end, path, bounds.build())
         }
-        return DecodePathEvent(path, bounds.build())
+        return DecodePathEvent(start, end, path, bounds.build())
     }
 }

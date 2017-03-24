@@ -4,5 +4,5 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 
 interface DetailView: BaseView {
-    fun drawPolyline(path: MutableList<LatLng>, bounds: LatLngBounds)
+    fun drawPolyline(start: LatLng, end: LatLng, path: MutableList<LatLng>, bounds: LatLngBounds)
 }

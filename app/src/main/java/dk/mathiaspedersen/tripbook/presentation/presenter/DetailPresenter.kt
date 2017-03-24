@@ -15,7 +15,7 @@ class DetailPresenter(
 
     @Subscribe
     fun onEvent(event: DecodePathEvent) {
-        view.drawPolyline(event.path, event.bounds)
+        view.drawPolyline(event.start, event.end, event.path, event.bounds)
     }
 
     fun prepareMap(path: String) {
