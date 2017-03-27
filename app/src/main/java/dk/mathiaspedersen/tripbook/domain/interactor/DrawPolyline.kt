@@ -5,27 +5,22 @@ import com.google.maps.android.PolyUtil
 import dk.mathiaspedersen.tripbook.domain.interactor.base.standard.Interactor
 import dk.mathiaspedersen.tripbook.domain.interactor.event.DecodePathEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.Event
+import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 
 
 class DrawPolyline : Interactor {
 
-    var coordinates: String? = null
+    var tripDetail: TripDetail? = null
 
     override fun invoke(): Event {
-        val coordinates = this.coordinates ?: throw IllegalStateException("Coordinates can´t be null")
-        val path = PolyUtil.decode(coordinates)
-        val start = path[0]
-        val end = path[path.lastIndex]
+        val trip = this.tripDetail ?: throw IllegalStateException("Trip can´t be null")
+        val path = PolyUtil.decode(trip.map)
         val bounds = LatLngBounds.builder()
 
-        if (path.isNotEmpty() && path.size >= 2) {
-
-            for (cord in path) {
-                bounds.include(cord)
-            }
-
-            return DecodePathEvent(start, end, path, bounds.build())
+        for (cord in path) {
+            bounds.include(cord)
         }
-        return DecodePathEvent(start, end, path, bounds.build())
+
+        return DecodePathEvent(trip, path, bounds.build())
     }
 }

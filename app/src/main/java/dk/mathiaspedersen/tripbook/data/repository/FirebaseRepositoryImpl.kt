@@ -14,6 +14,9 @@ import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUnclassifiedTrips
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.repository.FirebaseRepository
+import java.text.DateFormat.getTimeInstance
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class FirebaseRepositoryImpl(val context: Context, val database: FirebaseDatabase, val auth: FirebaseAuth,
@@ -32,7 +35,7 @@ class FirebaseRepositoryImpl(val context: Context, val database: FirebaseDatabas
                             val start = trip.markers.start.marker
                             val end = trip.markers.end.marker
                             val coords = trip.route
-                            TripEntity(it.key, start, end, coords)
+                            TripEntity(it.key, Date(trip.time.toLong() * 1000), start, end, coords)
                         }))
                     }
 

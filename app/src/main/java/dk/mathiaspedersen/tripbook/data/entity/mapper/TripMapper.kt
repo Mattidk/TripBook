@@ -7,11 +7,10 @@ import java.util.*
 class TripMapper {
 
     fun transform(trips: List<TripEntity>): List<Trip> {
-        return trips.map {
-            Trip(it.key, it.start, it.end, it.map) } as ArrayList
+        return trips.map { Trip(it.key, it.time, it.start, it.end, it.map) } as ArrayList
     }
 
     fun transform(trips: List<Trip>): ArrayList<TripEntity> {
-        return trips.map { TripEntity(it.key, it.start, it.end, it.map) } as ArrayList
+        return trips.map { TripEntity(it.key, it.time, it.start, it.end, it.map) } as ArrayList
     }
 }

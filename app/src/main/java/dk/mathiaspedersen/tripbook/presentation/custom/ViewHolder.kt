@@ -1,12 +1,11 @@
 package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
@@ -16,14 +15,20 @@ import dk.mathiaspedersen.tripbook.presentation.activity.DetailActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
+import jp.wasabeef.glide.transformations.CropCircleTransformation
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
+import org.ocpsoft.prettytime.PrettyTime
+import org.parceler.Parcels
+
 
 class ViewHolder(val context: Context, val settings: AppSettings, view: View)
     : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
 
     private val progress: ProgressBar = view.find(R.id.progressBar)
     private val image: ImageView = view.find(R.id.map)
+    private val carIcon: ImageView = view.find(R.id.car_icon)
+    private val time: TextView = view.find(R.id.time)
     private var model: TripDetail? = null
 
     fun bind(model: TripDetail) {
@@ -31,15 +36,20 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
 
         progress.visibility = View.VISIBLE
         image.setOnClickListener(this)
+        time.text = PrettyTime().format(model.time)
 
         val placeholder: Int?
         if (settings.isThemeDark()) {
             placeholder = R.color.knight_map_placeholder
-        }else{
+        } else {
             placeholder = R.color.mapPlaceholder
         }
 
         val map = produceStaticMap(model)
+
+        Glide.with(context).load(R.drawable.me)
+                .bitmapTransform(CropCircleTransformation(context))
+                .into(carIcon)
 
         Glide.with(context).load(map)
                 .placeholder(placeholder)
@@ -51,7 +61,8 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
     override fun onClick(view: View) {
         when (view.id) {
             R.id.map -> {
-                context.startActivity<DetailActivity>("coordinates" to model!!.map)
+                val wrapped = Parcels.wrap(model)
+                context.startActivity<DetailActivity>("model" to wrapped)
             }
         }
     }

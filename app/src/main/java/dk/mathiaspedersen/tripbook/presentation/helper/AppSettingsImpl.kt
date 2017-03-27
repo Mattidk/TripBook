@@ -57,7 +57,7 @@ class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) 
         }
     }
 
-    override fun getPolylineStyle(path: MutableList<LatLng>): PolylineOptions {
+    override fun getPolylineStyle(path: List<LatLng>): PolylineOptions {
         val setting = preferences.getBoolean("pref_key_dark_theme", false)
 
         when (setting) {

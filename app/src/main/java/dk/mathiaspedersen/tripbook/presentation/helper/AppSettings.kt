@@ -11,7 +11,7 @@ interface AppSettings {
     fun preventExit(): Boolean
     fun getMapStyle(): Int
     fun getStaticMapStyle(): String
-    fun getPolylineStyle(path: MutableList<LatLng>): PolylineOptions
+    fun getPolylineStyle(path: List<LatLng>): PolylineOptions
     fun getStaticPolylineStyle(): Style
     fun vibrateOnClassification(): Boolean
 }

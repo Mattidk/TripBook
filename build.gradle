@@ -47,5 +47,8 @@ allprojects {
         mapsUtilsVersion = "0.5"
         materialDialogVersion = "0.9.3.0"
         recyclerviewAnimatorVersion = "2.2.6"
+        parcelerVersion = "1.1.6"
+        prettytimeVersion = "4.0.1.Final"
+        glidetransformationsVersion = "2.0.2"
     }
 }
