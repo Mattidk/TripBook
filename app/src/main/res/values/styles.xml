@@ -1,18 +1,10 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
-        <item name="android:windowBackground">@color/colorWindowBackground</item>
-        <item name="android:colorBackground">@color/colorBackground</item>
-        <item name="tripSubHeader">@style/TripSubHeader</item>
-        <item name="drawerItem">@drawable/drawer_item</item>
-        <item name="navigateUpDrawable">@drawable/ic_arrow_navigate_up_white</item>
-        <item name="bottomSheetBackground">@color/colorPrimary</item>
-        <item name="bottomSheetHeaderBackground">@color/colorPrimaryDark</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -21,30 +13,16 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <!-- Knight Rider theme. -->
-    <style name="KnightRider" parent="AppTheme">
-        <item name="colorPrimary">@color/knight_primary</item>
-        <item name="colorPrimaryDark">@color/knight_primary_dark</item>
-        <item name="colorAccent">@color/knight_accent</item>
-        <item name="android:textColorPrimary">@color/knight_primary_text</item>
-        <item name="android:textColorSecondary">@color/knight_secondary_text</item>
-        <item name="android:windowBackground">@color/knight_background</item>
-        <item name="android:colorBackground">@color/knight_primary</item>
-        <item name="tripSubHeader">@style/TripSubHeaderDark</item>
-        <item name="drawerItem">@drawable/drawer_item_dark</item>
-        <item name="navigateUpDrawable">@drawable/ic_arrow_navigate_up_white</item>
-        <item name="bottomSheetBackground">@color/knight_primary</item>
-        <item name="bottomSheetHeaderBackground">@color/knight_primary_dark</item>
-    </style>
-
-    <style name="KnightRider.Translucent">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="CardViewStyle" parent="CardView">
+        <item name="cardCornerRadius">2dp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="cardBackgroundColor">@color/cardBackgroundColor</item>
+    </style>
+    
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/activity_slide_in_right</item>
         <item name="android:activityOpenExitAnimation">@anim/activity_move_left</item>
@@ -95,7 +73,7 @@
     </style>
 
     <style name="TripSubHeaderDark">
-        <item name="android:background">@color/knight_primary</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
 </resources>

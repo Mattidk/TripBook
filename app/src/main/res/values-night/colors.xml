@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#607D8B</color>
-    <color name="colorPrimaryDark">#455A64</color>
+    <color name="colorPrimary">#2c2e35</color>
+    <color name="colorPrimaryDark">#24252b</color>
     <color name="colorPrimaryLight">#CFD8DC</color>
-    <color name="colorAccent">#FF5252</color>
-    <color name="colorPrimaryText">#212121</color>
-    <color name="colorSecondaryText">#757575</color>
+    <color name="colorAccent">#e54a86</color>
+    <color name="colorPrimaryText">#f2f2f2</color>
+    <color name="colorSecondaryText">#7f8187</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
-    <color name="colorWindowBackground">#FAFAFA</color>
+    <color name="colorWindowBackground">#242429</color>
     <color name="colorBackground">#F5F5F5</color>
-    <color name="mapPlaceholder">#BDBDBD</color>
+    <color name="mapPlaceholder">#2c2e35</color>
 
-    <color name="cardBackgroundColor">#FFFFFF</color>
+    <color name="cardBackgroundColor">#2c2e35</color>
 
     <!-- Fading Into -->
     <color name="purple_500">#9C27B0</color>
@@ -26,5 +26,4 @@
     <color name="com_facebook_button_text_color">#000000</color>
     <color name="com_facebook_blue">#3B5998</color>
     <color name="placeholder_background">#757575</color>
-
 </resources>

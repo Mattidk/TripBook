@@ -38,13 +38,6 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
         image.setOnClickListener(this)
         time.text = PrettyTime().format(model.time)
 
-        val placeholder: Int?
-        if (settings.isThemeDark()) {
-            placeholder = R.color.knight_map_placeholder
-        } else {
-            placeholder = R.color.mapPlaceholder
-        }
-
         val map = produceStaticMap(model)
 
         Glide.with(context).load(R.drawable.me)
@@ -52,8 +45,7 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
                 .into(carIcon)
 
         Glide.with(context).load(map)
-                .placeholder(placeholder)
-                .error(R.drawable.frown_cloud)
+                .placeholder(R.color.mapPlaceholder)
                 .listener(this)
                 .into(image)
     }

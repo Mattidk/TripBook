@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:fitsSystemWindows="true"
-        android:src="?attr/navigateUpDrawable" />
+        android:src="@drawable/ic_arrow_navigate_up" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         <FrameLayout
             android:id="@+id/detail_loader"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:background="?attr/android:windowBackground">
 
@@ -51,7 +51,6 @@
                 android:id="@+id/bottom_sheet"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="?attr/bottomSheetBackground"
                 app:behavior_peekHeight="72dp"
                 app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -65,8 +64,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="72dp"
                         android:id="@+id/bottom_sheet_header"
-                        android:gravity="center_vertical"
-                        android:background="?attr/bottomSheetHeaderBackground">
+                        android:gravity="center_vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"

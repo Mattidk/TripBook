@@ -30,7 +30,9 @@ import org.ocpsoft.prettytime.PrettyTime
 import org.parceler.Parcels
 import javax.inject.Inject
 
-class DetailActivity : AppCompatActivity(), DetailView {
+class DetailActivity : BaseActivity(), DetailView {
+
+    override val layoutResource: Int = R.layout.activity_detail
 
     @Inject
     lateinit var presenter: DetailPresenter
@@ -60,10 +62,7 @@ class DetailActivity : AppCompatActivity(), DetailView {
     private var mBottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies(App.graph)
-        setTheme(settings.getTranslucentTheme())
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
         ButterKnife.bind(this)
         makeFullscreen()
         initializeMap()
@@ -149,8 +148,6 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
                 override fun onStateChanged(bottomSheet: View, newState: Int) {}
             })
-
-
         })
     }
 
@@ -159,7 +156,7 @@ class DetailActivity : AppCompatActivity(), DetailView {
         finish()
     }
 
-    fun injectDependencies(applicationComponent: ApplicationComponent) {
+    override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(DetailActivityModule(this))
                 .injectTo(this)
     }

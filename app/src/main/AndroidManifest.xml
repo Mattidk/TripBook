@@ -38,6 +38,7 @@
         <activity
             android:name=".presentation.activity.DetailActivity"
             android:label="@string/activity_detail_title"
+            android:theme="@style/AppTheme.Translucent"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -1,6 +1,5 @@
 package dk.mathiaspedersen.tripbook.presentation.custom
 
-import android.graphics.Canvas
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -19,16 +18,6 @@ class SwipeHelperCallback(val adapter: SwipeHelperAdapter, val recyclerView: Rec
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         adapter.onItemDismiss(viewHolder, direction, recyclerView)
-    }
-
-    override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
-        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            val alpha = 1.0f - Math.abs(dX) / viewHolder.itemView.width.toFloat()
-            viewHolder.itemView.alpha = alpha
-            viewHolder.itemView.translationX = dX
-        } else {
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-        }
     }
 
     override fun isItemViewSwipeEnabled(): Boolean {

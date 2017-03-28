@@ -31,13 +31,6 @@
 
         <CheckBoxPreference
             android:defaultValue="false"
-            android:dependency="pref_key_dark_theme"
-            android:key="pref_key_true_black"
-            android:summary="When enabled the background will be black, instead of dark gray. This may provide a beter reading experience for OLED screens."
-            android:title="Use true black" />
-
-        <CheckBoxPreference
-            android:defaultValue="false"
             android:key="pref_key_prevent_accidental_exit"
             android:summary="Ask confirmation for exit when back key is pressed."
             android:title="Prevent accidental exit" />

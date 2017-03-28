@@ -5,10 +5,4 @@
         <attr name="aspectRatio" format="float|reference"/>
     </declare-styleable>
 
-    <attr name="tripSubHeader" format="reference" />
-    <attr name="drawerItem" format="reference" />
-    <attr name="navigateUpDrawable" format="reference" />
-    <attr name="bottomSheetBackground" format="reference" />
-    <attr name="bottomSheetHeaderBackground" format="reference" />
-
 </resources>

@@ -3,6 +3,7 @@ package dk.mathiaspedersen.tripbook.presentation.fragment
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceFragment
+import android.support.v7.app.AppCompatDelegate
 import com.afollestad.materialdialogs.MaterialDialog
 import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
@@ -43,15 +44,13 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
     override fun onResume() {
         super.onResume()
         presenter.onResume()
-        preferenceScreen.sharedPreferences.
-                registerOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onPause() {
         super.onPause()
         presenter.onPause()
-        preferenceScreen.sharedPreferences.
-                unregisterOnSharedPreferenceChangeListener(this)
+        preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 
     override fun signOutSuccessful() {
@@ -68,15 +67,19 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
                 .injectTo(this)
     }
 
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
             "pref_key_dark_theme" -> {
+                val state = sharedPreferences.getBoolean("pref_key_dark_theme", false)
+                if (state) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                }
                 startActivity<SettingsActivity>()
                 activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                 activity.finish()
             }
         }
     }
-
-
 }
