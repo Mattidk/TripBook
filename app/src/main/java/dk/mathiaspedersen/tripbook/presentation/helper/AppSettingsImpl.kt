@@ -29,13 +29,13 @@ class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) 
 
         when (currentNightMode) {
             Configuration.UI_MODE_NIGHT_NO -> {
-                return context.getString(R.string.iovation)
+                return context.getString(R.string.simplemap)
             }
             Configuration.UI_MODE_NIGHT_YES -> {
                 return context.getString(R.string.cobolt)
             }
             else -> {
-                return context.getString(R.string.iovation)
+                return context.getString(R.string.simplemap)
             }
         }
     }
@@ -63,13 +63,13 @@ class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) 
 
         when (currentNightMode) {
             Configuration.UI_MODE_NIGHT_NO -> {
-                return R.raw.iovation
+                return R.raw.simplemap
             }
             Configuration.UI_MODE_NIGHT_YES -> {
                 return R.raw.cobolt
             }
             else -> {
-                return R.raw.iovation
+                return R.raw.simplemap
             }
         }
     }

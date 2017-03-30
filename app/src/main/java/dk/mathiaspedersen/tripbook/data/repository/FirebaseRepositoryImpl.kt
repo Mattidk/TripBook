@@ -14,8 +14,6 @@ import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUnclassifiedTrips
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.repository.FirebaseRepository
-import java.text.DateFormat.getTimeInstance
-import java.text.SimpleDateFormat
 import java.util.*
 
 
