@@ -40,6 +40,10 @@
     <string name="activity_settings_title">Settings</string>
     <!--settings activity end-->
 
+    <!--about activity start-->
+    <string name="activity_about_title">About the app</string>
+    <!--about activity end-->
+
     <!-- Needed to be able to sign in -->
     <string name="token">831541832033-guluj37mqme3qgkfsvtgg1hcplp4l8vg.apps.googleusercontent.com</string>
 
@@ -132,6 +136,8 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="title_activity_test">testActivity</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

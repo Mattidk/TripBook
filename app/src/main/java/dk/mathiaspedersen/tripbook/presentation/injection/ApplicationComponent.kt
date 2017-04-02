@@ -1,6 +1,8 @@
 package dk.mathiaspedersen.tripbook.presentation.injection
 
 import dagger.Component
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.AboutActivityComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.AboutActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentComponent
@@ -34,4 +36,5 @@ interface ApplicationComponent {
     fun plus(module: DetailActivityModule): DetailActivityComponent
     fun plus(module: HostSettingsActivityModule): HostSettingsActivityComponent
     fun plus(module: SettingsFragmentModule): SettingsFragmentComponent
+    fun plus(module: AboutActivityModule): AboutActivityComponent
 }

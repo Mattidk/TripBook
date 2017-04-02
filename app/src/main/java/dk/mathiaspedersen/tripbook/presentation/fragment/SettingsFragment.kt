@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatDelegate
 import com.afollestad.materialdialogs.MaterialDialog
 import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.activity.AboutActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.LoginActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.SettingsActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -37,6 +38,11 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
                     .onPositive({ dialog, which ->
                         presenter.signOut()
                     }).onNegative { dialog, which -> }.show()
+            true
+        })
+
+        findPreference("pref_key_about_app").setOnPreferenceClickListener({
+            startActivity<AboutActivity>()
             true
         })
     }

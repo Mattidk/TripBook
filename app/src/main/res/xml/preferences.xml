@@ -75,7 +75,7 @@
         android:title="About">
 
         <Preference
-            android:key="pref_key_rate_app"
+            android:key="pref_key_about_app"
             android:title="About the app" />
 
         <Preference

@@ -2,9 +2,9 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
+    style="@style/CardViewStyle"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/CardViewStyle">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,14 +49,15 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true">
+            android:layout_height="wrap_content">
 
             <dk.mathiaspedersen.tripbook.presentation.widget.AspectLockedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/map"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
                 app:aspectRatio="1.8" />
 
             <ProgressBar
@@ -95,7 +96,7 @@
                         android:layout_height="24dp"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_menu_trips"
-                        android:tint="?attr/colorControlNormal"/>
+                        android:tint="?attr/colorControlNormal" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -116,7 +117,7 @@
                         android:layout_height="24dp"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_menu_trips"
-                        android:tint="?attr/colorControlNormal"/>
+                        android:tint="?attr/colorControlNormal" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -138,7 +139,7 @@
                         android:layout_height="24dp"
                         android:layout_marginEnd="8dp"
                         android:src="@drawable/ic_menu_trips"
-                        android:tint="?attr/colorControlNormal"/>
+                        android:tint="?attr/colorControlNormal" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -154,7 +155,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_delete"
-                android:tint="?attr/colorControlNormal"/>
+                android:tint="?attr/colorControlNormal" />
 
         </RelativeLayout>
 
