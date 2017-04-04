@@ -100,6 +100,9 @@ class TripsFragment : BaseFragment(), TripsView {
     }
 
     fun setupViews() {
+
+        activity.title = "Trips"
+
         tripsRecyclerView.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(activity)
         tripsRecyclerView.layoutManager = mLayoutManager

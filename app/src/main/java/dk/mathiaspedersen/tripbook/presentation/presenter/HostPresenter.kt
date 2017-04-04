@@ -1,5 +1,6 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
+import dk.mathiaspedersen.tripbook.domain.interactor.GetUnclassifiedTrips
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUserProfile
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
@@ -13,6 +14,7 @@ class HostPresenter(
         override val view: HostView,
         override val bus: Bus,
         val getUserInteractor: GetUserProfile,
+        val getUnclassifiedTrips: GetUnclassifiedTrips,
         val interactorExecutor: FirebaseInteractorExecutor,
         val userDetailDataMapper: UserDetailDataMapper) : BasePresenter<HostView> {
 
@@ -28,6 +30,10 @@ class HostPresenter(
 
     fun getUserProfile() {
         interactorExecutor.execute(getUserInteractor)
+    }
+
+    fun refresh() {
+        interactorExecutor.execute(getUnclassifiedTrips)
     }
 
 }

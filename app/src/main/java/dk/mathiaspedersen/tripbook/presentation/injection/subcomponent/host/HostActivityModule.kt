@@ -2,6 +2,7 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host
 
 import dagger.Module
 import dagger.Provides
+import dk.mathiaspedersen.tripbook.domain.interactor.GetUnclassifiedTrips
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUserProfile
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
@@ -25,14 +26,15 @@ class HostActivityModule(activity: HostActivity) : ActivityModule(activity) {
     fun provideUserDataMapper() = UserDetailDataMapper()
 
     @Provides @ActivityScope
-    fun provideHostPresenter(view: HostView, bus: Bus, getUserInteractor: GetUserProfile, interactorExecutor:
+    fun provideHostPresenter(view: HostView, bus: Bus, getUserInteractor: GetUserProfile,
+                             getUnclassifiedTrips: GetUnclassifiedTrips, interactorExecutor:
                              FirebaseInteractorExecutor, userDetailDataMapper: UserDetailDataMapper)
-                             = HostPresenter(view, bus, getUserInteractor, interactorExecutor, userDetailDataMapper)
+                             = HostPresenter(view, bus, getUserInteractor, getUnclassifiedTrips,
+                             interactorExecutor, userDetailDataMapper)
 
     @Provides @ActivityScope
     fun provideTripsFragment() = TripsFragment()
 
     @Provides @ActivityScope
     fun provideHistoryFragment() = HistoryFragment()
-
 }

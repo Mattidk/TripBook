@@ -28,6 +28,7 @@ class HistoryFragment : BaseFragment(), HistoryView {
     override fun onResume() {
         super.onResume()
         presenter.onResume()
+        activity.title = "History"
     }
 
     override fun onPause() {

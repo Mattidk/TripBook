@@ -5,6 +5,7 @@
     <color name="colorPrimaryLight">#CFD8DC</color>
     <color name="colorAccent">#e54a86</color>
     <color name="colorPrimaryText">#f2f2f2</color>
+    <color name="colorPrimaryTextLight">#ffffffff</color>
     <color name="colorSecondaryText">#7f8187</color>
     <color name="colorIcons">#FFFFFF</color>
     <color name="colorDivider">#BDBDBD</color>
