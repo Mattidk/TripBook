@@ -13,10 +13,13 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import butterknife.OnClick
 import com.bumptech.glide.Glide
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
@@ -29,6 +32,7 @@ import dk.mathiaspedersen.tripbook.presentation.presenter.HostPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.HostView
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 
@@ -117,6 +121,11 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
+        }
+        val view = navigationView.getHeaderView(0)
+        val header = view.find<LinearLayout>(R.id.header_content)
+        header.setOnClickListener {
+            startActivity<ProfileActivity>()
         }
     }
 

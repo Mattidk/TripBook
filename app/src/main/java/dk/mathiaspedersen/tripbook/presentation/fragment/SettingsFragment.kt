@@ -9,6 +9,7 @@ import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.activity.AboutActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.LoginActivity
+import dk.mathiaspedersen.tripbook.presentation.activity.ProfileActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.SettingsActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
@@ -43,6 +44,11 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
 
         findPreference("pref_key_about_app").setOnPreferenceClickListener({
             startActivity<AboutActivity>()
+            true
+        })
+
+        findPreference("pref_key_edit_account").setOnPreferenceClickListener({
+            startActivity<ProfileActivity>()
             true
         })
     }

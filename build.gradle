@@ -19,14 +19,14 @@ allprojects {
 
     ext {
         // Android config
-        androidBuildToolsVersion = "25.0.2"
+        androidBuildToolsVersion = "25.0.1"
         androidMinSdkVersion = 19
         androidTargetSdkVersion = 25
         androidCompileSdkVersion = 25
         androidApplicationId = "dk.mathiaspedersen.tripbook"
         androidVersionCode = 1
         androidVersionName = "0.1"
-        supportVersion = "25.3.0"
+        supportVersion = "25.3.1"
         jobqueueVersion = "1.1.2"
         eventbusVersion = "3.0.0"
         ankoVersion= "0.9.1"
