@@ -6,8 +6,7 @@
         android:id="@+id/menu_search"
         android:title="Search"
         android:icon="@drawable/ic_menu_search"
-        app:showAsAction="always|collapseActionView"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_refresh"
@@ -17,7 +16,7 @@
 
     <item
         android:id="@+id/menu_help"
-        android:orderInCategory="100"
+        android:orderInCategory="200"
         android:title="@string/help"
         app:showAsAction="never" />
 

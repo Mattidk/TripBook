@@ -184,25 +184,17 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.menu_search -> {startActivity<SearchActivity>()}
             R.id.menu_refresh -> {presenter.refresh()}
             R.id.menu_help -> {}
             else -> return super.onOptionsItemSelected(item)
         }
         return super.onOptionsItemSelected(item)
     }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        val searchItem = menu.findItem(R.id.menu_search)
-        val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
-        val componentName = ComponentName(this, SearchActivity::class.java)
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
         return true
     }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_trips -> {
