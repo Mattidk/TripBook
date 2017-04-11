@@ -85,6 +85,7 @@ dependencies {
     compile "jp.wasabeef:recyclerview-animators:$recyclerviewAnimatorVersion"
     compile "jp.wasabeef:glide-transformations:$glidetransformationsVersion"
     compile "org.ocpsoft.prettytime:prettytime:$prettytimeVersion"
+    compile "com.amulyakhare:com.amulyakhare.textdrawable:$textdrawableVersion"
     compile "org.parceler:parceler-api:$parcelerVersion"
     kapt "org.parceler:parceler:$parcelerVersion"
     kapt "com.jakewharton:butterknife-compiler:$butterknifeVersion"

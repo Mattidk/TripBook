@@ -1,19 +1,20 @@
-package dk.mathiaspedersen.tripbook.data.entity.model;
+package dk.mathiaspedersen.tripbook.presentation.entity;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import org.parceler.Parcel;
 
-public class FirebaseLocation {
+@Parcel
+public class LocationDetail {
 
     public String location;
     public String latitude;
     public String longitude;
     public long timestamp;
 
-    public FirebaseLocation() {}
+    public LocationDetail() {}
 
-    public FirebaseLocation(String location, String latitude, String longitude, long timestamp) {
+    public LocationDetail(String location, String latitude, String longitude, long timestamp) {
         this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -23,4 +24,5 @@ public class FirebaseLocation {
     public LatLng getLocation() {
         return new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
     }
+
 }

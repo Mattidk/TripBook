@@ -20,7 +20,7 @@ class App : Application() {
         initializeTheme()
         initializeDagger()
         initializeLeakDetection()
-        initializeDiskPersistance()
+//        initializeDiskPersistance()
     }
 
     fun initializeDagger() {

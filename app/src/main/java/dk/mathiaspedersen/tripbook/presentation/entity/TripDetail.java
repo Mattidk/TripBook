@@ -1,28 +1,31 @@
 package dk.mathiaspedersen.tripbook.presentation.entity;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import org.parceler.Parcel;
-
-import java.util.Date;
 
 @Parcel
 public class TripDetail {
 
     String key;
-    Date time;
-    LatLng start;
-    LatLng end;
-    String map;
+    String path;
+    String simplepath;
+    String purpose;
+    VehicleDetail vehicle;
+    Long distance;
+    LocationDetail departure;
+    LocationDetail destination;
 
     public TripDetail() {}
 
-    public TripDetail(String key, Date time, LatLng start, LatLng end, String map) {
+    public TripDetail(String key, String path, String simplepath, VehicleDetail vehicle, String purpose,
+                      Long distance, LocationDetail departure, LocationDetail destination) {
         this.key = key;
-        this.time = time;
-        this.start = start;
-        this.end = end;
-        this.map = map;
+        this.path = path;
+        this.simplepath = simplepath;
+        this.vehicle = vehicle;
+        this.purpose = purpose;
+        this.distance = distance;
+        this.departure = departure;
+        this.destination = destination;
     }
 
     public String getKey() {
@@ -33,35 +36,59 @@ public class TripDetail {
         this.key = key;
     }
 
-    public LatLng getStart() {
-        return start;
+    public String getPath() {
+        return path;
     }
 
-    public void setStart(LatLng start) {
-        this.start = start;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    public LatLng getEnd() {
-        return end;
+    public String getSimplepath() {
+        return simplepath;
     }
 
-    public void setEnd(LatLng end) {
-        this.end = end;
+    public void setSimplepath(String simplepath) {
+        this.simplepath = simplepath;
     }
 
-    public String getMap() {
-        return map;
+    public VehicleDetail getVehicle() {
+        return vehicle;
     }
 
-    public Date getTime() {
-        return time;
+    public void setVehicle(VehicleDetail vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public Long getDistance() {
+        return distance;
     }
 
-    public void setMap(String map) {
-        this.map = map;
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public void setDistance(Long distance) {
+        this.distance = distance;
+    }
+
+    public LocationDetail getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(LocationDetail departure) {
+        this.departure = departure;
+    }
+
+    public LocationDetail getDestination() {
+        return destination;
+    }
+
+    public void setDestination(LocationDetail destination) {
+        this.destination = destination;
     }
 }

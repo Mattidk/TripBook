@@ -117,6 +117,12 @@ class TripsFragment : BaseFragment(), TripsView {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light)
+
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.colorAccent,
+                R.color.colorAccent,
+                R.color.colorAccent,
+                R.color.colorPrimary)
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {

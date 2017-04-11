@@ -14,7 +14,7 @@ class DrawPolyline : Interactor {
 
     override fun invoke(): Event {
         val trip = this.tripDetail ?: throw IllegalStateException("Trip can´t be null")
-        val path = PolyUtil.decode(trip.map)
+        val path = PolyUtil.decode(trip.path)
         val bounds = LatLngBounds.builder()
 
         for (cord in path) {

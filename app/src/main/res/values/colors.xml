@@ -28,4 +28,11 @@
     <color name="com_facebook_blue">#3B5998</color>
     <color name="placeholder_background">#757575</color>
 
+    <!-- Viewholder -->
+    <color name="colorCarText">#3c76a3</color>
+    <color name="colorTimeText">#76777c</color>
+    <color name="colorTripIcon">#8A000000</color>
+    <color name="colorTripBusiness">#4CAF50</color>
+    <color name="colorTripPersonal">#2196F3</color>
+
 </resources>

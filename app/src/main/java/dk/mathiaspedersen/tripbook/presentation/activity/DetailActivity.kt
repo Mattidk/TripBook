@@ -27,6 +27,7 @@ import dk.mathiaspedersen.tripbook.presentation.view.DetailView
 import org.jetbrains.anko.dip
 import org.ocpsoft.prettytime.PrettyTime
 import org.parceler.Parcels
+import java.util.*
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity(), DetailView {
@@ -50,6 +51,9 @@ class DetailActivity : BaseActivity(), DetailView {
 
     @BindView(R.id.time)
     lateinit var time: TextView
+
+    @BindView(R.id.destination)
+    lateinit var destination: TextView
 
     @BindView(R.id.app_bar)
     lateinit var appbar: AppBarLayout
@@ -100,7 +104,8 @@ class DetailActivity : BaseActivity(), DetailView {
         val model = Parcels.unwrap<TripDetail>(intent.extras.getParcelable("model"))
         if (model != null) {
             presenter.prepareMap(model)
-            time.text = PrettyTime().format(model.time)
+            time.text = PrettyTime().format(Date(model.destination.timestamp * 1000))
+            destination.text = String.format(getString(R.string.viewholder_destination_text), model.destination.location)
         }
     }
 
@@ -134,8 +139,8 @@ class DetailActivity : BaseActivity(), DetailView {
     override fun drawPolyline(trip: TripDetail, path: List<LatLng>, bounds: LatLngBounds) {
         map?.getMapAsync({
             it.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, settings.getMapStyle()))
-            it.addMarker(MarkerOptions().position(trip.start).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("A"))
-            it.addMarker(MarkerOptions().position(trip.end).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("B"))
+            it.addMarker(MarkerOptions().position(trip.departure.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title("A"))
+            it.addMarker(MarkerOptions().position(trip.destination.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)).title("B"))
             it.addPolyline(settings.getPolylineStyle(path))
             it.setPadding(0, backArrow.height * 2, 0, 0)
             it.uiSettings.isCompassEnabled = false

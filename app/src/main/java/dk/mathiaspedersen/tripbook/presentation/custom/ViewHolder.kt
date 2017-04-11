@@ -1,6 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -20,6 +21,12 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.ocpsoft.prettytime.PrettyTime
 import org.parceler.Parcels
+import java.util.*
+import com.amulyakhare.textdrawable.TextDrawable
+import org.jetbrains.anko.backgroundColor
+import org.jetbrains.anko.backgroundResource
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class ViewHolder(val context: Context, val settings: AppSettings, view: View)
@@ -29,6 +36,11 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
     private val image: ImageView = view.find(R.id.map)
     private val carIcon: ImageView = view.find(R.id.car_icon)
     private val time: TextView = view.find(R.id.time)
+    private val destination : TextView = view.find(R.id.destination)
+    private val carUsed : TextView = view.find(R.id.car_used)
+    private val tripType : TextView = view.find(R.id.trip_type)
+    private val distance : TextView = view.find(R.id.distance)
+    private val value : TextView = view.find(R.id.value)
     private var model: TripDetail? = null
 
     fun bind(model: TripDetail) {
@@ -36,17 +48,35 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
 
         progress.visibility = View.VISIBLE
         image.setOnClickListener(this)
-        time.text = PrettyTime().format(model.time)
+        time.text = String.format(context.getString(R.string.viewholder_time_text), PrettyTime().format(Date(model.destination.timestamp * 1000)))
+        carUsed.text = String.format(context.getString(R.string.viewholder_car_text), model.vehicle.make, model.vehicle.model)
+        destination.text = String.format(context.getString(R.string.viewholder_destination_text), model.destination.location)
 
         val map = produceStaticMap(model)
 
-        Glide.with(context).load(R.drawable.me)
-                .bitmapTransform(CropCircleTransformation(context))
-                .into(carIcon)
+        val formatMiles = DecimalFormat("#.#")
+        val formatValue = DecimalFormat("#.##")
+        formatMiles.roundingMode = RoundingMode.CEILING
+        formatValue.roundingMode = RoundingMode.CEILING
+
+        val miles = model.distance * 0.000621371192
+
+        distance.text = formatMiles.format(miles)
+        value.text = formatValue.format(miles * 0.54)
+
+        tripType.text = model.purpose
+        if (model.purpose == "personal"){
+            tripType.backgroundResource = R.drawable.tag_background_personal
+        }else {
+            tripType.backgroundResource = R.drawable.tag_background_business
+        }
+
+        val drawable = TextDrawable.builder().buildRound(model.vehicle.make[0].toString(), Color.RED)
+        carIcon.setImageDrawable(drawable)
 
         Glide.with(context).load(map)
-                .placeholder(R.color.mapPlaceholder)
                 .listener(this)
+                .crossFade(500)
                 .into(image)
     }
 
@@ -60,10 +90,10 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
     }
 
     fun produceStaticMap(model: TripDetail): StaticMap {
-        return StaticMap().path(settings.getStaticPolylineStyle(), model.map)
+        return StaticMap().path(settings.getStaticPolylineStyle(), model.simplepath)
                 .style(settings.getStaticMapStyle())
-                .marker(StaticMap.Marker.Style.FLAT_GREEN.toBuilder().label('A').build(), StaticMap.GeoPoint(model.start.latitude, model.start.longitude))
-                .marker(StaticMap.Marker.Style.FLAT_RED.toBuilder().label('B').build(), StaticMap.GeoPoint(model.end.latitude, model.end.longitude))
+                .marker(StaticMap.Marker.Style.FLAT_GREEN.toBuilder().label('A').build(), StaticMap.GeoPoint(model.departure.latitude.toDouble(), model.departure.longitude.toDouble()))
+                .marker(StaticMap.Marker.Style.FLAT_RED.toBuilder().label('B').build(), StaticMap.GeoPoint(model.destination.latitude.toDouble(), model.destination.longitude.toDouble()))
     }
 
     override fun onException(e: Exception?, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {

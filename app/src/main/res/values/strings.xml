@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">TripBook</string>
 
+    <!--viewholder start -->
+    <string name="viewholder_car_text">%1$s %2$s</string>
+    <string name="viewholder_time_text">, %1$s</string>
+    <string name="viewholder_destination_text">Trip to %1$s</string>
+    <!--viewholder end-->
+
     <!--trips adapter start-->
     <string name="adapter_trip_snackbar_undo_personal">Trip was classified as personal</string>
     <string name="adapter_trip_snackbar_undo_business">Trip was classified as business</string>

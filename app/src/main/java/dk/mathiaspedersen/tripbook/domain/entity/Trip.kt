@@ -1,6 +1,3 @@
 package dk.mathiaspedersen.tripbook.domain.entity
 
-import com.google.android.gms.maps.model.LatLng
-import java.util.*
-
-data class Trip(val key: String, val time: Date, val start: LatLng, val end: LatLng, val map: String)
+data class Trip(val key: String, val path: String, val simplepath: String, val vehicle: Vehicle, val purpose: String, val distance: Long, val departure: Location, val destination: Location)
