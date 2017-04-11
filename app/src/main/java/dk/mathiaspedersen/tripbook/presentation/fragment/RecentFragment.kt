@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.domain.entity.Trip
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.presenter.HistoryPresenter
-import dk.mathiaspedersen.tripbook.presentation.view.HistoryView
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.recent.RecentFragmentModule
+import dk.mathiaspedersen.tripbook.presentation.presenter.RecentPresenter
+import dk.mathiaspedersen.tripbook.presentation.view.RecentView
 import javax.inject.Inject
 
-class HistoryFragment : BaseFragment(), HistoryView {
+class RecentFragment : BaseFragment(), RecentView {
 
-    @Inject lateinit var presenter: HistoryPresenter
+    @Inject lateinit var presenter: RecentPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View {
         return inflater.inflate(R.layout.fragment_history, container, false)
@@ -37,7 +37,7 @@ class HistoryFragment : BaseFragment(), HistoryView {
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
-        applicationComponent.plus(HistoryFragmentModule(this))
+        applicationComponent.plus(RecentFragmentModule(this))
                 .injectTo(this)
     }
 }

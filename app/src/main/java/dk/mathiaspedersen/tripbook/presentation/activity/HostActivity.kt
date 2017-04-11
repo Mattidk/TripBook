@@ -29,7 +29,7 @@ import butterknife.OnClick
 import com.bumptech.glide.Glide
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
-import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
+import dk.mathiaspedersen.tripbook.presentation.fragment.RecentFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -62,7 +62,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     lateinit var trips: TripsFragment
 
     @Inject
-    lateinit var history: HistoryFragment
+    lateinit var recent: RecentFragment
 
     @Inject
     lateinit var presenter: HostPresenter
@@ -202,7 +202,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_history -> {
-                navigateTo(history)
+                navigateTo(recent)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_settings -> {

@@ -25,9 +25,9 @@
     <string name="help">Help</string>
     <!--actionbar menu end-->
 
-    <!--history fragment start-->
+    <!--recent fragment start-->
     <string name="fragment_history_title">History fragment</string>
-    <!--history fragment end-->
+    <!--recent fragment end-->
 
     <!--login activity start-->
     <string name="activity_login_button_sign_up_google">Sign Up with Google</string>

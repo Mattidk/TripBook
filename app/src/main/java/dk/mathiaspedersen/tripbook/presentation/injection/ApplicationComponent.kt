@@ -5,8 +5,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.Abo
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.AboutActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityModule
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.history.HistoryFragmentModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.recent.RecentFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.recent.RecentFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityComponent
@@ -36,7 +36,7 @@ interface ApplicationComponent {
     fun plus(module: LoginActivityModule): LoginActivityComponent
     fun plus(module: HostActivityModule): HostActivityComponent
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
-    fun plus(module: HistoryFragmentModule): HistoryFragmentComponent
+    fun plus(module: RecentFragmentModule): RecentFragmentComponent
     fun plus(module: DetailActivityModule): DetailActivityComponent
     fun plus(module: HostSettingsActivityModule): HostSettingsActivityComponent
     fun plus(module: SettingsFragmentModule): SettingsFragmentComponent

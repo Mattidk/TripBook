@@ -8,7 +8,7 @@ import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.activity.HostActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.UserDetailDataMapper
-import dk.mathiaspedersen.tripbook.presentation.fragment.HistoryFragment
+import dk.mathiaspedersen.tripbook.presentation.fragment.RecentFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.ActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
@@ -36,5 +36,5 @@ class HostActivityModule(activity: HostActivity) : ActivityModule(activity) {
     fun provideTripsFragment() = TripsFragment()
 
     @Provides @ActivityScope
-    fun provideHistoryFragment() = HistoryFragment()
+    fun provideRecentFragment() = RecentFragment()
 }
