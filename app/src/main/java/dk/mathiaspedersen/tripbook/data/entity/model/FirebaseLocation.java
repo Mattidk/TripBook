@@ -2,8 +2,6 @@ package dk.mathiaspedersen.tripbook.data.entity.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.parceler.Parcel;
-
 public class FirebaseLocation {
 
     public String location;

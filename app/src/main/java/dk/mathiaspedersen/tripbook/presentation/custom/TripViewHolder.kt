@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
@@ -16,20 +17,16 @@ import dk.mathiaspedersen.tripbook.presentation.activity.DetailActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
-import jp.wasabeef.glide.transformations.CropCircleTransformation
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.ocpsoft.prettytime.PrettyTime
 import org.parceler.Parcels
-import java.util.*
-import com.amulyakhare.textdrawable.TextDrawable
-import org.jetbrains.anko.backgroundColor
-import org.jetbrains.anko.backgroundResource
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.util.*
 
 
-class ViewHolder(val context: Context, val settings: AppSettings, view: View)
+class TripViewHolder(val context: Context, val settings: AppSettings, view: View)
     : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
 
     private val progress: ProgressBar = view.find(R.id.progressBar)
@@ -38,7 +35,6 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
     private val time: TextView = view.find(R.id.time)
     private val destination : TextView = view.find(R.id.destination)
     private val carUsed : TextView = view.find(R.id.car_used)
-    private val tripType : TextView = view.find(R.id.trip_type)
     private val distance : TextView = view.find(R.id.distance)
     private val value : TextView = view.find(R.id.value)
     private var model: TripDetail? = null
@@ -63,13 +59,6 @@ class ViewHolder(val context: Context, val settings: AppSettings, view: View)
 
         distance.text = formatMiles.format(miles)
         value.text = formatValue.format(miles * 0.54)
-
-        tripType.text = model.purpose
-        if (model.purpose == "personal"){
-            tripType.backgroundResource = R.drawable.tag_background_personal
-        }else {
-            tripType.backgroundResource = R.drawable.tag_background_business
-        }
 
         val drawable = TextDrawable.builder().buildRound(model.vehicle.make[0].toString(), Color.RED)
         carIcon.setImageDrawable(drawable)

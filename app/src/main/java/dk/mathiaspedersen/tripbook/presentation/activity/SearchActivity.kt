@@ -4,11 +4,7 @@ import android.app.SearchManager
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.view.MenuItemCompat
-
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import butterknife.BindView
@@ -19,7 +15,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.SearchPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.SearchView
-
 import javax.inject.Inject
 
 class SearchActivity : BaseActivity(), SearchView {

@@ -7,7 +7,11 @@ import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 
 class ViewHolderFactory(val context: Context, val settings: AppSettings) {
 
-    fun create(parent: ViewGroup): ViewHolder {
-        return ViewHolder(context, settings, parent)
+    fun createTrip(parent: ViewGroup): TripViewHolder {
+        return TripViewHolder(context, settings, parent)
+    }
+
+    fun createRecent(parent: ViewGroup): RecentViewHolder {
+        return RecentViewHolder(context, settings, parent)
     }
 }

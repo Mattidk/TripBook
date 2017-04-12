@@ -24,7 +24,7 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
                   val classifyBusinessTrip: ClassifyBusinessTrip,
                   val interactorExecutor: FirebaseInteractorExecutor,
                   val tripDetailDataMapper: TripDetailDataMapper)
-    : RecyclerView.Adapter<ViewHolder>(), SwipeHelperAdapter {
+    : RecyclerView.Adapter<TripViewHolder>(), SwipeHelperAdapter {
 
     val personalTripsToRemove = arrayListOf<TripDetail>()
     val businessTripsToRemove = arrayListOf<TripDetail>()
@@ -34,13 +34,13 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
         const val RIGHT = 32
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_trip, parent, false) as ViewGroup
-        return viewHolderFactory.create(view)
+        return viewHolderFactory.createTrip(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         holder.bind(trips[position])
     }
 

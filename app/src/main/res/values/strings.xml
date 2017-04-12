@@ -26,7 +26,7 @@
     <!--actionbar menu end-->
 
     <!--recent fragment start-->
-    <string name="fragment_history_title">History fragment</string>
+    <string name="fragment_recent_title">Recent fragment</string>
     <!--recent fragment end-->
 
     <!--login activity start-->

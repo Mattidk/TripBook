@@ -5,8 +5,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.Abo
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.AboutActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityModule
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.recent.RecentFragmentComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.recent.RecentFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityComponent
@@ -15,6 +13,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.Log
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.ProfileActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.ProfileActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.recent.RecentFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.recent.RecentFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentComponent
