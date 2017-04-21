@@ -1,39 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment">
 
-    <RelativeLayout
-        android:id="@+id/noItems"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/thumb"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            app:srcCompat="@drawable/ic_recyclerview_empty" />
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Medium"
-            android:layout_width="128dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/thumb"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:text="Nothing left to classify, Good job!" />
-
-    </RelativeLayout>
-
     <ProgressBar
         android:id="@+id/loading_spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_centerInParent="true" />
 
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/refresh_container"
@@ -46,8 +22,9 @@
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingBottom="4dp"
-            android:paddingTop="4dp" />
+            android:paddingTop="4dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-</FrameLayout> 
+</RelativeLayout>

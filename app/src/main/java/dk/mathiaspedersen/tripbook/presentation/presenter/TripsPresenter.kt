@@ -19,7 +19,11 @@ class TripsPresenter(
 
     @Subscribe
     fun onEvent(event: GetTripsSuccessEvent) {
-        view.populateRecyclerView(tripDataMapper.transform(event.trips) as ArrayList)
+        val trips = tripDataMapper.transform(event.trips) as ArrayList
+        val miles = trips.sumBy { it.distance.toInt() }.toLong() * 0.000621371192
+        val value = miles * 0.54
+        view.displaySums(trips.size, miles, value)
+        view.populateRecyclerView(trips)
     }
 
     @Subscribe

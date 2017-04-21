@@ -6,4 +6,5 @@ import java.util.*
 interface TripsView : BaseView {
     fun populateRecyclerView(trips: ArrayList<TripDetail>)
     fun unableToFetchTrips(message: String)
+    fun displaySums(trips: Int, miles: Double, value: Double)
 }

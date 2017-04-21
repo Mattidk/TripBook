@@ -2,9 +2,11 @@ package dk.mathiaspedersen.tripbook.presentation.fragment
 
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +47,7 @@ class RecentFragment : BaseFragment(), RecentView {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_trips, container, false)
         ButterKnife.bind(this, view)
+        setScrollFlags()
         setupViews()
         return view
     }
@@ -64,6 +67,12 @@ class RecentFragment : BaseFragment(), RecentView {
 
     override fun unableToFetchTrips(message: String) {
         // Temporarily empty
+    }
+
+    fun setScrollFlags() {
+        val toolbar = activity.findViewById(R.id.toolbar) as Toolbar
+        val params = toolbar.layoutParams as AppBarLayout.LayoutParams
+        params.scrollFlags = AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP
     }
 
     override fun onResume() {
