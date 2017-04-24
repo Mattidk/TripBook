@@ -9,6 +9,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.Host
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.intro.IntroActivityComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.intro.IntroActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.ProfileActivityComponent
@@ -43,4 +45,5 @@ interface ApplicationComponent {
     fun plus(module: AboutActivityModule): AboutActivityComponent
     fun plus(module: ProfileActivityModule): ProfileActivityComponent
     fun plus(module: SearchActivityModule): SearchActivityComponent
+    fun plus(module: IntroActivityModule): IntroActivityComponent
 }

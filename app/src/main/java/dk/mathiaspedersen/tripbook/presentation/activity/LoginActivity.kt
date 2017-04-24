@@ -19,8 +19,10 @@ import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.LoginPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.LoginView
+import org.jetbrains.anko.clearTask
 import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginView {
@@ -54,7 +56,7 @@ class LoginActivity : BaseActivity(), LoginView {
 
     private fun checkUserStatus() {
         if (auth.currentUser != null){
-            startActivity(intentFor<HostActivity>().clearTop())
+            startActivity(intentFor<HostActivity>().clearTask().newTask())
             finish()
         }
     }
@@ -86,7 +88,7 @@ class LoginActivity : BaseActivity(), LoginView {
 
     override fun successfulLogin() {
         viewHelper.hideProgress()
-        startActivity(intentFor<HostActivity>().clearTop())
+        startActivity(intentFor<HostActivity>().clearTask().newTask())
         finish()
     }
 

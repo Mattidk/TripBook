@@ -9,9 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.TextView
 import butterknife.BindView
@@ -19,13 +17,14 @@ import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.custom.SwipeHelperCallback
 import dk.mathiaspedersen.tripbook.presentation.custom.TripAdapter
+import dk.mathiaspedersen.tripbook.presentation.custom.TripItemAnimator
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
-import java.text.DecimalFormat
+import org.jetbrains.anko.find
 import java.util.*
 import javax.inject.Inject
 
@@ -50,6 +49,11 @@ class TripsFragment : BaseFragment(), TripsView {
     @BindView(R.id.refresh_container)
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         val view = inflater.inflate(R.layout.fragment_trips, container, false)
@@ -64,8 +68,26 @@ class TripsFragment : BaseFragment(), TripsView {
         super.onViewCreated(view, savedInstanceState)
         swipeRefreshLayout.setOnRefreshListener {
             adapter.saveChanges()
-            fetchTrips()
+            getTrips()
         }
+    }
+
+    fun setupViews() {
+        activity.title = "Trips"
+        tripsRecyclerView.setHasFixedSize(true)
+        val mLayoutManager = LinearLayoutManager(activity)
+        tripsRecyclerView.layoutManager = mLayoutManager
+        tripsRecyclerView.adapter = adapter
+
+        val callback = SwipeHelperCallback(adapter, tripsRecyclerView)
+        val mItemTouchHelper = ItemTouchHelper(callback)
+        mItemTouchHelper.attachToRecyclerView(tripsRecyclerView)
+
+        swipeRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light)
     }
 
     fun setScrollFlags() {
@@ -85,74 +107,86 @@ class TripsFragment : BaseFragment(), TripsView {
     }
 
     fun resetTripsValues() {
-        val numTrips = activity.findViewById(R.id.num_trips) as TextView
-        val numMiles = activity.findViewById(R.id.num_miles) as TextView
-        val numValue = activity.findViewById(R.id.num_value) as TextView
+        val numTrips: TextView = activity.find(R.id.num_trips)
+        val numMiles: TextView = activity.find(R.id.num_miles)
+        val numValue: TextView = activity.find(R.id.num_value)
 
         numTrips.text = "0"
         numMiles.text = "0"
-        numValue.text = "0"
+        numValue.text = String.format(getString(R.string.toolbar_value), 0)
     }
 
     override fun populateRecyclerView(trips: ArrayList<TripDetail>) {
-        spinner.visibility = View.GONE
+        tripsRecyclerView.itemAnimator = TripItemAnimator()
         swipeRefreshLayout.isRefreshing = false
+        spinner.visibility = View.GONE
         adapter.refresh(trips)
     }
 
-    override fun displaySums(trips: Int, miles: Double, value: Double) {
-        val numTrips = activity.findViewById(R.id.num_trips) as TextView
-        val numMiles = activity.findViewById(R.id.num_miles) as TextView
-        val numValue = activity.findViewById(R.id.num_value) as TextView
-
-        val formatMiles = DecimalFormat("#.#")
-        val formatValue = DecimalFormat("#.##")
-
-        val animatorTrips = ValueAnimator()
-        animatorTrips.setObjectValues(0, trips)
-        animatorTrips.addUpdateListener({
-            numTrips.text = it.animatedValue.toString()
+    override fun SumValue(value: Double) {
+        val numValue = activity.find<TextView>(R.id.num_value)
+        val animatorValue = ValueAnimator()
+        animatorValue.setObjectValues(0, Math.round(value))
+        animatorValue.addUpdateListener({
+            numValue.text = String.format(getString(R.string.toolbar_value), it.animatedValue)
         })
-        animatorTrips.setEvaluator(object : TypeEvaluator<Int> {
+        animatorValue.setEvaluator(object : TypeEvaluator<Int> {
             override fun evaluate(fraction: Float, startValue: Int, endValue: Int): Int {
                 return Math.round(startValue + (endValue - startValue) * fraction)
-            }
-        })
-        animatorTrips.duration = 1000
-        animatorTrips.start()
-
-        val animatorMiles = ValueAnimator()
-        animatorMiles.setObjectValues(0, miles)
-        animatorMiles.addUpdateListener({ numMiles.text = formatMiles.format(it.animatedValue) })
-        animatorMiles.setEvaluator(object : TypeEvaluator<Double> {
-            override fun evaluate(fraction: Float, startValue: Double, endValue: Double): Double {
-                return Math.round(startValue + (endValue - startValue) * fraction).toDouble()
-            }
-        })
-        animatorMiles.duration = 1000
-        animatorMiles.start()
-
-        val animatorValue = ValueAnimator()
-        animatorValue.setObjectValues(0, value)
-        animatorValue.addUpdateListener({ numValue.text = formatValue.format(it.animatedValue) })
-        animatorValue.setEvaluator(object : TypeEvaluator<Double> {
-            override fun evaluate(fraction: Float, startValue: Double, endValue: Double): Double {
-                return Math.round(startValue + (endValue - startValue) * fraction).toDouble()
             }
         })
         animatorValue.duration = 1000
         animatorValue.start()
     }
 
+    override fun SumMiles(miles: Double) {
+        val numMiles = activity.find<TextView>(R.id.num_miles)
+        val animator = ValueAnimator()
+        animator.setObjectValues(0, Math.round(miles))
+        animator.addUpdateListener({ numMiles.text = it.animatedValue.toString() })
+        animator.setEvaluator(object : TypeEvaluator<Int> {
+            override fun evaluate(fraction: Float, startValue: Int, endValue: Int): Int {
+                return Math.round(startValue + (endValue - startValue) * fraction)
+            }
+        })
+        animator.duration = 1000
+        animator.start()
+    }
+
+    override fun SumTrips(trips: Int) {
+        val numTrips = activity.find<TextView>(R.id.num_trips)
+        val animator = ValueAnimator()
+        animator.setObjectValues(0, trips)
+        animator.addUpdateListener({ numTrips.text = it.animatedValue.toString() })
+        animator.setEvaluator(object : TypeEvaluator<Int> {
+            override fun evaluate(fraction: Float, startValue: Int, endValue: Int): Int {
+                return Math.round(startValue + (endValue - startValue) * fraction)
+            }
+        })
+        animator.duration = 1000
+        animator.start()
+    }
+
     override fun unableToFetchTrips(message: String) {
         // Temporarily empty
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_refresh -> { getTrips() }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onResume() {
         super.onResume()
         swipeRefreshLayout.isRefreshing = false
         presenter.onResume()
-        resetTripsValues()
         showToolbar()
     }
 
@@ -167,38 +201,11 @@ class TripsFragment : BaseFragment(), TripsView {
         hideToolbar()
     }
 
-    fun fetchTrips() {
-        if (!swipeRefreshLayout.isRefreshing) {
-            swipeRefreshLayout.isRefreshing = true
-        }
-        resetTripsValues()
+    fun getTrips() {
         presenter.getUnclassifiedTrips()
-    }
-
-    fun setupViews() {
-
-        activity.title = "Trips"
-
-        tripsRecyclerView.setHasFixedSize(true)
-        val mLayoutManager = LinearLayoutManager(activity)
-        tripsRecyclerView.layoutManager = mLayoutManager
-        tripsRecyclerView.adapter = adapter
-
-        val callback = SwipeHelperCallback(adapter, tripsRecyclerView)
-        val mItemTouchHelper = ItemTouchHelper(callback)
-        mItemTouchHelper.attachToRecyclerView(tripsRecyclerView)
-
-        swipeRefreshLayout.setColorSchemeResources(
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light)
-
-        swipeRefreshLayout.setColorSchemeResources(
-                R.color.colorAccent,
-                R.color.colorAccent,
-                R.color.colorAccent,
-                R.color.colorPrimary)
+        presenter.clearRecyclerView()
+        swipeRefreshLayout.isRefreshing = true
+        resetTripsValues()
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {

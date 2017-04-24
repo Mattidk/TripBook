@@ -32,8 +32,4 @@ class HostPresenter(
         interactorExecutor.execute(getUserInteractor)
     }
 
-    fun refresh() {
-        interactorExecutor.execute(getUnclassifiedTrips)
-    }
-
 }

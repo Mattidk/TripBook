@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Vibrator
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import dk.mathiaspedersen.tripbook.R
@@ -47,8 +48,11 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
     override fun getItemCount(): Int = trips.size
 
     fun refresh(list: ArrayList<TripDetail>) {
-        trips = list
-        notifyDataSetChanged()
+        val currentSize = trips.size
+        trips.clear()
+        trips.addAll(list)
+        notifyItemRangeRemoved(0, currentSize)
+        notifyItemRangeInserted(0, trips.size)
     }
 
     override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, direction: Int, recyclerView: RecyclerView) {

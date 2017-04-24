@@ -12,4 +12,7 @@ interface AppSettings {
     fun getPolylineStyle(path: List<LatLng>): PolylineOptions
     fun getStaticPolylineStyle(): Style
     fun vibrateOnClassification(): Boolean
+    fun setFirstTimeLaunch(isFirstTime: Boolean)
+    fun isFirstTimeLaunch(): Boolean
+    fun resetSettings()
 }

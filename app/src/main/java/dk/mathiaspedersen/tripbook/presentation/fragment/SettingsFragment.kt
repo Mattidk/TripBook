@@ -11,16 +11,18 @@ import dk.mathiaspedersen.tripbook.presentation.activity.AboutActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.LoginActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.ProfileActivity
 import dk.mathiaspedersen.tripbook.presentation.activity.SettingsActivity
+import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.SettingsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.SettingsView
-import org.jetbrains.anko.clearTop
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.*
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.OnSharedPreferenceChangeListener {
+
+    @Inject
+    lateinit var settings: AppSettings
 
     @Inject
     lateinit var presenter: SettingsPresenter
@@ -66,8 +68,9 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
     }
 
     override fun signOutSuccessful() {
-        startActivity(intentFor<LoginActivity>().clearTop())
+        startActivity(intentFor<LoginActivity>().clearTask().newTask())
         activity.finish()
+        settings.resetSettings()
     }
 
     override fun signOutUnsuccessful() {

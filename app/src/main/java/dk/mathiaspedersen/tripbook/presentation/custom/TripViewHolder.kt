@@ -2,6 +2,7 @@ package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
 import android.graphics.Color
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
@@ -60,7 +61,8 @@ class TripViewHolder(val context: Context, val settings: AppSettings, view: View
         distance.text = formatMiles.format(miles)
         value.text = formatValue.format(miles * 0.54)
 
-        val drawable = TextDrawable.builder().buildRound(model.vehicle.make[0].toString(), Color.RED)
+        val drawable = TextDrawable.builder().buildRound(model.vehicle.make[0].toString(),
+                ContextCompat.getColor(context, R.color.colorLetterIcon))
         carIcon.setImageDrawable(drawable)
 
         Glide.with(context).load(map)

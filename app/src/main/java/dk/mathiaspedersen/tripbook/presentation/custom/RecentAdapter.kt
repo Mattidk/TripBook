@@ -27,8 +27,11 @@ class RecentAdapter(var trips: ArrayList<TripDetail>,
     override fun getItemCount(): Int = trips.size
 
     fun refresh(list: ArrayList<TripDetail>) {
-        trips = list
-        notifyDataSetChanged()
+        val currentSize = trips.size
+        trips.clear()
+        trips.addAll(list)
+        notifyItemRangeRemoved(0, currentSize)
+        notifyItemRangeInserted(0, trips.size)
     }
 
 }

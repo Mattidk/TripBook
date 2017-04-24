@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Vibrator
+import android.support.v7.app.AppCompatDelegate
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.PolylineOptions
 import dk.mathiaspedersen.tripbook.R
@@ -12,6 +13,19 @@ import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
 
 
 class AppSettingsImpl(val context: Context, val preferences: SharedPreferences) : AppSettings {
+
+    override fun resetSettings() {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        preferences.edit().clear().apply()
+    }
+
+    override fun setFirstTimeLaunch(isFirstTime: Boolean) {
+        preferences.edit().putBoolean("IsFirstTimeLaunch", isFirstTime).apply()
+    }
+
+    override fun isFirstTimeLaunch(): Boolean {
+        return preferences.getBoolean("IsFirstTimeLaunch", true)
+    }
 
     override fun vibrateOnClassification(): Boolean {
         val setting = preferences.getBoolean("pref_key_vibrate_on_classification", false)

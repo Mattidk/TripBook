@@ -32,7 +32,7 @@ class RecentPresenter(
         interactorExecutor.execute(interactor)
     }
 
-    fun getUnclassifiedTrips() {
+    fun getRecentTrips() {
         interactorExecutor.execute(interactor)
     }
 }

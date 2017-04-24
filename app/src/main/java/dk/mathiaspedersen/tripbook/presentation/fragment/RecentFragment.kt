@@ -7,14 +7,13 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.custom.RecentAdapter
+import dk.mathiaspedersen.tripbook.presentation.custom.RecentItemAnimator
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -37,15 +36,20 @@ class RecentFragment : BaseFragment(), RecentView {
     @BindView(R.id.loading_spinner)
     lateinit var spinner: ProgressBar
 
-    @BindView(R.id.trips_recyclerview)
-    lateinit var tripsRecyclerView: RecyclerView
+    @BindView(R.id.recent_recyclerview)
+    lateinit var recyclerView: RecyclerView
 
     @BindView(R.id.refresh_container)
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.fragment_trips, container, false)
+        val view = inflater.inflate(R.layout.fragment_recent, container, false)
         ButterKnife.bind(this, view)
         setScrollFlags()
         setupViews()
@@ -61,12 +65,31 @@ class RecentFragment : BaseFragment(), RecentView {
 
     override fun populateRecyclerView(trips: ArrayList<TripDetail>) {
         spinner.visibility = View.GONE
+        recyclerView.itemAnimator = RecentItemAnimator()
         swipeRefreshLayout.isRefreshing = false
         adapter.refresh(trips)
     }
 
     override fun unableToFetchTrips(message: String) {
         // Temporarily empty
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
+        inflater.inflate(R.menu.main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_refresh -> {
+                if (!swipeRefreshLayout.isRefreshing) {
+                    swipeRefreshLayout.isRefreshing = true
+                }
+                fetchTrips()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun setScrollFlags() {
@@ -90,17 +113,18 @@ class RecentFragment : BaseFragment(), RecentView {
         if (!swipeRefreshLayout.isRefreshing) {
             swipeRefreshLayout.isRefreshing = true
         }
-        presenter.getUnclassifiedTrips()
+        adapter.refresh(arrayListOf<TripDetail>())
+        presenter.getRecentTrips()
     }
 
     fun setupViews() {
 
         activity.title = "Recent"
 
-        tripsRecyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(activity)
-        tripsRecyclerView.layoutManager = mLayoutManager
-        tripsRecyclerView.adapter = adapter
+        recyclerView.layoutManager = mLayoutManager as RecyclerView.LayoutManager?
+        recyclerView.adapter = adapter
 
         swipeRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,

@@ -5,6 +5,7 @@ import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsFailureEvent
 import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsSuccessEvent
+import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.greenrobot.eventbus.Subscribe
@@ -22,7 +23,10 @@ class TripsPresenter(
         val trips = tripDataMapper.transform(event.trips) as ArrayList
         val miles = trips.sumBy { it.distance.toInt() }.toLong() * 0.000621371192
         val value = miles * 0.54
-        view.displaySums(trips.size, miles, value)
+
+        view.SumTrips(trips.size)
+        view.SumMiles(miles)
+        view.SumValue(value)
         view.populateRecyclerView(trips)
     }
 
@@ -34,6 +38,10 @@ class TripsPresenter(
     override fun onResume() {
         super.onResume()
         interactorExecutor.execute(interactor)
+    }
+
+    fun clearRecyclerView() {
+        view.populateRecyclerView(arrayListOf<TripDetail>())
     }
 
     fun getUnclassifiedTrips() {

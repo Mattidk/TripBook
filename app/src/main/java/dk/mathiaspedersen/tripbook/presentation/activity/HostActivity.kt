@@ -92,11 +92,6 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         presenter.onPause()
     }
 
-    override fun injectDependencies(applicationComponent: ApplicationComponent) {
-        applicationComponent.plus(HostActivityModule(this))
-                .injectTo(this)
-    }
-
     fun initializeFragment() {
         fragmentManager.beginTransaction()
                 .replace(R.id.fragment_container,
@@ -177,16 +172,16 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_search -> {startActivity<SearchActivity>()}
-            R.id.menu_refresh -> {presenter.refresh()}
             R.id.menu_help -> {}
-            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+        return false
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
+
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_trips -> {
@@ -202,5 +197,10 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
             }
         }
         return true
+    }
+
+    override fun injectDependencies(applicationComponent: ApplicationComponent) {
+        applicationComponent.plus(HostActivityModule(this))
+                .injectTo(this)
     }
 }
