@@ -39,7 +39,7 @@
     <!--login activity end-->
 
     <!--detail activity start-->
-    <string name="activity_detail_title">Map</string>
+    <string name="activity_help_title">Help</string>
     <!--detail activity end-->
 
     <!--profile activity start-->

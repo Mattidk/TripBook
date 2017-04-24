@@ -172,7 +172,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_search -> {startActivity<SearchActivity>()}
-            R.id.menu_help -> {}
+            R.id.menu_help -> {startActivity<HelpActivity>()}
         }
         return false
     }
