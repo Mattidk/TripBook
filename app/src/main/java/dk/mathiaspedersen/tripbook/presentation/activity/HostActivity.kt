@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
 import dk.mathiaspedersen.tripbook.presentation.fragment.ExpenseFragment
+import dk.mathiaspedersen.tripbook.presentation.fragment.InviteFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -55,6 +56,9 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     @Inject
     lateinit var expenses: ExpenseFragment
+
+    @Inject
+    lateinit var invite: InviteFragment
 
     @Inject
     lateinit var presenter: HostPresenter
@@ -190,6 +194,10 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
             }
             R.id.nav_expenses -> {
                 navigateTo(expenses)
+                drawer.closeDrawer(GravityCompat.START)
+            }
+            R.id.nav_invite -> {
+                navigateTo(invite)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_settings -> {

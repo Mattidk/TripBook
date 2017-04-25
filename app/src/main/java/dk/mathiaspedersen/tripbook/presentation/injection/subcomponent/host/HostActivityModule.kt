@@ -9,6 +9,7 @@ import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInter
 import dk.mathiaspedersen.tripbook.presentation.activity.HostActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.UserDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.fragment.ExpenseFragment
+import dk.mathiaspedersen.tripbook.presentation.fragment.InviteFragment
 import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.ActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
@@ -37,4 +38,7 @@ class HostActivityModule(activity: HostActivity) : ActivityModule(activity) {
 
     @Provides @ActivityScope
     fun provideExpenseFragment() = ExpenseFragment()
+
+    @Provides @ActivityScope
+    fun provideInviteFragment() = InviteFragment()
 }

@@ -1,4 +1,4 @@
-package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips
+package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expense
 
 import dagger.Subcomponent
 import dk.mathiaspedersen.tripbook.presentation.fragment.ExpenseFragment

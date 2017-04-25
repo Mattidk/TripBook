@@ -5,6 +5,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.Abo
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.AboutActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expense.ExpenseFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expense.ExpenseFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.help.HelpActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HelpActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityComponent
@@ -13,6 +15,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSetti
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSettings.HostSettingsActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.intro.IntroActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.intro.IntroActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.invite.InviteFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.invite.InviteFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.ProfileActivityComponent
@@ -21,8 +25,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.Se
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.ExpenseFragmentComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.ExpenseFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import javax.inject.Singleton
@@ -41,6 +43,7 @@ interface ApplicationComponent {
     fun plus(module: HostActivityModule): HostActivityComponent
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
     fun plus(module: ExpenseFragmentModule): ExpenseFragmentComponent
+    fun plus(module: InviteFragmentModule): InviteFragmentComponent
     fun plus(module: DetailActivityModule): DetailActivityComponent
     fun plus(module: HostSettingsActivityModule): HostSettingsActivityComponent
     fun plus(module: SettingsFragmentModule): SettingsFragmentComponent

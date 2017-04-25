@@ -7,19 +7,19 @@ import android.view.ViewGroup
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expense.ExpenseFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.presenter.ExpensePresenter
-import dk.mathiaspedersen.tripbook.presentation.view.ExpenseView
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.invite.InviteFragmentModule
+import dk.mathiaspedersen.tripbook.presentation.presenter.InvitePresenter
+import dk.mathiaspedersen.tripbook.presentation.view.InviteView
 import javax.inject.Inject
 
-class ExpenseFragment : BaseFragment(), ExpenseView {
+class InviteFragment : BaseFragment(), InviteView {
 
     @Inject
-    lateinit var presenter: ExpensePresenter
+    lateinit var presenter: InvitePresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view = inflater.inflate(R.layout.fragment_expense, container, false)
+        val view = inflater.inflate(R.layout.fragment_invite, container, false)
         ButterKnife.bind(this, view)
         return view
     }
@@ -35,7 +35,7 @@ class ExpenseFragment : BaseFragment(), ExpenseView {
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
-        applicationComponent.plus(ExpenseFragmentModule(this))
+        applicationComponent.plus(InviteFragmentModule(this))
                 .injectTo(this)
     }
 
