@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.widget.Toolbar
-import android.view.MenuItem
 import android.widget.RelativeLayout
 import butterknife.BindView
 import butterknife.ButterKnife

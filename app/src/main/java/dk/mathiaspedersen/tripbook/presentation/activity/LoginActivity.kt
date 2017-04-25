@@ -20,7 +20,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.Log
 import dk.mathiaspedersen.tripbook.presentation.presenter.LoginPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.LoginView
 import org.jetbrains.anko.clearTask
-import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 import javax.inject.Inject

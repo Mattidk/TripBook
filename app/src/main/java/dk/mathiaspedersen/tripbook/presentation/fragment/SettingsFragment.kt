@@ -16,7 +16,10 @@ import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.SettingsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.SettingsView
-import org.jetbrains.anko.*
+import org.jetbrains.anko.clearTask
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.newTask
+import org.jetbrains.anko.startActivity
 import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.OnSharedPreferenceChangeListener {

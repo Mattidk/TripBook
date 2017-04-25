@@ -10,8 +10,4 @@ class ViewHolderFactory(val context: Context, val settings: AppSettings) {
     fun createTrip(parent: ViewGroup): TripViewHolder {
         return TripViewHolder(context, settings, parent)
     }
-
-    fun createRecent(parent: ViewGroup): RecentViewHolder {
-        return RecentViewHolder(context, settings, parent)
-    }
 }

@@ -29,10 +29,6 @@
     <string name="help">Help</string>
     <!--actionbar menu end-->
 
-    <!--recent fragment start-->
-    <string name="fragment_recent_title">Recent fragment</string>
-    <!--recent fragment end-->
-
     <!--login activity start-->
     <string name="activity_login_button_sign_up_google">Sign Up with Google</string>
     <string name="activity_login_dialog_sign_up_loading">Loading</string>

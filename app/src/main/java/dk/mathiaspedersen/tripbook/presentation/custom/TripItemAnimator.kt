@@ -4,13 +4,8 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.RecyclerView
-import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
-
 import dk.mathiaspedersen.tripbook.presentation.util.getScreenHeight
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
-
 
 
 class TripItemAnimator : DefaultItemAnimator() {

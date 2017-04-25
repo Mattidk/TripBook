@@ -3,13 +3,19 @@ package dk.mathiaspedersen.tripbook.presentation.activity
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.text.Html
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.custom.IntroPageTransformer
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.intro.IntroActivityModule
@@ -18,15 +24,6 @@ import dk.mathiaspedersen.tripbook.presentation.view.IntroView
 import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.intentFor
 import javax.inject.Inject
-import android.text.Html
-import android.widget.TextView
-import org.w3c.dom.Text
-import android.view.ViewGroup
-import android.content.Context.LAYOUT_INFLATER_SERVICE
-import android.view.LayoutInflater
-import android.support.v4.view.PagerAdapter
-import dk.mathiaspedersen.tripbook.presentation.activity.IntroActivity.MyViewPagerAdapter
-import dk.mathiaspedersen.tripbook.presentation.custom.IntroPageTransformer
 
 
 class IntroActivity : BaseActivity(), IntroView {

@@ -27,10 +27,6 @@ class DomainModule {
             = GetUnclassifiedTrips(repository, bus)
 
     @Provides
-    fun provideGetRecentTrips(repository: FirebaseRepository, bus: Bus)
-            = GetRecentTrips(repository, bus)
-
-    @Provides
     fun provideClassifyPersonalTrip(repository: FirebaseRepository)
             = ClassifyPersonalTrip(repository)
 
