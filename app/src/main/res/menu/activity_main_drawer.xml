@@ -15,9 +15,19 @@
             android:title="Recent" />
 
         <item
+            android:id="@+id/nav_expenses"
+            android:icon="@drawable/ic_menu_expense"
+            android:title="Expenses" />
+
+        <item
             android:id="@+id/nav_archive"
             android:icon="@drawable/ic_menu_archive"
             android:title="Archive" />
+
+        <item
+            android:id="@+id/nav_auto_classify"
+            android:icon="@drawable/ic_menu_auto"
+            android:title="Auto-Classify" />
 
         <item
             android:id="@+id/nav_report"

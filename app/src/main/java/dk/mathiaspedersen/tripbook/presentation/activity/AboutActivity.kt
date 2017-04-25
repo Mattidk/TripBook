@@ -75,16 +75,6 @@ class AboutActivity : BaseActivity(), AboutView {
         presenter.onPause()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(AboutActivityModule(this))
                 .injectTo(this)

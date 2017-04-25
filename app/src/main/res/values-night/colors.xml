@@ -13,6 +13,8 @@
     <color name="colorBackground">#F5F5F5</color>
     <color name="mapPlaceholder">#2c2e35</color>
     <color name="colorToolbar">#2c2e35</color>
+    <color name="colorNavigationView">#2c2e35</color>
+    <color name="colorIconNavigationView">#8AFFFFFF</color>
 
     <color name="cardBackgroundColor">#2c2e35</color>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#009688</color>
-    <color name="colorPrimaryDark">#dadada</color>
+    <color name="colorPrimary">#2c2e35</color>
+    <color name="colorPrimaryDark">#24252b</color>
     <color name="colorPrimaryLight">#ff5722</color>
     <color name="colorAccent">#ff5722</color>
     <color name="colorPrimaryText">#212121</color>
@@ -12,7 +12,9 @@
     <color name="colorWindowBackground">#e4e3e4</color>
     <color name="colorBackground">#F5F5F5</color>
     <color name="mapPlaceholder">#BDBDBD</color>
-    <color name="colorToolbar">#FFFFFF</color>
+    <color name="colorToolbar">#2c2e35</color>
+    <color name="colorNavigationView">#24252b</color>
+    <color name="colorIconNavigationView">#8AFFFFFF</color>
 
     <color name="cardBackgroundColor">#FFFFFF</color>
 
