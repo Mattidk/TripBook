@@ -21,6 +21,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.Se
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.ExpenseFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.ExpenseFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import javax.inject.Singleton
@@ -38,6 +40,7 @@ interface ApplicationComponent {
     fun plus(module: LoginActivityModule): LoginActivityComponent
     fun plus(module: HostActivityModule): HostActivityComponent
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
+    fun plus(module: ExpenseFragmentModule): ExpenseFragmentComponent
     fun plus(module: DetailActivityModule): DetailActivityComponent
     fun plus(module: HostSettingsActivityModule): HostSettingsActivityComponent
     fun plus(module: SettingsFragmentModule): SettingsFragmentComponent
