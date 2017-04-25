@@ -21,6 +21,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.Log
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.login.LoginActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.ProfileActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.ProfileActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.report.ReportFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.report.ReportFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentComponent
@@ -44,6 +46,7 @@ interface ApplicationComponent {
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
     fun plus(module: ExpenseFragmentModule): ExpenseFragmentComponent
     fun plus(module: InviteFragmentModule): InviteFragmentComponent
+    fun plus(module: ReportFragmentModule): ReportFragmentComponent
     fun plus(module: DetailActivityModule): DetailActivityComponent
     fun plus(module: HostSettingsActivityModule): HostSettingsActivityComponent
     fun plus(module: SettingsFragmentModule): SettingsFragmentComponent
