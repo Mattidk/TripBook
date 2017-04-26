@@ -21,10 +21,7 @@ import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.UserDetail
-import dk.mathiaspedersen.tripbook.presentation.fragment.ExpenseFragment
-import dk.mathiaspedersen.tripbook.presentation.fragment.InviteFragment
-import dk.mathiaspedersen.tripbook.presentation.fragment.ReportFragment
-import dk.mathiaspedersen.tripbook.presentation.fragment.TripsFragment
+import dk.mathiaspedersen.tripbook.presentation.fragment.*
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
@@ -63,6 +60,9 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     @Inject
     lateinit var report: ReportFragment
+
+    @Inject
+    lateinit var auto: AutoFragment
 
     @Inject
     lateinit var presenter: HostPresenter
@@ -198,6 +198,10 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
             }
             R.id.nav_expenses -> {
                 navigateTo(expenses)
+                drawer.closeDrawer(GravityCompat.START)
+            }
+            R.id.nav_auto_classify -> {
+                navigateTo(auto)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_report -> {
