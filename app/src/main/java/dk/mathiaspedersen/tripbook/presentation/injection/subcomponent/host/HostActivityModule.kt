@@ -38,11 +38,14 @@ class HostActivityModule(activity: HostActivity) : ActivityModule(activity) {
     fun provideExpenseFragment() = ExpenseFragment()
 
     @Provides @ActivityScope
-    fun provideInviteFragment() = InviteFragment()
+    fun provideArchiveFragment() = ArchiveFragment()
+
+    @Provides @ActivityScope
+    fun provideAutoFragment() = AutoFragment()
 
     @Provides @ActivityScope
     fun provideReportFragment() = ReportFragment()
 
     @Provides @ActivityScope
-    fun provideAutoFragment() = AutoFragment()
+    fun provideInviteFragment() = InviteFragment()
 }

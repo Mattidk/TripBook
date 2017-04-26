@@ -56,13 +56,16 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     lateinit var expenses: ExpenseFragment
 
     @Inject
-    lateinit var invite: InviteFragment
+    lateinit var archive: ArchiveFragment
+
+    @Inject
+    lateinit var auto: AutoFragment
 
     @Inject
     lateinit var report: ReportFragment
 
     @Inject
-    lateinit var auto: AutoFragment
+    lateinit var invite: InviteFragment
 
     @Inject
     lateinit var presenter: HostPresenter
@@ -198,6 +201,10 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
             }
             R.id.nav_expenses -> {
                 navigateTo(expenses)
+                drawer.closeDrawer(GravityCompat.START)
+            }
+            R.id.nav_archive -> {
+                navigateTo(archive)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_auto_classify -> {

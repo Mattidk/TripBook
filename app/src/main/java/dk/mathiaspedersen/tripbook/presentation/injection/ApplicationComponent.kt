@@ -3,6 +3,8 @@ package dk.mathiaspedersen.tripbook.presentation.injection
 import dagger.Component
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.AboutActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about.AboutActivityModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.archive.ArchiveFragmentComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.archive.ArchiveFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.auto.AutoFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.auto.AutoFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityComponent
@@ -47,6 +49,7 @@ interface ApplicationComponent {
     fun plus(module: HostActivityModule): HostActivityComponent
     fun plus(module: TripsFragmentModule): TripsFragmentComponent
     fun plus(module: ExpenseFragmentModule): ExpenseFragmentComponent
+    fun plus(module: ArchiveFragmentModule): ArchiveFragmentComponent
     fun plus(module: InviteFragmentModule): InviteFragmentComponent
     fun plus(module: ReportFragmentModule): ReportFragmentComponent
     fun plus(module: AutoFragmentModule): AutoFragmentComponent
