@@ -34,6 +34,10 @@ class ExpenseFragment : BaseFragment(), ExpenseView {
         presenter.onPause()
     }
 
+    override fun setTitle() {
+        activity.title = getString(R.string.fragment_expenses_title)
+    }
+
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(ExpenseFragmentModule(this))
                 .injectTo(this)

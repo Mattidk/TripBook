@@ -10,7 +10,9 @@ abstract class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injectDependencies(App.graph)
+        setTitle()
     }
 
     abstract fun injectDependencies(applicationComponent: ApplicationComponent)
+    abstract fun setTitle()
 }

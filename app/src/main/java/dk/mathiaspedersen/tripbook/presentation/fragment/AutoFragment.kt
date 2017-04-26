@@ -34,6 +34,10 @@ class AutoFragment : BaseFragment(), AutoView {
         presenter.onPause()
     }
 
+    override fun setTitle() {
+        activity.title = getString(R.string.fragment_auto_title)
+    }
+
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(AutoFragmentModule(this))
                 .injectTo(this)

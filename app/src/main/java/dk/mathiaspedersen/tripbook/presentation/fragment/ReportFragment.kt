@@ -34,6 +34,10 @@ class ReportFragment : BaseFragment(), ReportView {
         presenter.onPause()
     }
 
+    override fun setTitle() {
+        activity.title = getString(R.string.fragment_report_title)
+    }
+
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(ReportFragmentModule(this))
                 .injectTo(this)

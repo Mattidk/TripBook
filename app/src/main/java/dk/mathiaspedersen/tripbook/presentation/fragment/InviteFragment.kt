@@ -34,6 +34,10 @@ class InviteFragment : BaseFragment(), InviteView {
         presenter.onPause()
     }
 
+    override fun setTitle() {
+        activity.title = getString(R.string.fragment_invite_title)
+    }
+
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(InviteFragmentModule(this))
                 .injectTo(this)

@@ -62,6 +62,7 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
         super.onResume()
         presenter.onResume()
         preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        activity.title = getString(R.string.fragment_settings_title)
     }
 
     override fun onPause() {

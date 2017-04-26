@@ -1,6 +1,34 @@
 <resources>
     <string name="app_name">TripBook</string>
 
+    <!--trips fragment start-->
+    <string name="fragment_trips_title">Trips</string>
+    <!--trips fragment end-->
+
+    <!--expenses fragment start-->
+    <string name="fragment_expenses_title">Expenses</string>
+    <!--expenses fragment end-->
+
+    <!--archive fragment start-->
+    <string name="fragment_archive_title">Archived Trips</string>
+    <!--archive fragment start-->
+
+    <!--auto fragment start-->
+    <string name="fragment_auto_title">Auto-Classify</string>
+    <!--auto fragment start-->
+
+    <!--report fragment start-->
+    <string name="fragment_report_title">Reports</string>
+    <!--report fragment end-->
+
+    <!--invite fragment start-->
+    <string name="fragment_invite_title">Invite Friends</string>
+    <!--invite fragment end-->
+
+    <!--settings fragment start-->
+    <string name="fragment_settings_title">Settings</string>
+    <!--settings fragment end-->
+
     <!--toolbar start-->
     <string name="toolbar_value">$%1$s</string>
     <!--toolbar start-->

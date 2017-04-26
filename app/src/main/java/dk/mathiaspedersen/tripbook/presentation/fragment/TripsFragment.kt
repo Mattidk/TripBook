@@ -196,6 +196,10 @@ class TripsFragment : BaseFragment(), TripsView {
         presenter.onPause()
     }
 
+    override fun setTitle() {
+        activity.title = getString(R.string.fragment_trips_title)
+    }
+
     override fun onDetach() {
         super.onDetach()
         hideToolbar()
