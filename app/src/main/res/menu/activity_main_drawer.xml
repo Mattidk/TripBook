@@ -8,32 +8,32 @@
         <item
             android:id="@+id/nav_trips"
             android:icon="@drawable/ic_menu_trips"
-            android:title="@string/navigation_drawer_menu_title_trips" />
+            android:title="@string/navigation_drawer_menu_item_trips" />
 
         <item
             android:id="@+id/nav_expenses"
             android:icon="@drawable/ic_menu_expense"
-            android:title="Expenses" />
+            android:title="@string/navigation_drawer_menu_item_expenses" />
 
         <item
             android:id="@+id/nav_archive"
             android:icon="@drawable/ic_menu_archive"
-            android:title="Archive" />
+            android:title="@string/navigation_drawer_menu_item_archive" />
 
         <item
             android:id="@+id/nav_auto_classify"
             android:icon="@drawable/ic_menu_auto"
-            android:title="Auto-Classify" />
+            android:title="@string/navigation_drawer_menu_item_auto" />
 
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/ic_menu_report"
-            android:title="Reports" />
+            android:title="@string/navigation_drawer_menu_item_reports" />
 
         <item
             android:id="@+id/nav_invite"
             android:icon="@drawable/ic_menu_invite"
-            android:title="Invite Friends" />
+            android:title="@string/navigation_drawer_menu_item_invite" />
 
     </group>
 
@@ -44,7 +44,7 @@
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_settings"
-            android:title="@string/navigation_drawer_menu_title_settings" />
+            android:title="@string/navigation_drawer_menu_item_settings" />
 
     </group>
 

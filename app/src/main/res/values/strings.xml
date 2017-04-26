@@ -47,9 +47,13 @@
     <!--search activity end-->
 
     <!--navigation drawer start-->
-    <string name="navigation_drawer_menu_title_trips">Trips</string>
-    <string name="navigation_drawer_menu_title_history">History</string>
-    <string name="navigation_drawer_menu_title_settings">Settings</string>
+    <string name="navigation_drawer_menu_item_trips">Trips</string>
+    <string name="navigation_drawer_menu_item_expenses">Expenses</string>
+    <string name="navigation_drawer_menu_item_archive">Archived Trips</string>
+    <string name="navigation_drawer_menu_item_auto">Auto-Classify</string>
+    <string name="navigation_drawer_menu_item_reports">Reports</string>
+    <string name="navigation_drawer_menu_item_invite">Invite Friends</string>
+    <string name="navigation_drawer_menu_item_settings">Settings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!--navigation drawer end-->

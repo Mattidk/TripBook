@@ -8,7 +8,6 @@ import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.auto.AutoFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.report.ReportFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.AutoPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.AutoView
 import javax.inject.Inject
