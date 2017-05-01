@@ -1,17 +1,10 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.event.GetProfileSuccessEvent
 import dk.mathiaspedersen.tripbook.presentation.view.HostSettingsView
-import org.greenrobot.eventbus.Subscribe
 
-class HostSettingsPresenter(
-        override val view: HostSettingsView,
-        override val bus: Bus) : BasePresenter<HostSettingsView> {
+class HostSettingsPresenter(override val view: HostSettingsView) : BasePresenter<HostSettingsView> {
 
-    @Subscribe
-    fun onEvent(event: GetProfileSuccessEvent) {
-//        view.onGetProfileSuccess(userDetailDataMapper.transform(event.user))
+    override fun dispose() {
+        // Used this to clean up observables
     }
-
 }

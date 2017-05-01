@@ -1,33 +1,35 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import dk.mathiaspedersen.tripbook.domain.interactor.SignInWithGoogle
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
-import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignInFailureEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignInSuccessEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
+import dk.mathiaspedersen.tripbook.domain.interactor.GoogleSignIn
+import dk.mathiaspedersen.tripbook.domain.interactor.base.Params
 import dk.mathiaspedersen.tripbook.presentation.view.LoginView
-import org.greenrobot.eventbus.Subscribe
 
-class LoginPresenter(
-        override val view: LoginView,
-        override val bus: Bus,
-        val interactor: SignInWithGoogle,
-        val interactorExecutor: FirebaseInteractorExecutor) : BasePresenter<LoginView> {
+class LoginPresenter(override val view: LoginView, val googleSignIn: GoogleSignIn) : BasePresenter<LoginView> {
 
-    @Subscribe
-    fun onEvent(event: SignInSuccessEvent) {
-        view.successfulLogin()
+    fun signInWithGoogle(account: GoogleSignInAccount) {
+        val params = Params.create()
+        params.putGoogleSignInAccount("account", account)
+        googleSignIn.execute(GoogleSignInObserver(), params)
     }
 
-    @Subscribe
-    fun onEvent(event: SignInFailureEvent) {
-        view.unsuccessfullogin(event.message)
+    override fun dispose() {
+        googleSignIn.dispose()
     }
 
-    fun signInWithGoogle(googleSignInAccount: GoogleSignInAccount) {
-        val interactorDetail = interactor
-        interactorDetail.account = googleSignInAccount
-        interactorExecutor.execute(interactorDetail)
+    inner class GoogleSignInObserver : DefaultObserver<GoogleSignInAccount>() {
+        override fun onNext(t: GoogleSignInAccount) {
+            super.onNext(t)
+            view.successfulLogin()
+        }
+
+        override fun onComplete() {
+            super.onComplete()
+        }
+
+        override fun onError(exception: Throwable) {
+            super.onError(exception)
+        }
     }
 }

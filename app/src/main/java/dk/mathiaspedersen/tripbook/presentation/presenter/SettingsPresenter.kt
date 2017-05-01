@@ -1,30 +1,33 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
+import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.SignOut
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
-import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutFailureEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutSuccessEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.base.Params
 import dk.mathiaspedersen.tripbook.presentation.view.SettingsView
-import org.greenrobot.eventbus.Subscribe
 
-class SettingsPresenter(
-        override val view: SettingsView,
-        override val bus: Bus,
-        val interactor: SignOut,
-        val interactorExecutor: FirebaseInteractorExecutor) : BasePresenter<SettingsView> {
-
-    @Subscribe
-    fun onEvent(event: SignOutSuccessEvent) {
-        view.signOutSuccessful()
-    }
-
-    @Subscribe
-    fun onEvent(event: SignOutFailureEvent) {
-        view.signOutUnsuccessful()
-    }
+class SettingsPresenter(override val view: SettingsView, val signOut: SignOut) : BasePresenter<SettingsView> {
 
     fun signOut() {
-        interactorExecutor.execute(interactor)
+        signOut.execute(SignOutObserver(), Params.EMPTY)
+    }
+
+    override fun dispose() {
+        signOut.dispose()
+    }
+
+    inner class SignOutObserver: DefaultObserver<String>() {
+        override fun onNext(t: String) {
+            super.onNext(t)
+            view.signOutSuccessful()
+        }
+
+        override fun onComplete() {
+            super.onComplete()
+        }
+
+        override fun onError(exception: Throwable) {
+            super.onError(exception)
+            view.signOutUnsuccessful()
+        }
     }
 }

@@ -40,16 +40,6 @@ class SearchActivity : BaseActivity(), SearchView {
         initializeSearch()
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
-
     @OnClick(R.id.navigate_up)
     fun back(view: View){
         finish()

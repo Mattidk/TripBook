@@ -19,7 +19,7 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/car_icon"
+                android:id="@+id/icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="16dp"
@@ -28,7 +28,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/car_icon"
+                android:layout_toEndOf="@id/icon"
                 android:layout_centerVertical="true">
 
                 <TextView
@@ -40,7 +40,7 @@
                     tools:text="Trip to Kongens Lyngby" />
 
                 <TextView
-                    android:id="@+id/car_used"
+                    android:id="@+id/vehicle"
                     style="@style/Base.TextAppearance.AppCompat.Subhead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/destination"
-                    android:layout_toEndOf="@id/car_used"
+                    android:layout_toEndOf="@id/vehicle"
                     android:textColor="@color/colorTimeText"
                     tools:text=", 2 Timer siden" />
 
@@ -111,13 +111,7 @@
                         android:id="@+id/value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="13.3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" Potential"
-                        tools:text=" Potential" />
+                        tools:text="5,51 Deductible" />
 
                 </LinearLayout>
 
@@ -138,13 +132,7 @@
                         android:id="@+id/distance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:text="13.3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=" Miles"
-                        tools:text=" Miles" />
+                        tools:text="10,2 Miles" />
 
                 </LinearLayout>
 

@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expense
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.presentation.fragment.ExpenseFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.FragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.ExpensePresenter
@@ -15,6 +14,6 @@ class ExpenseFragmentModule(fragment: ExpenseFragment) : FragmentModule(fragment
     fun provideExpenseView(): ExpenseView = fragment as ExpenseView
 
     @Provides
-    fun provideExpensePresenter(view: ExpenseView, bus: Bus) = ExpensePresenter(view, bus)
+    fun provideExpensePresenter(view: ExpenseView) = ExpensePresenter(view)
 
 }

@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">TripBook</string>
 
+    <!--exceptions start-->
+    <string name="exception_user_id_is_null">Trips</string>
+    <!--exceptions end-->
+
     <!--trips fragment start-->
     <string name="fragment_trips_title">Trips</string>
     <!--trips fragment end-->
@@ -31,12 +35,15 @@
 
     <!--toolbar start-->
     <string name="toolbar_value">$%1$s</string>
+    <string name="toolbar_default_value">0</string>
     <!--toolbar start-->
 
     <!--viewholder start -->
     <string name="viewholder_car_text">%1$s %2$s</string>
     <string name="viewholder_time_text">, %1$s</string>
     <string name="viewholder_destination_text">Trip to %1$s</string>
+    <string name="viewholder_deduction_text">%1$s Deductible</string>
+    <string name="viewholder_miles_text">%1$s Miles</string>
     <!--viewholder end-->
 
     <!--trips adapter start-->

@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.intro
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.presentation.activity.IntroActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
@@ -16,6 +15,6 @@ class IntroActivityModule(activity: IntroActivity) : ActivityModule(activity) {
     fun provideIntroView(): IntroView = activity as IntroView
 
     @Provides @ActivityScope
-    fun provideIntroPresenter(view: IntroView, bus: Bus) = IntroPresenter(view, bus)
+    fun provideIntroPresenter(view: IntroView) = IntroPresenter(view)
 
 }

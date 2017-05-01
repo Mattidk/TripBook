@@ -2,9 +2,7 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.GetUserProfile
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
+import dk.mathiaspedersen.tripbook.domain.interactor.GetUser
 import dk.mathiaspedersen.tripbook.presentation.activity.ProfileActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.UserDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.injection.ActivityModule
@@ -22,8 +20,7 @@ class ProfileActivityModule(activity: ProfileActivity) : ActivityModule(activity
     fun provideUserDataMapper() = UserDetailDataMapper()
 
     @Provides @ActivityScope
-    fun provideProfilePresenter(view: ProfileView, bus: Bus, getUserInteractor: GetUserProfile, interactorExecutor:
-                                FirebaseInteractorExecutor, userDetailDataMapper: UserDetailDataMapper)
-                                = ProfilePresenter(view, bus, getUserInteractor, interactorExecutor, userDetailDataMapper)
+    fun provideProfilePresenter(view: ProfileView, getUser: GetUser, userDetailDataMapper: UserDetailDataMapper)
+                                = ProfilePresenter(view, getUser, userDetailDataMapper)
 
 }

@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.about
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.presentation.activity.AboutActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
@@ -16,6 +15,5 @@ class AboutActivityModule(activity: AboutActivity) : ActivityModule(activity) {
     fun provideAboutView(): AboutView = activity as AboutView
 
     @Provides @ActivityScope
-    fun provideAboutPresenter(view: AboutView, bus: Bus) =
-            AboutPresenter(view, bus)
+    fun provideAboutPresenter(view: AboutView) = AboutPresenter(view)
 }

@@ -94,13 +94,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun onResume() {
         super.onResume()
-        presenter.onResume()
         presenter.getUserProfile()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
     }
 
     fun initializeFragment() {
@@ -151,6 +145,11 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     fun navigateTo(fragment: Fragment) {
         val fragmentManager = fragmentManager
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
     }
 
     override fun onBackPressed() {

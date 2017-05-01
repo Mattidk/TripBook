@@ -60,15 +60,18 @@ class SettingsFragment : PreferenceFragment(), SettingsView, SharedPreferences.O
 
     override fun onResume() {
         super.onResume()
-        presenter.onResume()
         preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         activity.title = getString(R.string.fragment_settings_title)
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.onPause()
         preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        presenter.dispose()
     }
 
     override fun signOutSuccessful() {

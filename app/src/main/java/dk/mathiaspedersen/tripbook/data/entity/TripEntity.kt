@@ -1,3 +1,5 @@
 package dk.mathiaspedersen.tripbook.data.entity
 
-data class TripEntity(val key: String, val path: String, val simplepath: String, val vehicle: VehicleEntity, val purpose: String, val distance: Long, val departure: LocationEntity, val destination: LocationEntity)
+import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
+
+data class TripEntity(val key: String, val path: String, val simplepath: StaticMap, val vehicle: VehicleEntity, val time: String, val purpose: String, val distance: Long, val departure: LocationEntity, val destination: LocationEntity)

@@ -24,16 +24,6 @@ class ReportFragment : BaseFragment(), ReportView {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
-
     override fun setTitle() {
         activity.title = getString(R.string.fragment_report_title)
     }

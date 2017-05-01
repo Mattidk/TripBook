@@ -3,38 +3,28 @@ package dk.mathiaspedersen.tripbook.presentation.injection
 import dagger.Module
 import dagger.Provides
 import dk.mathiaspedersen.tripbook.domain.interactor.*
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.domain.manager.Manager
-import dk.mathiaspedersen.tripbook.domain.repository.FirebaseRepository
+import dk.mathiaspedersen.tripbook.domain.repository.TripRepository
 
 @Module
 class DomainModule {
 
     @Provides
-    fun provideSignOut(manager: Manager, bus: Bus)
-            = SignOut(manager, bus)
+    fun provideGetTrips(repository: TripRepository): GetTrips = GetTrips(repository)
 
     @Provides
-    fun provideGetUserProfile(manager: Manager, bus: Bus)
-            = GetUserProfile(manager, bus)
+    fun provideGetTrip(repository: TripRepository): GetTrip = GetTrip(repository)
 
     @Provides
-    fun provideSignInWithGoogle(manager: Manager, bus: Bus)
-            = SignInWithGoogle(manager, bus)
+    fun provideGoogleSignIn(manager: Manager): GoogleSignIn = GoogleSignIn(manager)
 
     @Provides
-    fun provideGetUnclassifiedTrips(repository: FirebaseRepository, bus: Bus)
-            = GetUnclassifiedTrips(repository, bus)
+    fun provideCalculateBounds(): CalculateBounds = CalculateBounds()
 
     @Provides
-    fun provideClassifyPersonalTrip(repository: FirebaseRepository)
-            = ClassifyPersonalTrip(repository)
+    fun provideGetUser(manager: Manager): GetUser = GetUser(manager)
 
     @Provides
-    fun provideClassifyBusinessTrip(repository: FirebaseRepository)
-            = ClassifyBusinessTrip(repository)
-
-    @Provides
-    fun provideLoadDetailInteractorInteractor() = DrawPolyline()
+    fun provideSignOut(manager: Manager): SignOut = SignOut(manager)
 
 }

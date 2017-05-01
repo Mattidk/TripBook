@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.archive
 
 import dagger.Subcomponent
 import dk.mathiaspedersen.tripbook.presentation.fragment.ArchiveFragment
-import dk.mathiaspedersen.tripbook.presentation.fragment.AutoFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
 
 @ActivityScope

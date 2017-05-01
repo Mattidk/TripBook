@@ -7,11 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import dk.mathiaspedersen.tripbook.R
-import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyBusinessTrip
-import dk.mathiaspedersen.tripbook.domain.interactor.ClassifyPersonalTrip
-import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractorExecutor
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
-import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
@@ -19,11 +15,7 @@ import java.util.*
 
 class TripAdapter(var trips: ArrayList<TripDetail>,
                   val context: Context, val settings: AppSettings,
-                  val viewHolderFactory: ViewHolderFactory,
-                  val classifyPersonalTrip: ClassifyPersonalTrip,
-                  val classifyBusinessTrip: ClassifyBusinessTrip,
-                  val interactorExecutor: FirebaseInteractorExecutor,
-                  val tripDetailDataMapper: TripDetailDataMapper)
+                  val viewHolderFactory: ViewHolderFactory)
     : RecyclerView.Adapter<TripViewHolder>(), SwipeHelperAdapter {
 
     val personalTripsToRemove = arrayListOf<TripDetail>()
@@ -94,14 +86,7 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
     }
 
     fun saveChanges() {
-        val classifyPersonalTripDetail = classifyPersonalTrip
-        classifyPersonalTripDetail.list = tripDetailDataMapper.transform(personalTripsToRemove)
-        interactorExecutor.execute(classifyPersonalTripDetail)
         personalTripsToRemove.clear()
-
-        val classifyBusinessTripDetail = classifyBusinessTrip
-        classifyBusinessTripDetail.list = tripDetailDataMapper.transform(businessTripsToRemove)
-        interactorExecutor.execute(classifyBusinessTripDetail)
         businessTripsToRemove.clear()
     }
 }

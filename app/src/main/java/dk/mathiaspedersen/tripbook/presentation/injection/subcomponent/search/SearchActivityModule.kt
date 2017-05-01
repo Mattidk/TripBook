@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.presentation.activity.SearchActivity
 import dk.mathiaspedersen.tripbook.presentation.injection.ActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.scope.ActivityScope
@@ -16,7 +15,6 @@ class SearchActivityModule(activity: SearchActivity) : ActivityModule(activity) 
     fun provideSearchView(): SearchView = activity as SearchView
 
     @Provides @ActivityScope
-    fun provideSearchPresenter(view: SearchView, bus: Bus) =
-            SearchPresenter(view, bus)
+    fun provideSearchPresenter(view: SearchView) = SearchPresenter(view)
 
 }

@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.report
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.presentation.fragment.ReportFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.FragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.ReportPresenter
@@ -15,6 +14,6 @@ class ReportFragmentModule(fragment: ReportFragment) : FragmentModule(fragment) 
     fun provideReportView(): ReportView = fragment as ReportView
 
     @Provides
-    fun provideReportPresenter(view: ReportView, bus: Bus) = ReportPresenter(view, bus)
+    fun provideReportPresenter(view: ReportView) = ReportPresenter(view)
 
 }

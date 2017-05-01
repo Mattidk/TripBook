@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.invite
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.presentation.fragment.InviteFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.FragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.InvitePresenter
@@ -15,6 +14,6 @@ class InviteFragmentModule(fragment: InviteFragment) : FragmentModule(fragment) 
     fun provideInviteView(): InviteView = fragment as InviteView
 
     @Provides
-    fun provideInvitePresenter(view: InviteView, bus: Bus) = InvitePresenter(view, bus)
+    fun provideInvitePresenter(view: InviteView) = InvitePresenter(view)
 
 }

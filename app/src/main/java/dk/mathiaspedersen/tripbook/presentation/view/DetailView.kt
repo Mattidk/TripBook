@@ -6,4 +6,6 @@ import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 
 interface DetailView : BaseView {
     fun drawPolyline(trip: TripDetail, path: List<LatLng>, bounds: LatLngBounds)
+    fun setDestination(destination: String)
+    fun setTime(time: String)
 }
