@@ -87,13 +87,12 @@ class ProfileActivity : BaseActivity(), ProfileView {
 
     override fun onResume() {
         super.onResume()
-        presenter.onResume()
         presenter.getUserProfile()
     }
 
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
     }
 
     override fun onGetProfileSuccess(user: UserDetail) {

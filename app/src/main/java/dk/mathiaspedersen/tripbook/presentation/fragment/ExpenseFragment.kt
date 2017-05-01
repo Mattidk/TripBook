@@ -24,16 +24,6 @@ class ExpenseFragment : BaseFragment(), ExpenseView {
         return view
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
-
     override fun setTitle() {
         activity.title = getString(R.string.fragment_expenses_title)
     }
@@ -42,5 +32,4 @@ class ExpenseFragment : BaseFragment(), ExpenseView {
         applicationComponent.plus(ExpenseFragmentModule(this))
                 .injectTo(this)
     }
-
 }

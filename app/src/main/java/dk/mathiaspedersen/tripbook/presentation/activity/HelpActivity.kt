@@ -28,16 +28,6 @@ class HelpActivity : BaseActivity(), HelpView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
-
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(HelpActivityModule(this))
                 .injectTo(this)

@@ -1,22 +1,13 @@
 package dk.mathiaspedersen.tripbook.domain.interactor
 
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.base.firebase.FirebaseInteractor
-import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutFailureEvent
-import dk.mathiaspedersen.tripbook.domain.interactor.event.manager.SignOutSuccessEvent
+import dk.mathiaspedersen.tripbook.domain.interactor.base.BaseUseCase
+import dk.mathiaspedersen.tripbook.domain.interactor.base.Params
 import dk.mathiaspedersen.tripbook.domain.manager.Manager
+import io.reactivex.Observable
 
-class SignOut(val manager: Manager, val bus: Bus) : FirebaseInteractor {
+class SignOut(val manager: Manager): BaseUseCase() {
 
-    override fun invoke() {
-        manager.signOut(this)
-    }
-
-    fun onSuccess() {
-        bus.post(SignOutSuccessEvent())
-    }
-
-    fun onFailure(message: String) {
-        bus.post(SignOutFailureEvent())
+    override fun getObservable(params: Params): Observable<String> {
+        return manager.signOut()
     }
 }

@@ -8,11 +8,8 @@ import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.archive.ArchiveFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.auto.AutoFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.ArchivePresenter
-import dk.mathiaspedersen.tripbook.presentation.presenter.AutoPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.ArchiveView
-import dk.mathiaspedersen.tripbook.presentation.view.AutoView
 import javax.inject.Inject
 
 class ArchiveFragment : BaseFragment(), ArchiveView {
@@ -25,16 +22,6 @@ class ArchiveFragment : BaseFragment(), ArchiveView {
         val view = inflater.inflate(R.layout.fragment_archive, container, false)
         ButterKnife.bind(this, view)
         return view
-    }
-
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
     }
 
     override fun setTitle() {

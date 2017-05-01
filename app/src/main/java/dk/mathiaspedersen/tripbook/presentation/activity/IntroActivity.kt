@@ -144,16 +144,6 @@ class IntroActivity : BaseActivity(), IntroView {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
-
     override fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(IntroActivityModule(this))
                 .injectTo(this)

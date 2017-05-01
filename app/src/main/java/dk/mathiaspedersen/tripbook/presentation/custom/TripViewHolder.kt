@@ -1,13 +1,11 @@
 package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.amulyakhare.textdrawable.TextDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
@@ -19,71 +17,50 @@ import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
-import org.ocpsoft.prettytime.PrettyTime
-import org.parceler.Parcels
-import java.math.RoundingMode
 import java.text.DecimalFormat
-import java.util.*
 
 
 class TripViewHolder(val context: Context, val settings: AppSettings, view: View)
     : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
 
-    private val progress: ProgressBar = view.find(R.id.progressBar)
-    private val image: ImageView = view.find(R.id.map)
-    private val carIcon: ImageView = view.find(R.id.car_icon)
-    private val time: TextView = view.find(R.id.time)
-    private val destination : TextView = view.find(R.id.destination)
-    private val carUsed : TextView = view.find(R.id.car_used)
-    private val distance : TextView = view.find(R.id.distance)
-    private val value : TextView = view.find(R.id.value)
-    private var model: TripDetail? = null
+    val progress: ProgressBar = view.find(R.id.progressBar)
+    val icon: ImageView = view.find(R.id.icon)
+    val map: ImageView = view.find(R.id.map)
+    val time: TextView = view.find(R.id.time)
+    val destination: TextView = view.find(R.id.destination)
+    val vehicle: TextView = view.find(R.id.vehicle)
+    val distance: TextView = view.find(R.id.distance)
+    val value: TextView = view.find(R.id.value)
+    var trip: TripDetail? = null
 
-    fun bind(model: TripDetail) {
-        this.model = model
+    fun bind(trip: TripDetail) {
+        this.trip = trip
 
         progress.visibility = View.VISIBLE
-        image.setOnClickListener(this)
-        time.text = String.format(context.getString(R.string.viewholder_time_text), PrettyTime().format(Date(model.destination.timestamp * 1000)))
-        carUsed.text = String.format(context.getString(R.string.viewholder_car_text), model.vehicle.make, model.vehicle.model)
-        destination.text = String.format(context.getString(R.string.viewholder_destination_text), model.destination.location)
+        map.setOnClickListener(this)
 
-        val map = produceStaticMap(model)
+        time.text = String.format(context.getString(R.string.viewholder_time_text), trip.time)
+        vehicle.text = String.format(context.getString(R.string.viewholder_car_text), trip.vehicle.make, trip.vehicle.model)
+        destination.text = String.format(context.getString(R.string.viewholder_destination_text), trip.destination.location)
 
-        val formatMiles = DecimalFormat("#.#")
-        val formatValue = DecimalFormat("#.##")
-        formatMiles.roundingMode = RoundingMode.CEILING
-        formatValue.roundingMode = RoundingMode.CEILING
+        //TODO: Move this calculation out of viewholder.
+        val miles = trip.distance * 0.000621371192
+        distance.text = String.format(context.getString(R.string.viewholder_miles_text), DecimalFormat("0.0").format(miles))
+        value.text = String.format(context.getString(R.string.viewholder_deduction_text), DecimalFormat("0.00").format(miles * 0.54))
 
-        val miles = model.distance * 0.000621371192
-
-        distance.text = formatMiles.format(miles)
-        value.text = formatValue.format(miles * 0.54)
-
-        val drawable = TextDrawable.builder().buildRound(model.vehicle.make[0].toString(),
-                ContextCompat.getColor(context, R.color.colorLetterIcon))
-        carIcon.setImageDrawable(drawable)
-
-        Glide.with(context).load(map)
+        icon.setImageDrawable(trip.vehicle.icon)
+        Glide.with(context).load(trip.simplepath)
                 .listener(this)
                 .crossFade(500)
-                .into(image)
+                .into(map)
     }
 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.map -> {
-                val wrapped = Parcels.wrap(model)
-                context.startActivity<DetailActivity>("model" to wrapped)
+                context.startActivity<DetailActivity>("key" to trip!!.key)
             }
         }
-    }
-
-    fun produceStaticMap(model: TripDetail): StaticMap {
-        return StaticMap().path(settings.getStaticPolylineStyle(), model.simplepath)
-                .style(settings.getStaticMapStyle())
-                .marker(StaticMap.Marker.Style.FLAT_GREEN.toBuilder().label('A').build(), StaticMap.GeoPoint(model.departure.latitude.toDouble(), model.departure.longitude.toDouble()))
-                .marker(StaticMap.Marker.Style.FLAT_RED.toBuilder().label('B').build(), StaticMap.GeoPoint(model.destination.latitude.toDouble(), model.destination.longitude.toDouble()))
     }
 
     override fun onException(e: Exception?, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {

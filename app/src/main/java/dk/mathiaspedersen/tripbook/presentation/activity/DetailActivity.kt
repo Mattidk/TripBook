@@ -24,9 +24,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.De
 import dk.mathiaspedersen.tripbook.presentation.presenter.DetailPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.DetailView
 import org.jetbrains.anko.dip
-import org.ocpsoft.prettytime.PrettyTime
-import org.parceler.Parcels
-import java.util.*
 import javax.inject.Inject
 
 class DetailActivity : BaseActivity(), DetailView {
@@ -74,16 +71,6 @@ class DetailActivity : BaseActivity(), DetailView {
         disableScrollOnMap()
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        presenter.onPause()
-    }
-
     fun positionContentHeader() {
         val displayInfo = getDisplayInfo()
         collapsingToolbar.minimumHeight = displayInfo.y / 2
@@ -99,13 +86,14 @@ class DetailActivity : BaseActivity(), DetailView {
         positionContentHeader()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
+    }
+
     private fun requestCoordinates() {
-        val model = Parcels.unwrap<TripDetail>(intent.extras.getParcelable("model"))
-        if (model != null) {
-            presenter.prepareMap(model)
-            time.text = PrettyTime().format(Date(model.destination.timestamp * 1000))
-            destination.text = String.format(getString(R.string.viewholder_destination_text), model.destination.location)
-        }
+        val key = intent.extras.getString("key")
+        presenter.getTrip(key)
     }
 
     private fun disableScrollOnMap() {
@@ -135,6 +123,14 @@ class DetailActivity : BaseActivity(), DetailView {
         return size
     }
 
+    override fun setDestination(dest: String) {
+        destination.text = String.format(getString(R.string.viewholder_destination_text), dest)
+    }
+
+    override fun setTime(time1: String) {
+        time.text = time1
+    }
+
     override fun drawPolyline(trip: TripDetail, path: List<LatLng>, bounds: LatLngBounds) {
         map?.getMapAsync({
             it.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, settings.getMapStyle()))
@@ -143,7 +139,7 @@ class DetailActivity : BaseActivity(), DetailView {
             it.addPolyline(settings.getPolylineStyle(path))
             it.setPadding(0, backArrow.height * 2, 0, 0)
             it.uiSettings.isCompassEnabled = false
-            it.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, dip(32)))
+            it.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds, dip(64)))
             it.setOnMapLoadedCallback {
                 progress.visibility = View.INVISIBLE
                 val mLoadAnimation = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)

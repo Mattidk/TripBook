@@ -1,7 +1,5 @@
 package dk.mathiaspedersen.tripbook.presentation.fragment
 
-import android.animation.TypeEvaluator
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.widget.SwipeRefreshLayout
@@ -73,7 +71,6 @@ class TripsFragment : BaseFragment(), TripsView {
     }
 
     fun setupViews() {
-        activity.title = "Trips"
         tripsRecyclerView.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(activity)
         tripsRecyclerView.layoutManager = mLayoutManager
@@ -106,14 +103,14 @@ class TripsFragment : BaseFragment(), TripsView {
         status.visibility = View.GONE
     }
 
-    fun resetTripsValues() {
-        val numTrips: TextView = activity.find(R.id.num_trips)
-        val numMiles: TextView = activity.find(R.id.num_miles)
-        val numValue: TextView = activity.find(R.id.num_value)
+    override fun resetCounters(message: String) {
+        val numTrips = activity?.find<TextView>(R.id.num_trips)
+        val numMiles = activity?.find<TextView>(R.id.num_miles)
+        val numValue = activity?.find<TextView>(R.id.num_value)
 
-        numTrips.text = "0"
-        numMiles.text = "0"
-        numValue.text = String.format(getString(R.string.toolbar_value), 0)
+        numTrips?.text = message
+        numMiles?.text = message
+        numValue?.text = message
     }
 
     override fun populateRecyclerView(trips: ArrayList<TripDetail>) {
@@ -123,48 +120,19 @@ class TripsFragment : BaseFragment(), TripsView {
         adapter.refresh(trips)
     }
 
-    override fun SumValue(value: Double) {
-        val numValue = activity.find<TextView>(R.id.num_value)
-        val animatorValue = ValueAnimator()
-        animatorValue.setObjectValues(0, Math.round(value))
-        animatorValue.addUpdateListener({
-            numValue.text = String.format(getString(R.string.toolbar_value), it.animatedValue)
-        })
-        animatorValue.setEvaluator(object : TypeEvaluator<Int> {
-            override fun evaluate(fraction: Float, startValue: Int, endValue: Int): Int {
-                return Math.round(startValue + (endValue - startValue) * fraction)
-            }
-        })
-        animatorValue.duration = 1000
-        animatorValue.start()
+    override fun setTripText(message: String) {
+        val tripCount = activity?.find<TextView>(R.id.num_trips)
+        tripCount?.text = message
     }
 
-    override fun SumMiles(miles: Double) {
-        val numMiles = activity.find<TextView>(R.id.num_miles)
-        val animator = ValueAnimator()
-        animator.setObjectValues(0, Math.round(miles))
-        animator.addUpdateListener({ numMiles.text = it.animatedValue.toString() })
-        animator.setEvaluator(object : TypeEvaluator<Int> {
-            override fun evaluate(fraction: Float, startValue: Int, endValue: Int): Int {
-                return Math.round(startValue + (endValue - startValue) * fraction)
-            }
-        })
-        animator.duration = 1000
-        animator.start()
+    override fun setMilesText(message: String) {
+        val milesCount = activity?.find<TextView>(R.id.num_miles)
+        milesCount?.text = message
     }
 
-    override fun SumTrips(trips: Int) {
-        val numTrips = activity.find<TextView>(R.id.num_trips)
-        val animator = ValueAnimator()
-        animator.setObjectValues(0, trips)
-        animator.addUpdateListener({ numTrips.text = it.animatedValue.toString() })
-        animator.setEvaluator(object : TypeEvaluator<Int> {
-            override fun evaluate(fraction: Float, startValue: Int, endValue: Int): Int {
-                return Math.round(startValue + (endValue - startValue) * fraction)
-            }
-        })
-        animator.duration = 1000
-        animator.start()
+    override fun setValueText(message: String) {
+        val valueCount = activity?.find<TextView>(R.id.num_value)
+        valueCount?.text = message
     }
 
     override fun unableToFetchTrips(message: String) {
@@ -185,15 +153,14 @@ class TripsFragment : BaseFragment(), TripsView {
 
     override fun onResume() {
         super.onResume()
+        presenter.getTrips()
         swipeRefreshLayout.isRefreshing = false
-        presenter.onResume()
         showToolbar()
     }
 
     override fun onPause() {
         super.onPause()
         adapter.saveChanges()
-        presenter.onPause()
     }
 
     override fun setTitle() {
@@ -203,13 +170,13 @@ class TripsFragment : BaseFragment(), TripsView {
     override fun onDetach() {
         super.onDetach()
         hideToolbar()
+        presenter.dispose()
     }
 
     fun getTrips() {
-        presenter.getUnclassifiedTrips()
-        presenter.clearRecyclerView()
+        presenter.getTrips()
+        presenter.resetCounters()
         swipeRefreshLayout.isRefreshing = true
-        resetTripsValues()
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {

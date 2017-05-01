@@ -1,16 +1,10 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
-import dk.mathiaspedersen.tripbook.domain.interactor.event.trip.GetTripsFailureEvent
 import dk.mathiaspedersen.tripbook.presentation.view.InviteView
-import org.greenrobot.eventbus.Subscribe
 
-class InvitePresenter(
-        override val view: InviteView,
-        override val bus: Bus) : BasePresenter<InviteView> {
+class InvitePresenter(override val view: InviteView) : BasePresenter<InviteView> {
 
-    @Subscribe
-    fun onEvent(event: GetTripsFailureEvent) {
-//        view.populateRecyclerView(event.populateRecyclerView)
+    override fun dispose() {
+        // Used this to clean up observables
     }
 }

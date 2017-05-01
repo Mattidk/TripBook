@@ -41,7 +41,8 @@ import javax.inject.Singleton
         RepositoryModule::class,
         DomainModule::class,
         DataModule::class,
-        ManagerModule::class
+        ManagerModule::class,
+        DataSourceModule::class
 ))
 interface ApplicationComponent {
 

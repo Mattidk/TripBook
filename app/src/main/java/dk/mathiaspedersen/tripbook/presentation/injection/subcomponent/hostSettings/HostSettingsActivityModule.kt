@@ -2,7 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.hostSett
 
 import dagger.Module
 import dagger.Provides
-import dk.mathiaspedersen.tripbook.domain.interactor.base.Bus
 import dk.mathiaspedersen.tripbook.presentation.activity.SettingsActivity
 import dk.mathiaspedersen.tripbook.presentation.fragment.SettingsFragment
 import dk.mathiaspedersen.tripbook.presentation.injection.ActivityModule
@@ -18,8 +17,7 @@ class HostSettingsActivityModule(activity: SettingsActivity) : ActivityModule(ac
 
 
     @Provides @ActivityScope
-    fun provideHostSettingsPresenter(view: HostSettingsView, bus: Bus)
-            = HostSettingsPresenter(view, bus)
+    fun provideHostSettingsPresenter(view: HostSettingsView) = HostSettingsPresenter(view)
 
     @Provides @ActivityScope
     fun provideSettingsFragment() = SettingsFragment()

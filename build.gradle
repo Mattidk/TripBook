@@ -20,7 +20,7 @@ allprojects {
     ext {
         // Android config
         androidBuildToolsVersion = "25.0.1"
-        androidMinSdkVersion = 19
+        androidMinSdkVersion = 21
         androidTargetSdkVersion = 25
         androidCompileSdkVersion = 25
         androidApplicationId = "dk.mathiaspedersen.tripbook"
@@ -51,5 +51,7 @@ allprojects {
         prettytimeVersion = "4.0.1.Final"
         glidetransformationsVersion = "2.0.2"
         textdrawableVersion = "1.0.1"
+        rxJavaVersion = "2.0.8"
+        rxAndroidVersion = "2.0.1"
     }
 }

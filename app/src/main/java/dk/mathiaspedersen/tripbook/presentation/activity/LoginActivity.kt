@@ -62,16 +62,19 @@ class LoginActivity : BaseActivity(), LoginView {
 
     override fun onResume() {
         super.onResume()
-        presenter.onResume()
         if (anim != null && !anim!!.isRunning)
             anim!!.start()
     }
 
     override fun onPause() {
         super.onPause()
-        presenter.onPause()
         if (anim != null && anim!!.isRunning())
             anim!!.stop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
     }
 
     private fun setBackground() {
