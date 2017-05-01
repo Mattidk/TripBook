@@ -33,6 +33,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.vehicledetail.VehicleDetailActivityComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.vehicledetail.VehicleDetailActivityModule
 import javax.inject.Singleton
 
 @Singleton
@@ -62,4 +64,5 @@ interface ApplicationComponent {
     fun plus(module: SearchActivityModule): SearchActivityComponent
     fun plus(module: IntroActivityModule): IntroActivityComponent
     fun plus(module: HelpActivityModule): HelpActivityComponent
+    fun plus(module: VehicleDetailActivityModule): VehicleDetailActivityComponent
 }

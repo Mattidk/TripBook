@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.activity.DetailActivity
+import dk.mathiaspedersen.tripbook.presentation.activity.VehicleDetailActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
@@ -20,7 +21,7 @@ import org.jetbrains.anko.startActivity
 import java.text.DecimalFormat
 
 
-class TripViewHolder(val context: Context, val settings: AppSettings, view: View)
+class TripViewHolder(val context: Context, val settings: AppSettings, val view: View)
     : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
 
     val progress: ProgressBar = view.find(R.id.progressBar)
@@ -49,6 +50,8 @@ class TripViewHolder(val context: Context, val settings: AppSettings, view: View
         value.text = String.format(context.getString(R.string.viewholder_deduction_text), DecimalFormat("0.00").format(miles * 0.54))
 
         icon.setImageDrawable(trip.vehicle.icon)
+        icon.setOnClickListener(this)
+
         Glide.with(context).load(trip.simplepath)
                 .listener(this)
                 .crossFade(500)
@@ -59,6 +62,9 @@ class TripViewHolder(val context: Context, val settings: AppSettings, view: View
         when (view.id) {
             R.id.map -> {
                 context.startActivity<DetailActivity>("key" to trip!!.key)
+            }
+            R.id.icon -> {
+                context.startActivity<VehicleDetailActivity>("key" to trip!!.vehicle.key)
             }
         }
     }
