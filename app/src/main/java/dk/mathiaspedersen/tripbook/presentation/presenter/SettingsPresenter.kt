@@ -1,7 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
-import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.SignOut
+import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Params
 import dk.mathiaspedersen.tripbook.presentation.view.SettingsView
 

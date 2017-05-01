@@ -1,8 +1,8 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.GoogleSignIn
+import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Params
 import dk.mathiaspedersen.tripbook.presentation.view.LoginView
 

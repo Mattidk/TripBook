@@ -1,8 +1,8 @@
 package dk.mathiaspedersen.tripbook.presentation.presenter
 
 import dk.mathiaspedersen.tripbook.domain.entity.User
-import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.GetUser
+import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Params
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.UserDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.view.ProfileView

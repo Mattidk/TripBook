@@ -1,6 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.view
 
-interface VehicleDetailView: BaseView {
+import dk.mathiaspedersen.tripbook.presentation.entity.VehicleDetail
 
-    fun test()
+interface VehicleDetailView: BaseView{
+    fun showVehicleDetails(vehicle: VehicleDetail)
 }

@@ -5,6 +5,7 @@ import dagger.Provides
 import dk.mathiaspedersen.tripbook.domain.interactor.*
 import dk.mathiaspedersen.tripbook.domain.manager.Manager
 import dk.mathiaspedersen.tripbook.domain.repository.TripRepository
+import dk.mathiaspedersen.tripbook.domain.repository.VehicleRepository
 
 @Module
 class DomainModule {
@@ -14,6 +15,9 @@ class DomainModule {
 
     @Provides
     fun provideGetTrip(repository: TripRepository): GetTrip = GetTrip(repository)
+
+    @Provides
+    fun provideGetVehicle(repository: VehicleRepository): GetVehicle = GetVehicle(repository)
 
     @Provides
     fun provideGoogleSignIn(manager: Manager): GoogleSignIn = GoogleSignIn(manager)

@@ -6,6 +6,7 @@ import android.util.Log
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.entity.VehicleDetail
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.vehicledetail.VehicleDetailActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.VehicleDetailPresenter
@@ -13,11 +14,6 @@ import dk.mathiaspedersen.tripbook.presentation.view.VehicleDetailView
 import javax.inject.Inject
 
 class VehicleDetailActivity : BaseActivity(), VehicleDetailView {
-
-    override fun test() {
-        Log.e("GODA", "VEHICLE PRESENTER IS WORKING")
-    }
-
     override val layoutResource: Int = R.layout.activity_vehicle_detail
 
     @BindView(R.id.toolbar)
@@ -32,7 +28,26 @@ class VehicleDetailActivity : BaseActivity(), VehicleDetailView {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-        presenter.test()
+    }
+
+    override fun showVehicleDetails(vehicle: VehicleDetail) {
+        Log.e("GODA", vehicle.make)
+        Log.e("GODA", vehicle.odometer.toString())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getVehicle()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dispose()
+    }
+
+    fun getVehicle() {
+        val key = intent.extras.getString("key")
+        presenter.getVehicle(key)
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {

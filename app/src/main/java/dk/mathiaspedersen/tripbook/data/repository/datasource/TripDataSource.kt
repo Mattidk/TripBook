@@ -1,12 +1,8 @@
 package dk.mathiaspedersen.tripbook.data.repository.datasource
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.util.Log
-import com.amulyakhare.textdrawable.TextDrawable
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.data.entity.LocationEntity
 import dk.mathiaspedersen.tripbook.data.entity.TripEntity
 import dk.mathiaspedersen.tripbook.data.entity.VehicleEntity
@@ -48,8 +44,6 @@ class TripDataSource(val context: Context, val database: FirebaseDatabase, val a
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val tripKey = dataSnapshot.key
                     val trip = dataSnapshot.getValue(FirebaseTrip::class.java)
-
-//                    Log.e("GODA", trip.path)
 
                     database.getReference("users").child(getUserID()).child("vehicles").child(trip.vehicle)
                             .addListenerForSingleValueEvent(object : ValueEventListener {
