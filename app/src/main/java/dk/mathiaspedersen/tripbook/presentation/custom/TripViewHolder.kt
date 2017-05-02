@@ -2,6 +2,7 @@ package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -25,6 +26,7 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
     : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
 
     val progress: ProgressBar = view.find(R.id.progressBar)
+    val toolbar: Toolbar = view.find(R.id.toolbar)
     val icon: ImageView = view.find(R.id.icon)
     val map: ImageView = view.find(R.id.map)
     val time: TextView = view.find(R.id.time)
@@ -37,7 +39,10 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
     fun bind(trip: TripDetail) {
         this.trip = trip
 
+        toolbar.menu.clear()
+        toolbar.inflateMenu(R.menu.trip_menu)
         progress.visibility = View.VISIBLE
+        vehicle.setOnClickListener(this)
         map.setOnClickListener(this)
 
         time.text = String.format(context.getString(R.string.viewholder_time_text), trip.time)
@@ -49,7 +54,7 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
         distance.text = String.format(context.getString(R.string.viewholder_miles_text), DecimalFormat("0.0").format(miles))
         value.text = String.format(context.getString(R.string.viewholder_deduction_text), DecimalFormat("0.00").format(miles * 0.54))
 
-        icon.setImageDrawable(trip.vehicle.icon)
+        icon.background = trip.vehicle.icon
         icon.setOnClickListener(this)
 
         Glide.with(context).load(trip.simplepath)
@@ -66,15 +71,18 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
             R.id.icon -> {
                 context.startActivity<VehicleDetailActivity>("key" to trip!!.vehicle.key)
             }
+            R.id.vehicle -> {
+                context.startActivity<VehicleDetailActivity>("key" to trip!!.vehicle.key)
+            }
         }
     }
 
-    override fun onException(e: Exception?, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
+    override fun onException(e: Exception, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {
         progress.visibility = View.GONE
         return false
     }
 
-    override fun onResourceReady(resource: GlideDrawable?, model: StaticMap, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
+    override fun onResourceReady(resource: GlideDrawable, model: StaticMap, target: Target<GlideDrawable>, isFromMemoryCache: Boolean, isFirstResource: Boolean): Boolean {
         progress.visibility = View.GONE
         return false
     }

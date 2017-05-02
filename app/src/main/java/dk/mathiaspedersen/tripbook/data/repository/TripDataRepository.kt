@@ -15,4 +15,8 @@ class TripDataRepository(val datasource: TripDataSource, val tripMapper: TripMap
     override fun getTrip(key: String): Observable<Trip> {
         return datasource.getTrip(key).map { tripMapper.transform(it) }
     }
+
+    override fun deleteTrip(key: String): Observable<String> {
+        return datasource.deleteTrip(key)
+    }
 }

@@ -6,4 +6,5 @@ import io.reactivex.Observable
 interface TripRepository {
     fun getTrips(): Observable<List<Trip>>
     fun getTrip(key: String): Observable<Trip>
+    fun deleteTrip(key: String): Observable<String>
 }

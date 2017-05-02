@@ -22,7 +22,7 @@
         android:background="@color/colorNavigationView"
         app:itemTextColor="@color/drawer_item_text"
         app:itemIconTint="@color/drawer_item_icon"
-        app:itemBackground="@android:color/transparent"
+        app:itemBackground="@color/colorNavigationView"
         app:headerLayout="@layout/nav_header_container"
         app:menu="@menu/activity_main_drawer" />
 

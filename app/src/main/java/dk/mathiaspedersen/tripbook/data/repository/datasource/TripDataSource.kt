@@ -32,6 +32,10 @@ class TripDataSource(val context: Context, val database: FirebaseDatabase, val a
         return database.getReference("users").child(getUserID()).child("trips").child(key)
     }
 
+    fun getUnclassifiedTripReference(key: String): DatabaseReference {
+        return database.getReference("users").child(getUserID()).child("unclassified").child(key)
+    }
+
     /**
      * Allows to get the list of [TripEntity]
      * @return
@@ -90,6 +94,21 @@ class TripDataSource(val context: Context, val database: FirebaseDatabase, val a
             })
         }
     }
+
+    fun deleteTrip(key: String): Observable<String> {
+        return Observable.create { emitter ->
+            getUnclassifiedTripReference(key).removeValue(object: DatabaseReference.CompletionListener {
+                override fun onComplete(p0: DatabaseError?, p1: DatabaseReference?) {
+                    if (p0 == null) {
+                        emitter.onNext("$p1 successfully deleted")
+                    }else {
+                        emitter.onError(Throwable("Trip was not deleted"))
+                    }
+                }
+            })
+        }
+    }
+
 
     fun getTrips(): Observable<List<TripEntity>> {
         return Observable.create { emitter ->

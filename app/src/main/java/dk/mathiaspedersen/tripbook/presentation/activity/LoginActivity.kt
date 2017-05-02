@@ -3,6 +3,7 @@ package dk.mathiaspedersen.tripbook.presentation.activity
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -13,6 +14,7 @@ import butterknife.OnClick
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.auth.FirebaseAuth
+import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.helper.ViewHelper
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
@@ -24,9 +26,7 @@ import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.newTask
 import javax.inject.Inject
 
-class LoginActivity : BaseActivity(), LoginView {
-
-    override val layoutResource: Int = R.layout.activity_login
+class LoginActivity : AppCompatActivity(), LoginView {
 
     @BindView(R.id.activity_login)
     lateinit var rootview: RelativeLayout
@@ -46,11 +46,13 @@ class LoginActivity : BaseActivity(), LoginView {
     var anim: AnimationDrawable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependencies(App.graph)
+        checkUserStatus()
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
         ButterKnife.bind(this)
         makeActivityFullscreenLollipop()
         setBackground()
-        checkUserStatus()
     }
 
     private fun checkUserStatus() {
@@ -120,7 +122,7 @@ class LoginActivity : BaseActivity(), LoginView {
         }
     }
 
-    override fun injectDependencies(applicationComponent: ApplicationComponent) {
+    fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(LoginActivityModule(this))
                 .injectTo(this)
     }

@@ -2,35 +2,35 @@
     <string name="app_name">TripBook</string>
 
     <!--exceptions start-->
-    <string name="exception_user_id_is_null">Trips</string>
+    <string name="exception_user_id_is_null">User id is null</string>
     <!--exceptions end-->
 
     <!--trips fragment start-->
-    <string name="fragment_trips_title">Trips</string>
+    <string name="fragment_trips_title">TRIPS</string>
     <!--trips fragment end-->
 
     <!--expenses fragment start-->
-    <string name="fragment_expenses_title">Expenses</string>
+    <string name="fragment_expenses_title">EXPENSES</string>
     <!--expenses fragment end-->
 
     <!--archive fragment start-->
-    <string name="fragment_archive_title">Archived Trips</string>
+    <string name="fragment_archive_title">ARCHIVED TRIPS</string>
     <!--archive fragment start-->
 
     <!--auto fragment start-->
-    <string name="fragment_auto_title">Auto-Classify</string>
+    <string name="fragment_auto_title">AUTO-CLASSIFY</string>
     <!--auto fragment start-->
 
     <!--report fragment start-->
-    <string name="fragment_report_title">Reports</string>
+    <string name="fragment_report_title">REPORTS</string>
     <!--report fragment end-->
 
     <!--invite fragment start-->
-    <string name="fragment_invite_title">Invite Friends</string>
+    <string name="fragment_invite_title">INVITE FRIENDS</string>
     <!--invite fragment end-->
 
     <!--settings fragment start-->
-    <string name="fragment_settings_title">Settings</string>
+    <string name="fragment_settings_title">SETTINGS</string>
     <!--settings fragment end-->
 
     <!--toolbar start-->
@@ -63,6 +63,11 @@
     <string name="refresh">Refresh</string>
     <string name="help">Help</string>
     <!--actionbar menu end-->
+
+    <!--cardview menu start-->
+    <string name="action_menu_item_change_vehicle">Change Vehicle</string>
+    <string name="action_menu_item_delete">Delete</string>
+    <!--cardview menu end-->
 
     <!--login activity start-->
     <string name="activity_login_button_sign_up_google">Sign Up with Google</string>

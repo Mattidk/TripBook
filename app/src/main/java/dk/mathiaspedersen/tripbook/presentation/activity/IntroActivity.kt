@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
+import dk.mathiaspedersen.tripbook.App
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.custom.IntroPageTransformer
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
@@ -26,7 +28,7 @@ import org.jetbrains.anko.intentFor
 import javax.inject.Inject
 
 
-class IntroActivity : BaseActivity(), IntroView {
+class IntroActivity : AppCompatActivity(), IntroView {
 
     @Inject
     lateinit var presenter: IntroPresenter
@@ -50,17 +52,14 @@ class IntroActivity : BaseActivity(), IntroView {
     private var dots: Array<TextView?> = arrayOfNulls(layouts.size)
     private var myViewPagerAdapter: MyViewPagerAdapter? = null
 
-    override val layoutResource: Int = R.layout.activity_intro
-
     override fun onCreate(savedInstanceState: Bundle?) {
+        injectDependencies(App.graph)
+        checkIfFirstLaunch()
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_intro)
         ButterKnife.bind(this)
         MyViewPagerAdapter()
 
-        if (!setting.isFirstTimeLaunch()) {
-            launchHomeScreen()
-            finish()
-        }
 
         if (Build.VERSION.SDK_INT >= 21) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_IMMERSIVE
@@ -90,7 +89,15 @@ class IntroActivity : BaseActivity(), IntroView {
 
     }
 
+    private fun checkIfFirstLaunch() {
+        if (!setting.isFirstTimeLaunch()) {
+            launchHomeScreen()
+            finish()
+        }
+    }
+
     private fun launchHomeScreen() {
+        setting.setFirstTimeLaunch(false)
         startActivity(intentFor<LoginActivity>().clearTop())
         finish()
     }
@@ -144,7 +151,7 @@ class IntroActivity : BaseActivity(), IntroView {
         }
     }
 
-    override fun injectDependencies(applicationComponent: ApplicationComponent) {
+    fun injectDependencies(applicationComponent: ApplicationComponent) {
         applicationComponent.plus(IntroActivityModule(this))
                 .injectTo(this)
     }
