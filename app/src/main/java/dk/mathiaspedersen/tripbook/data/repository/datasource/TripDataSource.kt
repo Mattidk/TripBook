@@ -29,7 +29,7 @@ class TripDataSource(val context: Context, val database: FirebaseDatabase, val a
     }
 
     fun getTripReference(key: String): DatabaseReference {
-        return database.getReference("users").child(getUserID()).child("trips").child(key)
+        return database.getReference("users").child(getUserID()).child("unclassified").child(key)
     }
 
     fun getUnclassifiedTripReference(key: String): DatabaseReference {
@@ -114,65 +114,51 @@ class TripDataSource(val context: Context, val database: FirebaseDatabase, val a
         return Observable.create { emitter ->
             emitter.onNext(arrayListOf<TripEntity>())
             getTripsReference().addListenerForSingleValueEvent(object : ValueEventListener {
+
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-
                     val keys = dataSnapshot.children.map { it.key }
-
-                    database.getReference("users").child(getUserID()).child("trips")
+                    val trips = dataSnapshot.children.map { it.getValue(FirebaseTrip::class.java) }
+                    database.getReference("users").child(getUserID()).child("vehicles")
                             .addListenerForSingleValueEvent(object : ValueEventListener {
 
                                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                    val trips = keys.map { dataSnapshot.child(it).getValue(FirebaseTrip::class.java) }
+                                    val value = trips.mapIndexed { i, model ->
+                                        val key = keys[i]
+                                        val path = model.path
+                                        val simplePath = utils.createStaticMap(model)
+                                        val distance = model.distance
+                                        val departure = model.departure
+                                        val destination = model.destination
+                                        val purpose = model.purpose
+                                        val time = PrettyTime().format(Date(model.destination.timestamp * 1000))
+                                        val vehicleId = dataSnapshot.child(model.vehicle).key
+                                        val vehicle = dataSnapshot.child(model.vehicle).getValue(FirebaseVehicle::class.java)
+                                        val defaultIcon = utils.createIcon(vehicle)
 
-                                    database.getReference("users").child(getUserID()).child("vehicles")
-                                            .addListenerForSingleValueEvent(object : ValueEventListener {
+                                        TripEntity(key, path, simplePath, VehicleEntity(vehicleId, defaultIcon, vehicle.make, vehicle.model, vehicle.year, vehicle.odometer), time,
+                                                purpose, distance, LocationEntity(departure.location, departure.latitude, departure.longitude, departure.timestamp),
+                                                LocationEntity(destination.location, destination.latitude, destination.longitude, destination.timestamp)) }
 
-                                                override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                                    val value = trips.mapIndexed { i, model ->
-                                                        val key = keys[i]
-                                                        val path = model.path
-                                                        val simplePath = utils.createStaticMap(model)
-                                                        val distance = model.distance
-                                                        val departure = model.departure
-                                                        val destination = model.destination
-                                                        val purpose = model.purpose
-                                                        val time = PrettyTime().format(Date(model.destination.timestamp * 1000))
-                                                        val vehicleId = dataSnapshot.child(model.vehicle).key
-                                                        val vehicle = dataSnapshot.child(model.vehicle).getValue(FirebaseVehicle::class.java)
-                                                        val defaultIcon = utils.createIcon(vehicle)
-
-                                                        TripEntity(key, path, simplePath, VehicleEntity(vehicleId, defaultIcon, vehicle.make, vehicle.model, vehicle.year, vehicle.odometer), time,
-                                                                purpose, distance, LocationEntity(departure.location, departure.latitude, departure.longitude, departure.timestamp),
-                                                                LocationEntity(destination.location, destination.latitude, destination.longitude, destination.timestamp)) }
-
-                                                    if (value != null) {
-                                                        if (!emitter.isDisposed) {
-                                                            emitter.onNext(value)
-                                                        }
-                                                    } else {
-                                                        if (!emitter.isDisposed) {
-                                                            emitter.onError(FirebaseRxDataCastException("Unable to cast Firebase data response to "))
-                                                        }
-                                                    }
-                                                }
-
-                                                override fun onCancelled(databaseError: DatabaseError) {
-                                                    emitter.onError(Throwable(databaseError.message))
-                                                }
-
-                                            })
+                                    if (value != null) {
+                                        if (!emitter.isDisposed) {
+                                            emitter.onNext(value)
+                                        }
+                                    } else {
+                                        if (!emitter.isDisposed) {
+                                            emitter.onError(FirebaseRxDataCastException("Unable to cast Firebase data response to "))
+                                        }
+                                    }
                                 }
 
                                 override fun onCancelled(databaseError: DatabaseError) {
                                     emitter.onError(Throwable(databaseError.message))
                                 }
+
                             })
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    if (!emitter.isDisposed) {
-                        emitter.onError(FirebaseRxDataException(error))
-                    }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    emitter.onError(Throwable(databaseError.message))
                 }
             })
         }

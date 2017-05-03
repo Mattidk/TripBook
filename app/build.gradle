@@ -13,6 +13,7 @@ android {
         versionName parent.ext.androidVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
 
     configurations.all {

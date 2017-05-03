@@ -3,6 +3,7 @@ package dk.mathiaspedersen.tripbook.presentation.custom
 import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -21,9 +22,8 @@ import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import java.text.DecimalFormat
 
-
 class TripViewHolder(val context: Context, val settings: AppSettings, val view: View)
-    : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener {
+    : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener, Toolbar.OnMenuItemClickListener {
 
     val progress: ProgressBar = view.find(R.id.progressBar)
     val toolbar: Toolbar = view.find(R.id.toolbar)
@@ -41,6 +41,8 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
 
         toolbar.menu.clear()
         toolbar.inflateMenu(R.menu.trip_menu)
+        toolbar.setOnMenuItemClickListener(this)
+
         progress.visibility = View.VISIBLE
         vehicle.setOnClickListener(this)
         map.setOnClickListener(this)
@@ -75,6 +77,16 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
                 context.startActivity<VehicleDetailActivity>("key" to trip!!.vehicle.key)
             }
         }
+    }
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_delete_trip -> {
+            }
+            R.id.menu_change_vehicle -> {
+            }
+        }
+        return true
     }
 
     override fun onException(e: Exception, model: StaticMap, target: Target<GlideDrawable>, isFirstResource: Boolean): Boolean {

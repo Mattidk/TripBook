@@ -17,6 +17,9 @@ class DomainModule {
     fun provideGetTrip(repository: TripRepository): GetTrip = GetTrip(repository)
 
     @Provides
+    fun provideDeleteTrip(repository: TripRepository): DeleteTrip = DeleteTrip(repository)
+
+    @Provides
     fun provideGetVehicle(repository: VehicleRepository): GetVehicle = GetVehicle(repository)
 
     @Provides
