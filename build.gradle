@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.0.6'
+    ext.kotlin_version = '1.1.2-3'
     repositories {
         jcenter()
     }
@@ -27,8 +27,6 @@ allprojects {
         androidVersionCode = 1
         androidVersionName = "0.1"
         supportVersion = "25.3.1"
-        jobqueueVersion = "1.1.2"
-        eventbusVersion = "3.0.0"
         ankoVersion= "0.9.1"
         daggerVersion = "2.9"
         butterknifeVersion = "8.5.1"
@@ -36,9 +34,6 @@ allprojects {
         dexmakerVersion = "2.2.0"
         espressoVersion = "2.2.2"
         junitVersion = "4.12"
-        junitRunnerVersion = "1.0.0-M3"
-        spekVersion = "1.1.0"
-        expektVersion = "0.5.0"
         findBugsVersion = "3.0.1"
         firebaseVersion = "10.2.1"
         playServicesVersion = "10.2.1"
@@ -47,7 +42,6 @@ allprojects {
         mapsUtilsVersion = "0.5"
         materialDialogVersion = "0.9.3.0"
         recyclerviewAnimatorVersion = "2.2.6"
-        parcelerVersion = "1.1.6"
         prettytimeVersion = "4.0.1.Final"
         glidetransformationsVersion = "2.0.2"
         textdrawableVersion = "1.0.1"
