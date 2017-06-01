@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
@@ -73,6 +74,13 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     @Inject
     lateinit var appSetting: AppSettings
 
+    val TRIPS = "TRIPS"
+    val EXPENSES = "EXPENSES"
+    val ARCHIVE = "ARCHIVE"
+    val AUTOCLASSIFY = "AUTO"
+    val REPORTS = "REPORTS"
+    val INVITE = "INVITE"
+
     var doubleBackToExitPressedOnce = false
 
     companion object {
@@ -84,7 +92,6 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
-
         if (savedInstanceState == null) {
             initializeFragment()
         }
@@ -116,10 +123,6 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     }
 
     fun setupViews() {
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
         val view = navigationView.getHeaderView(0)
         val header = view.find<LinearLayout>(R.id.header_content)
         header.setOnClickListener {
@@ -142,9 +145,9 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         TODO("not implemented")
     }
 
-    fun navigateTo(fragment: Fragment) {
+    fun navigateTo(fragment: Fragment, tag: String) {
         val fragmentManager = fragmentManager
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, tag).commit()
     }
 
     override fun onDestroy() {
@@ -181,7 +184,6 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_search -> {startActivity<SearchActivity>()}
             R.id.menu_help -> {startActivity<HelpActivity>()}
         }
         return false
@@ -195,31 +197,32 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_trips -> {
-                navigateTo(trips)
+                navigateTo(trips, TRIPS)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_expenses -> {
-                navigateTo(expenses)
+                navigateTo(expenses, EXPENSES)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_archive -> {
-                navigateTo(archive)
+                navigateTo(archive, ARCHIVE)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_auto_classify -> {
-                navigateTo(auto)
+                navigateTo(auto, AUTOCLASSIFY)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_report -> {
-                navigateTo(report)
+                navigateTo(report, REPORTS)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_invite -> {
-                navigateTo(invite)
+                navigateTo(invite, INVITE)
                 drawer.closeDrawer(GravityCompat.START)
             }
             R.id.nav_settings -> {
                 startActivityForResult<SettingsActivity>(SETTINGS_REQUEST)
+                item.isChecked = false
             }
         }
         return true
