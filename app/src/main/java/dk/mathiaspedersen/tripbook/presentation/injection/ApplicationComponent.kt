@@ -11,6 +11,8 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.De
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.detail.DetailActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expense.ExpenseFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expense.ExpenseFragmentModule
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expensedetail.ExpenseDetailActivityComponent
+import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expensedetail.ExpenseDetailActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.help.HelpActivityComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HelpActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityComponent
@@ -27,8 +29,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.P
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.profile.ProfileActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.report.ReportFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.report.ReportFragmentModule
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityComponent
-import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.search.SearchActivityModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.settings.SettingsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentComponent
@@ -61,8 +61,8 @@ interface ApplicationComponent {
     fun plus(module: SettingsFragmentModule): SettingsFragmentComponent
     fun plus(module: AboutActivityModule): AboutActivityComponent
     fun plus(module: ProfileActivityModule): ProfileActivityComponent
-    fun plus(module: SearchActivityModule): SearchActivityComponent
     fun plus(module: IntroActivityModule): IntroActivityComponent
     fun plus(module: HelpActivityModule): HelpActivityComponent
     fun plus(module: VehicleDetailActivityModule): VehicleDetailActivityComponent
+    fun plus(module: ExpenseDetailActivityModule): ExpenseDetailActivityComponent
 }
