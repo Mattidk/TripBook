@@ -9,11 +9,13 @@ import dk.mathiaspedersen.tripbook.domain.interactor.GetTrips
 import dk.mathiaspedersen.tripbook.domain.interactor.base.DefaultObserver
 import dk.mathiaspedersen.tripbook.domain.interactor.base.Params
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
+import dk.mathiaspedersen.tripbook.presentation.entity.TripStackDetal
 import dk.mathiaspedersen.tripbook.presentation.entity.mapper.TripDetailDataMapper
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import java.util.*
 
-class TripsPresenter(override val view: TripsView, val context: Context, val getTrips: GetTrips, val mapper: TripDetailDataMapper) : BasePresenter<TripsView> {
+class TripsPresenter(override val view: TripsView, val context: Context, val getTrips: GetTrips,
+                     val tripStack: Deque<TripStackDetal>, val mapper: TripDetailDataMapper) : BasePresenter<TripsView> {
 
     fun calculateCombinedDistance(trips: ArrayList<TripDetail>): Double {
         return trips.sumBy { it.distance.toInt() }.toLong() * 0.000621371192
@@ -21,6 +23,18 @@ class TripsPresenter(override val view: TripsView, val context: Context, val get
 
     fun calculateCombinedValue(trips: ArrayList<TripDetail>): Double {
         return (trips.sumBy { it.distance.toInt() }.toLong() * 0.000621371192) * 0.54
+    }
+
+    fun pushTrip(trip: TripStackDetal) {
+        tripStack.push(trip)
+    }
+
+    fun popTrip() {
+        view.popTrip(tripStack.pop())
+    }
+
+    fun clearStack() {
+        tripStack.clear()
     }
 
     fun runTripCountUpAnimation(trips: ArrayList<TripDetail>) {

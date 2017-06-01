@@ -13,27 +13,25 @@ import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import dk.mathiaspedersen.tripbook.R
-import dk.mathiaspedersen.tripbook.presentation.activity.DetailActivity
-import dk.mathiaspedersen.tripbook.presentation.activity.VehicleDetailActivity
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.util.staticmaps.map.StaticMap
+import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.jetbrains.anko.find
-import org.jetbrains.anko.startActivity
 import java.text.DecimalFormat
 
-class TripViewHolder(val context: Context, val settings: AppSettings, val view: View)
-    : RecyclerView.ViewHolder(view), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener, Toolbar.OnMenuItemClickListener {
+class TripViewHolder(val context: Context, val settings: AppSettings, val parent: View, val tripsView: TripsView)
+    : RecyclerView.ViewHolder(parent), RequestListener<StaticMap, GlideDrawable>, View.OnClickListener, Toolbar.OnMenuItemClickListener {
 
-    val progress: ProgressBar = view.find(R.id.progressBar)
-    val toolbar: Toolbar = view.find(R.id.toolbar)
-    val icon: ImageView = view.find(R.id.icon)
-    val map: ImageView = view.find(R.id.map)
-    val time: TextView = view.find(R.id.time)
-    val destination: TextView = view.find(R.id.destination)
-    val vehicle: TextView = view.find(R.id.vehicle)
-    val distance: TextView = view.find(R.id.distance)
-    val value: TextView = view.find(R.id.value)
+    val progress: ProgressBar = parent.find(R.id.progressBar)
+    val toolbar: Toolbar = parent.find(R.id.toolbar)
+    val icon: ImageView = parent.find(R.id.icon)
+    val map: ImageView = parent.find(R.id.map)
+    val time: TextView = parent.find(R.id.time)
+    val destination: TextView = parent.find(R.id.destination)
+    val vehicle: TextView = parent.find(R.id.vehicle)
+    val distance: TextView = parent.find(R.id.distance)
+    val value: TextView = parent.find(R.id.value)
     var trip: TripDetail? = null
 
     fun bind(trip: TripDetail) {
@@ -68,13 +66,13 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.map -> {
-                context.startActivity<DetailActivity>("key" to trip!!.key)
+                tripsView.showMapDetail(trip!!.key)
             }
             R.id.icon -> {
-                context.startActivity<VehicleDetailActivity>("key" to trip!!.vehicle.key)
+                tripsView.showVehicleDetail(trip!!.vehicle.key, String.format(context.getString(R.string.viewholder_car_text), trip!!.vehicle.make, trip!!.vehicle.model))
             }
             R.id.vehicle -> {
-                context.startActivity<VehicleDetailActivity>("key" to trip!!.vehicle.key)
+                tripsView.showVehicleDetail(trip!!.vehicle.key, String.format(context.getString(R.string.viewholder_car_text), trip!!.vehicle.make, trip!!.vehicle.model))
             }
         }
     }
@@ -82,8 +80,10 @@ class TripViewHolder(val context: Context, val settings: AppSettings, val view: 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_delete_trip -> {
+                tripsView.deleteTrip(trip!!.key)
             }
             R.id.menu_change_vehicle -> {
+                tripsView.changeVehicle(trip!!.vehicle.key)
             }
         }
         return true

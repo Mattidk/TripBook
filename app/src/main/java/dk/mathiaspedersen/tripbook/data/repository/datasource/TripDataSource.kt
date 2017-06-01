@@ -9,7 +9,6 @@ import dk.mathiaspedersen.tripbook.data.entity.VehicleEntity
 import dk.mathiaspedersen.tripbook.data.entity.model.FirebaseTrip
 import dk.mathiaspedersen.tripbook.data.entity.model.FirebaseVehicle
 import dk.mathiaspedersen.tripbook.data.exceptions.FirebaseRxDataCastException
-import dk.mathiaspedersen.tripbook.data.exceptions.FirebaseRxDataException
 import dk.mathiaspedersen.tripbook.presentation.util.Utils
 import io.reactivex.Observable
 import org.ocpsoft.prettytime.PrettyTime
@@ -112,7 +111,6 @@ class TripDataSource(val context: Context, val database: FirebaseDatabase, val a
 
     fun getTrips(): Observable<List<TripEntity>> {
         return Observable.create { emitter ->
-            emitter.onNext(arrayListOf<TripEntity>())
             getTripsReference().addListenerForSingleValueEvent(object : ValueEventListener {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

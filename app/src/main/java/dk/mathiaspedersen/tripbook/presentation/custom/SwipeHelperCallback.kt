@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.support.v7.widget.helper.ItemTouchHelper
 
-class SwipeHelperCallback(val adapter: SwipeHelperAdapter, val recyclerView: RecyclerView) : ItemTouchHelper.Callback() {
+class SwipeHelperCallback(val adapter: SwipeHelperAdapter) : ItemTouchHelper.Callback() {
 
     override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: ViewHolder): Int {
         val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
@@ -17,7 +17,7 @@ class SwipeHelperCallback(val adapter: SwipeHelperAdapter, val recyclerView: Rec
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        adapter.onItemDismiss(viewHolder, direction, recyclerView)
+        adapter.onItemDismiss(viewHolder, direction)
     }
 
     override fun isItemViewSwipeEnabled(): Boolean {

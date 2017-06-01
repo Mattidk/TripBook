@@ -2,8 +2,6 @@ package dk.mathiaspedersen.tripbook.presentation.fragment
 
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.Snackbar
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

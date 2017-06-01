@@ -1,9 +1,7 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -13,9 +11,6 @@ import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.expensede
 import dk.mathiaspedersen.tripbook.presentation.presenter.ExpenseDetailPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.ExpenseDetailView
 import javax.inject.Inject
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-import android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-
 
 
 class ExpenseDetailActivity : BaseActivity(), ExpenseDetailView {

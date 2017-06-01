@@ -1,16 +1,20 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
 import android.os.Bundle
+import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.widget.Toolbar
 import android.util.Log
+import android.widget.RelativeLayout
 import butterknife.BindView
 import butterknife.ButterKnife
+import com.amulyakhare.textdrawable.util.ColorGenerator
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.VehicleDetail
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.vehicledetail.VehicleDetailActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.VehicleDetailPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.VehicleDetailView
+import org.jetbrains.anko.backgroundColor
 import javax.inject.Inject
 
 class VehicleDetailActivity : BaseActivity(), VehicleDetailView {
@@ -18,6 +22,12 @@ class VehicleDetailActivity : BaseActivity(), VehicleDetailView {
 
     @BindView(R.id.toolbar)
     lateinit var toolbar: Toolbar
+
+    @BindView(R.id.header_content)
+    lateinit var headerContent: RelativeLayout
+
+    @BindView(R.id.toolbar_layout)
+    lateinit var toolbarLayout: CollapsingToolbarLayout
 
     @Inject
     lateinit var presenter: VehicleDetailPresenter
@@ -27,7 +37,8 @@ class VehicleDetailActivity : BaseActivity(), VehicleDetailView {
         ButterKnife.bind(this)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+        setupHeader()
     }
 
     override fun showVehicleDetails(vehicle: VehicleDetail) {
@@ -48,6 +59,16 @@ class VehicleDetailActivity : BaseActivity(), VehicleDetailView {
     fun getVehicle() {
         val key = intent.extras.getString("key")
         presenter.getVehicle(key)
+    }
+
+    fun setupHeader() {
+        val name = intent.extras.getString("name")
+        val letter = name[0].toString()
+        val color = ColorGenerator.MATERIAL.getColor(letter)
+        headerContent.backgroundColor = color
+        toolbarLayout.setContentScrimColor(color)
+        toolbar.backgroundColor = color
+        title = name
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {

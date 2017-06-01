@@ -2,6 +2,7 @@ package dk.mathiaspedersen.tripbook.presentation.fragment
 
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -13,16 +14,20 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
 import dk.mathiaspedersen.tripbook.R
+import dk.mathiaspedersen.tripbook.presentation.activity.DetailActivity
+import dk.mathiaspedersen.tripbook.presentation.activity.VehicleDetailActivity
 import dk.mathiaspedersen.tripbook.presentation.custom.SwipeHelperCallback
 import dk.mathiaspedersen.tripbook.presentation.custom.TripAdapter
 import dk.mathiaspedersen.tripbook.presentation.custom.TripItemAnimator
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
+import dk.mathiaspedersen.tripbook.presentation.entity.TripStackDetal
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
 import java.util.*
 import javax.inject.Inject
 
@@ -57,29 +62,32 @@ class TripsFragment : BaseFragment(), TripsView {
         val view = inflater.inflate(R.layout.fragment_trips, container, false)
         ButterKnife.bind(this, view)
         setupViews()
+        initSwipeRefreshLayout()
         setScrollFlags()
         showToolbar()
+        setupFab()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        swipeRefreshLayout.setOnRefreshListener {
-            adapter.saveChanges()
-            getTrips()
-        }
+        swipeRefreshLayout.setOnRefreshListener { getTrips() }
+        presenter.getTrips()
+        swipeRefreshLayout.isRefreshing = false
+        showToolbar()
     }
 
     fun setupViews() {
-        tripsRecyclerView.setHasFixedSize(true)
         val mLayoutManager = LinearLayoutManager(activity)
+        tripsRecyclerView.setHasFixedSize(true)
         tripsRecyclerView.layoutManager = mLayoutManager
         tripsRecyclerView.adapter = adapter
-
-        val callback = SwipeHelperCallback(adapter, tripsRecyclerView)
+        val callback = SwipeHelperCallback(adapter)
         val mItemTouchHelper = ItemTouchHelper(callback)
         mItemTouchHelper.attachToRecyclerView(tripsRecyclerView)
+    }
 
+    fun initSwipeRefreshLayout() {
         swipeRefreshLayout.setColorSchemeResources(
                 android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -101,6 +109,11 @@ class TripsFragment : BaseFragment(), TripsView {
     fun hideToolbar() {
         val status = activity.findViewById(R.id.status_toolbar)
         status.visibility = View.GONE
+    }
+
+    fun setupFab(){
+        val fab = activity?.find<FloatingActionButton>(R.id.fab)
+        fab?.setOnClickListener { presenter.popTrip() }
     }
 
     override fun resetCounters(message: String) {
@@ -136,7 +149,39 @@ class TripsFragment : BaseFragment(), TripsView {
     }
 
     override fun unableToFetchTrips(message: String) {
-        // Temporarily empty
+        TODO("not implemented")
+    }
+
+    override fun showUndoSnackBar(description: String) {
+        TODO("not implemented")
+    }
+
+    override fun hideUndoSnackBar() {
+        TODO("not implemented")
+    }
+
+    override fun pushTrip(trip: TripStackDetal) {
+        presenter.pushTrip(trip)
+    }
+
+    override fun popTrip(trip: TripStackDetal) {
+        adapter.addTrip(trip, tripsRecyclerView)
+    }
+
+    override fun showMapDetail(key: String) {
+        startActivity<DetailActivity>("key" to key)
+    }
+
+    override fun showVehicleDetail(key: String, name: String) {
+        startActivity<VehicleDetailActivity>("key" to key, "name" to name)
+    }
+
+    override fun deleteTrip(key: String) {
+        TODO("not implemented")
+    }
+
+    override fun changeVehicle(key: String) {
+        TODO("not implemented")
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -151,18 +196,6 @@ class TripsFragment : BaseFragment(), TripsView {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.getTrips()
-        swipeRefreshLayout.isRefreshing = false
-        showToolbar()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        adapter.saveChanges()
-    }
-
     override fun setTitle() {
         activity.title = getString(R.string.fragment_trips_title)
     }
@@ -174,6 +207,7 @@ class TripsFragment : BaseFragment(), TripsView {
     }
 
     fun getTrips() {
+        presenter.clearStack()
         presenter.getTrips()
         presenter.resetCounters()
         swipeRefreshLayout.isRefreshing = true

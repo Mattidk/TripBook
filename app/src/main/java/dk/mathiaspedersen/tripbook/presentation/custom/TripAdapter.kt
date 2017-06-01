@@ -2,24 +2,20 @@ package dk.mathiaspedersen.tripbook.presentation.custom
 
 import android.content.Context
 import android.os.Vibrator
-import android.support.design.widget.Snackbar
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import dk.mathiaspedersen.tripbook.R
 import dk.mathiaspedersen.tripbook.presentation.entity.TripDetail
+import dk.mathiaspedersen.tripbook.presentation.entity.TripStackDetal
 import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
+import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
 import java.util.*
 
-class TripAdapter(var trips: ArrayList<TripDetail>,
-                  val context: Context, val settings: AppSettings,
-                  val viewHolderFactory: ViewHolderFactory)
-    : RecyclerView.Adapter<TripViewHolder>(), SwipeHelperAdapter {
-
-    val personalTripsToRemove = arrayListOf<TripDetail>()
-    val businessTripsToRemove = arrayListOf<TripDetail>()
+class TripAdapter(val view: TripsView, var trips: ArrayList<TripDetail>, val context: Context, val settings: AppSettings,
+                  val viewHolderFactory: ViewHolderFactory) : RecyclerView.Adapter<TripViewHolder>(), SwipeHelperAdapter {
 
     companion object {
         const val LEFT = 16
@@ -27,9 +23,8 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_trip, parent, false) as ViewGroup
-        return viewHolderFactory.createTrip(view)
+        val viewGroup = LayoutInflater.from(parent.context).inflate(R.layout.item_trip, parent, false) as ViewGroup
+        return viewHolderFactory.createTrip(viewGroup, view)
     }
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
@@ -43,51 +38,37 @@ class TripAdapter(var trips: ArrayList<TripDetail>,
         trips.clear()
         trips.addAll(list)
         notifyItemRangeRemoved(0, currentSize)
-        notifyItemRangeInserted(0, trips.size)
+        notifyItemRangeInserted(0, itemCount)
     }
 
-    override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, direction: Int, recyclerView: RecyclerView) {
+    fun addTrip(trip: TripStackDetal, list: RecyclerView) {
+        list.scrollToPosition(trip.position)
+        when (trip.direction) {
+            LEFT -> {
+                list.itemAnimator = SlideInLeftAnimator()
+                trips.add(trip.position, trip.trip)
+                notifyItemInserted(trip.position)
+            }
+            RIGHT -> {
+                list.itemAnimator = SlideInRightAnimator()
+                trips.add(trip.position, trip.trip)
+                notifyItemInserted(trip.position)
+            }
+        }
+    }
+
+    override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         val adapterPosition = viewHolder.adapterPosition
         val trip = trips[viewHolder.adapterPosition]
 
-        when (direction) {
-            LEFT -> {
-                Snackbar.make(recyclerView, context.getString(R.string.adapter_trip_snackbar_undo_personal), Snackbar.LENGTH_SHORT)
-                        .setAction(R.string.adapter_trip_snackbar_undo, {
-                            recyclerView.itemAnimator = SlideInLeftAnimator()
-                            if (adapterPosition == 0) {recyclerView.scrollToPosition(adapterPosition)}
-                            trips.add(adapterPosition, trip)
-                            notifyItemInserted(adapterPosition)
-                            personalTripsToRemove.remove(trip)
-                        }).show()
-                trips.removeAt(adapterPosition)
-                notifyItemRemoved(adapterPosition)
-                personalTripsToRemove.add(trip)
-            }
-            RIGHT -> {
-                Snackbar.make(recyclerView, context.getString(R.string.adapter_trip_snackbar_undo_business), Snackbar.LENGTH_SHORT)
-                        .setAction(R.string.adapter_trip_snackbar_undo, {
-                            recyclerView.itemAnimator = SlideInRightAnimator()
-                            if (adapterPosition == 0) recyclerView.scrollToPosition(adapterPosition)
-                            trips.add(adapterPosition, trip)
-                            notifyItemInserted(adapterPosition)
-                            businessTripsToRemove.remove(trip)
-                        }).show()
-                trips.removeAt(adapterPosition)
-                notifyItemRemoved(adapterPosition)
-                businessTripsToRemove.add(trip)
-            }
-        }
+        trips.removeAt(adapterPosition)
+        notifyItemRemoved(adapterPosition)
+        view.pushTrip(TripStackDetal(adapterPosition, direction, trip))
 
         if (settings.vibrateOnClassification()) {
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(50)
         }
-    }
-
-    fun saveChanges() {
-        personalTripsToRemove.clear()
-        businessTripsToRemove.clear()
     }
 }
 
