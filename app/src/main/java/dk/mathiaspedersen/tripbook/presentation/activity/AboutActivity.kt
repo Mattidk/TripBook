@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.widget.RelativeLayout
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -62,6 +63,16 @@ class AboutActivity : BaseActivity(), AboutView {
                 }
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun injectDependencies(applicationComponent: ApplicationComponent) {

@@ -30,7 +30,9 @@ class TripsPresenter(override val view: TripsView, val context: Context, val get
     }
 
     fun popTrip() {
-        view.popTrip(tripStack.pop())
+        if (tripStack.size != 0) {
+            view.popTrip(tripStack.pop())
+        }
     }
 
     fun clearStack() {

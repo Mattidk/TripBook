@@ -1,15 +1,20 @@
 package dk.mathiaspedersen.tripbook.presentation.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.view.MenuItemCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.*
+import android.widget.CompoundButton
 import android.widget.ProgressBar
+import android.widget.Switch
 import android.widget.TextView
 import butterknife.BindView
 import butterknife.ButterKnife
@@ -25,6 +30,7 @@ import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.trips.TripsFragmentModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.TripsPresenter
+import dk.mathiaspedersen.tripbook.presentation.service.Tracker
 import dk.mathiaspedersen.tripbook.presentation.view.TripsView
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
@@ -182,11 +188,6 @@ class TripsFragment : BaseFragment(), TripsView {
 
     override fun changeVehicle(key: String) {
         TODO("not implemented")
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.clear()
-        inflater.inflate(R.menu.main, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

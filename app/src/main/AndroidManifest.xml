@@ -89,6 +89,8 @@
         <activity
             android:name=".presentation.activity.ExpenseDetailActivity"
             android:theme="@style/AppTheme.Translucent" />
+
+        <service android:name=".presentation.service.Tracker" />
     </application>
 
 </manifest>

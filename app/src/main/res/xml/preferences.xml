@@ -80,7 +80,7 @@
 
         <Preference
             android:key="pref_key_rate_app"
-            android:summary="Give 5 stars to TripHero"
+            android:summary="Give 5 stars to TripBook"
             android:title="Rate the app" />
 
         <Preference

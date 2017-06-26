@@ -1,21 +1,20 @@
 package dk.mathiaspedersen.tripbook.presentation.activity
 
+import android.app.ActivityManager
 import android.app.Fragment
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
+import android.support.design.widget.*
 import android.support.v4.view.GravityCompat
+import android.support.v4.view.MenuItemCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import butterknife.BindView
 import butterknife.ButterKnife
 import com.bumptech.glide.Glide
@@ -26,12 +25,12 @@ import dk.mathiaspedersen.tripbook.presentation.helper.AppSettings
 import dk.mathiaspedersen.tripbook.presentation.injection.ApplicationComponent
 import dk.mathiaspedersen.tripbook.presentation.injection.subcomponent.host.HostActivityModule
 import dk.mathiaspedersen.tripbook.presentation.presenter.HostPresenter
+import dk.mathiaspedersen.tripbook.presentation.service.Tracker
 import dk.mathiaspedersen.tripbook.presentation.view.HostView
 import org.jetbrains.anko.find
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.startActivityForResult
 import javax.inject.Inject
-
 
 class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSelectedListener {
 
@@ -104,9 +103,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     }
 
     fun initializeFragment() {
-        fragmentManager.beginTransaction()
-                .replace(R.id.fragment_container,
-                        TripsFragment()).commit()
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, TripsFragment()).commit()
     }
 
     fun setupNavigationDrawer() {
@@ -119,6 +116,14 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         navigationView.menu.performIdentifierAction(R.layout.fragment_trips, 0)
         navigationView.menu.getItem(0).isChecked = true
         navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    fun resetToolbarPosition() {
+        val coordinator = findViewById(R.id.app_bar_coordinatior) as CoordinatorLayout
+        val appbar = findViewById(R.id.app_bar_layout) as AppBarLayout
+        val params = appbar.layoutParams as CoordinatorLayout.LayoutParams
+        val behavior = params.behavior as AppBarLayout.Behavior
+        behavior.onNestedFling(coordinator, appbar, null, 0.toFloat(), -1000.toFloat(), true)
     }
 
     fun setupViews() {
@@ -140,6 +145,11 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
         email.text = user.email
     }
 
+    fun isTrackingServiceRunning(): Boolean {
+        val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        return manager.getRunningServices(Int.MAX_VALUE).any { it.service.className == Tracker::class.java.name }
+    }
+
     override fun onGetProfileFailure(message: String) {
         TODO("not implemented")
     }
@@ -147,6 +157,7 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
     fun navigateTo(fragment: Fragment, tag: String) {
         val fragmentManager = fragmentManager
         fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment, tag).commit()
+        resetToolbarPosition()
     }
 
     override fun onDestroy() {
@@ -183,13 +194,32 @@ class HostActivity : BaseActivity(), HostView, NavigationView.OnNavigationItemSe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_help -> {startActivity<HelpActivity>()}
+            R.id.menu_help -> {
+                startActivity<HelpActivity>()
+            }
         }
         return false
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
+
+        val item = menu.findItem(R.id.track_switch)
+        val toggle = MenuItemCompat.getActionView(item) as Switch
+
+        toggle.isChecked = isTrackingServiceRunning()
+
+        toggle.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                val stopIntent = Intent(application, Tracker::class.java)
+                startService(stopIntent)
+
+            } else {
+                val stopIntent = Intent(application, Tracker::class.java)
+                stopService(stopIntent)
+            }
+        }
+
         return true
     }
 
